@@ -3,11 +3,12 @@ package pages;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import utilities.Driver;
+import utilities.ParallelDriver;
+
 
 public class DepartmentPage {
     public DepartmentPage() {
-        PageFactory.initElements(Driver.getDriver(), this);
+        PageFactory.initElements(ParallelDriver.getDriver(), this);
     }
 
     @FindBy(xpath = "//a[.='Login']")
