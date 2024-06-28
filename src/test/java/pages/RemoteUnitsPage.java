@@ -3,17 +3,17 @@ package pages;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import utilities.Driver;
+import utilities.ParallelDriver;
 
 public class RemoteUnitsPage {
     public  RemoteUnitsPage(){
-        PageFactory.initElements(Driver.getDriver(),this);
+        PageFactory.initElements(ParallelDriver.getDriver(), this);
     }
-    @FindBy(xpath = "//label[.= 'Remote Units']")
+    @FindBy(xpath = "//a[.='Remote Units']")
     public WebElement remoteUnits;
-    @FindBy(xpath = "(//div[@class='col-4'])[1]")  //b[.='admin']
+    @FindBy(xpath = "//a[@href='#/department/1718347935474207/51']")  //b[.='admin']
     public WebElement remoteUnits1;
-    @FindBy(xpath = "(//div[@class='col-4'])[2]")  //b[.='ne']
+    @FindBy(xpath = "//a[@href='#/department/1718347935474207/31']")  //b[.='ne']
     public WebElement remoteUnits2;
     @FindBy(xpath = "(//div[@class='col-4'])[3]")  //b[.='nry']
     public WebElement remoteUnits3;
@@ -21,6 +21,8 @@ public class RemoteUnitsPage {
     public WebElement remoteUnits4;
     @FindBy(xpath = "(//button[@type='button'])[3]")
     public WebElement buttonAddRemoteUnits;
+    @FindBy(xpath = "(//div[@class='col'])[3]")
+    public WebElement addRemoteUnitsIMG;
     @FindBy(xpath = "//input[@name='name']")
     public WebElement name;
     @FindBy(xpath = "//input[@name='short_name']")

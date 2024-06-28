@@ -4,6 +4,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -75,5 +76,22 @@ public class ReusableMethods {
             System.out.println("Exception = " + e);
             System.out.println("file not found");
         }
+    }
+    public void loginMethod(WebElement loginButton, WebElement userName, WebElement password){
+        Actions actions = new Actions(ParallelDriver.getDriver());
+        actions.click(loginButton)
+                .sendKeys(userName, Keys.TAB)
+                .sendKeys(password, Keys.TAB)
+                .perform();
+    }
+    public void clickMethod(WebElement element){
+        element.click();
+    }
+    public void sendKeysMethod(String element){
+        Actions actions = new Actions(ParallelDriver.getDriver());
+        actions.sendKeys(element).perform();
+    }
+    public void isDisplayMethod(WebElement element){
+        element.isDisplayed();
     }
 }
