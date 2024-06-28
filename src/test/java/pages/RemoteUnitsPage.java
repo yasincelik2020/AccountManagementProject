@@ -7,13 +7,13 @@ import utilities.ParallelDriver;
 
 public class RemoteUnitsPage {
     public  RemoteUnitsPage(){
-        PageFactory.initElements(ParallelDriver.getDriver(),this);
+        PageFactory.initElements(ParallelDriver.getDriver(), this);
     }
-    @FindBy(xpath = "//label[.= 'Remote Units']")
+    @FindBy(xpath = "//a[.='Remote Units']")
     public WebElement remoteUnits;
-    @FindBy(xpath = "(//div[@class='col-4'])[1]")  //b[.='admin']
+    @FindBy(xpath = "//a[@href='#/department/1718347935474207/51']")  //b[.='admin']
     public WebElement remoteUnits1;
-    @FindBy(xpath = "(//div[@class='col-4'])[2]")  //b[.='ne']
+    @FindBy(xpath = "//a[@href='#/department/1718347935474207/31']")  //b[.='ne']
     public WebElement remoteUnits2;
     @FindBy(xpath = "(//div[@class='col-4'])[3]")  //b[.='nry']
     public WebElement remoteUnits3;
