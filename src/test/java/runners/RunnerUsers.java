@@ -17,5 +17,5 @@ import org.junit.runner.RunWith;
         // True dendigi zaman test calismaz,sadece eksik definitionlar verir.
 
 )
-public class Runner {}
+public class RunnerUsers {}
 

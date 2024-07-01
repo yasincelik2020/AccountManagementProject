@@ -1,18 +1,42 @@
 package utilities;
 
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pages.LoginPage;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.Date;
 import java.util.List;
 
+
 public class ReusableMethods {
+    public static String takeScreenshot(String fileName) throws IOException {
+        //WebDriverManager.chromedriver().setup();
+        //WebDriverManager.firefoxdriver().setup();
+        //driver = new ChromeDriver();
+        // TakesScreenshot is an interface of selenium that takes the screenshot
+        TakesScreenshot ts = (TakesScreenshot) ParallelDriver.getDriver();
+        File source = ts.getScreenshotAs(OutputType.FILE);
+
+        // naming the screenshot with the current date to avoid duplication
+        String date = new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss").format(new Date());
+
+        // full path to the screenshot location
+        // String target = System.getProperty("user.dir") + "/target/Screenshots/" + name + fileName + ".png";  -> for mac
+        String target = ".\\test-output\\Screenshots\\" + fileName + date + ".png";
+        File finalDestination = new File(target);
+
+        // save the screenshot to the path given
+        FileUtils.copyFile(source, finalDestination);
+        return target;
+    }
 
     // Edit yaparken field ları silen metot
     public static void deleteFields(WebElement element, String text) {
@@ -77,21 +101,129 @@ public class ReusableMethods {
             System.out.println("file not found");
         }
     }
-    public void loginMethod(WebElement loginButton, WebElement userName, WebElement password){
-        Actions actions = new Actions(ParallelDriver.getDriver());
-        actions.click(loginButton)
-                .sendKeys(userName, Keys.TAB)
-                .sendKeys(password, Keys.TAB)
-                .perform();
-    }
-    public void clickMethod(WebElement element){
+
+    public void clickMethod(WebElement element) {
         element.click();
     }
-    public void sendKeysMethod(String element){
-        Actions actions = new Actions(ParallelDriver.getDriver());
-        actions.sendKeys(element).perform();
+
+    public void sendKeysMethod(WebElement element, String text) {
+        WebDriverWait wait = new WebDriverWait(ParallelDriver.getDriver(), Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOf(element));
+        element.sendKeys(text);
     }
-    public void isDisplayMethod(WebElement element){
+
+    public void isDisplayMethod(WebElement element) {
         element.isDisplayed();
+    }
+
+    public class JavascriptUtils {
+        //This method will takes two parameter: WebElement, and WebDriver
+        //When you pass the element, JS will click on that element
+        public static void clickElementByJS(WebDriver driver, WebElement element) {
+            JavascriptExecutor jsexecutor = ((JavascriptExecutor) driver);
+            jsexecutor.executeScript("arguments[0].click();", element);
+        }
+
+        //to get the page title with JS
+        public static String getTitleByJS(WebDriver driver) {
+            JavascriptExecutor jsexecutor = ((JavascriptExecutor) driver);
+            String title = jsexecutor.executeScript("return document.title;").toString();
+            return title;
+        }
+
+        //Scrolling all the way down
+        public static void scrollDownByJS(WebDriver driver) {
+            JavascriptExecutor jsexecutor = ((JavascriptExecutor) driver);
+            jsexecutor.executeScript("window.scrollTo(0,document.body.scrollHeight)");
+        }
+
+        //    Scroll al the way up of a page
+        public static void scrollAllUpByJS(WebDriver driver) {
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("window.scrollTo(0,-document.body.scrollHeight)");
+        }
+
+        //Scroll into view with JS. THIS IS VERY USEFULL
+        public static void scrollIntoViewJS(WebDriver driver, WebElement element) {
+            JavascriptExecutor jsexecutor = (JavascriptExecutor) driver;
+            jsexecutor.executeScript("arguments[0].scrollIntoView();", element);
+        }
+
+        public static void changeBackgroundColorByJS(WebDriver driver, WebElement element, String color) {
+            JavascriptExecutor javascriptExecutor = ((JavascriptExecutor) driver);
+            javascriptExecutor.executeScript("arguments[0].style.backgroundColor = '" + color + "'", element);
+            try {
+                Thread.sleep(300);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        //Flashing the background color
+        // https://www.rapidtables.org/tr/web/color/RGB_Color.html  bu siteden renk ayari yapilablir..Kirmizi- Yesil -Mavi
+        public static void flash(WebDriver driver, WebElement element) {
+            String bgColor = element.getCssValue("backgroundcolor");
+            for (int i = 0; i < 10; i++) {
+                changeBackgroundColorByJS(driver, element, "rgb(0,200,0");
+                changeBackgroundColorByJS(driver, element, bgColor);
+            }
+        }
+
+        //this will generate an alert when needed
+        public static void generateAlert(WebDriver driver, String message) throws InterruptedException {
+            JavascriptExecutor javascriptExecutor = ((JavascriptExecutor) driver);
+            javascriptExecutor.executeScript("alert('" + message + "')");
+            Thread.sleep(3000);
+        }
+
+        /*
+         * executes the given JavaScript command on given web element
+         */
+        public static void executeJScommand(WebDriver driver, WebElement element, String command) {
+            JavascriptExecutor jse = (JavascriptExecutor) driver;
+            jse.executeScript(command, element);
+        }
+
+        /*
+         * executes the given JavaScript command on given web element
+         */
+        public static void executeJScommand(WebDriver driver, String command) {
+            JavascriptExecutor jse = (JavascriptExecutor) driver;
+            jse.executeScript(command);
+        }
+
+        //    Set the value of an input using js executor. Params: WebElement element, String text
+//    This method changes the value attribute of an element.
+//    It changes the input text
+        public static void setValueByJS(WebDriver driver, WebElement element, String text) {
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("arguments[0].setAttribute('value','" + text + "')", element);
+        }
+
+        //    get the value of an input. param: idOfElement
+        public static void getValueByJS(WebDriver driver, String idOfElement) {
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            String value = js.executeScript("return document.getElementById('" + idOfElement + "').value").toString();
+            System.out.println(value);
+//        How you get the value of an input box?
+//        We can js executor.
+//        How?
+//        I can get the element using js executor, and get teh value of the element.
+//        For example, I can get the element by id, and use value attribute to get the value of in an input
+//        I have to do this, cause getText in this case does not return the text in an input
+        }
+
+        public static void addBorderWithJS(WebDriver driver, WebElement element, String borderStyle) {
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("arguments[0].style.border='" + borderStyle + "'", element);
+        }
+
+        public static Object getElementValueJS(WebDriver driver, WebElement element) {
+            return ((JavascriptExecutor) driver).executeScript("return arguments[0].value", element);
+        }
+
+        public static void refresch(WebDriver driver) {
+            driver.navigate().refresh();
+        }
     }
 }
