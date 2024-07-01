@@ -62,10 +62,11 @@ public class ParallelDriver {
         return driverPool.get();
     }
     public static void closeDriver(){
+        WebDriver driver = driverPool.get();
         if (driver!=null){
             driverPool.get().quit();
             driverPool.remove();
         }
-        driver=null;
+
     }
 }
