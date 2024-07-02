@@ -12,7 +12,7 @@ public class Homepage {
         PageFactory.initElements(ParallelDriver.getDriver(), this);
     }
 
-    @FindBy(xpath = "//td[@class='text-start text-nowrap d-none d-md-block ps-2']")
+    @FindBy(xpath = "(//span[@class='fw-bold'])[1]")
     public WebElement logoutDropDownMenu;
 
     @FindBy(xpath = "//a[.='Logout']")

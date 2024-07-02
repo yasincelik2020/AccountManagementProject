@@ -12,11 +12,10 @@ import org.junit.runner.RunWith;
         },
         features = "src/test/resources/",
         glue = {"stepdefinitions","Hooks"},// java code larinin calisacagi package lar.
-        tags = "@Department2",
+        tags = "@Aktiv",
         dryRun = false // test calismasi icin false dememiz gerekiyor.
         // True dendigi zaman test calismaz,sadece eksik definitionlar verir.
 
 )
 public class RunnerUsers {}
-
 

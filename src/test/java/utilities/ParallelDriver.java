@@ -67,6 +67,5 @@ public class ParallelDriver {
             driverPool.get().quit();
             driverPool.remove();
         }
-
     }
 }
