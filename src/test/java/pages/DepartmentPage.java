@@ -1,11 +1,15 @@
 package pages;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utilities.ParallelDriver;
 
 import java.util.List;
+
+import static utilities.ReusableMethods.waitForVisibility;
 
 
 public class DepartmentPage {
@@ -27,23 +31,33 @@ public class DepartmentPage {
     @FindBy(xpath = "//a[@href=\"#/department/new/department\"]//button")
     public WebElement addNewDepartment;
 
+    @FindBy(xpath = "//li[@class='breadcrumb-item active']")
+    public WebElement addNewDepartmentHomePage;
     @FindBy(xpath = "//input[@id='name']")
     public WebElement departmentName;
     @FindBy(xpath = "//input[@name='short_name']")
     public WebElement departmentShortName;
     @FindBy(xpath = "//div[@class=' css-hlgwow']//div[@id='react-select-2-placeholder']")
-    public WebElement departmentType;
-
-   // @FindBy(xpath = "//div[@class=' css-hlgwow']//div[@class=' css-1dimb5e-singleValue']")
-    @FindBy(xpath = "//div[@class=' css-hlgwow']//div[.='Department']")
-    public WebElement departmentType1;
-    @FindBy(xpath = "(//div[@class=' css-b62m3t-container'])[2]")
+    public WebElement departmentTypeDropdown;
+    @FindBy(xpath = "//div[text()='Department Roles']")
     public WebElement departmentRolesDropDown;
+    @FindBy(xpath = "//input[@name=\"description\"]")
+    public WebElement departmentDescription;
 
-    @FindBy(xpath = "//div[@aria-label='Save Cancel']/button[.='Save']")
+    @FindBy(xpath = "//button[text()='Save']")
     public WebElement addDepartmentSaveButton;
-    @FindBy(xpath = "//div[@aria-label='Save Cancel']/button[.='Cancel']")
+    @FindBy(xpath = "//button[text()='Cancel']")
     public WebElement addDepartmentCancelButton;
+
+    public void selectedDepartment(WebElement element) {
+        Actions actions = new Actions(ParallelDriver.getDriver());
+        actions.sendKeys(element, Keys.TAB)
+                .click()
+                .sendKeys(Keys.TAB,Keys.ENTER)
+                .perform();
+    }
+
+
 
 
 
