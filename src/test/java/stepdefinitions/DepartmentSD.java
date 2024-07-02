@@ -5,10 +5,13 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.restassured.internal.common.assertion.Assertion;
 import org.junit.Assert;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import pages.DepartmentPage;
 import pages.LoginPage;
 import pages.UsersModulePage;
@@ -26,7 +29,7 @@ public class DepartmentSD extends ReusableMethods {
     LoginPage loginPage = new LoginPage();  // Nesneyi başlattık
     DepartmentPage departmentPage = new DepartmentPage();
     String name = Faker.instance().name().firstName()+" "+Faker.instance().name().lastName();
-    UsersModulePage usersModulePage = new UsersModulePage();
+    List<String> registrierteRolleList = new ArrayList<>();
 
     @Given("Der Benutzer geht zur URL.")
     public void derBenutzerGehtZurURL() {
@@ -78,7 +81,6 @@ public class DepartmentSD extends ReusableMethods {
 
     @And("Es wird bestätigt, dass im geöffneten Fenster die berechtigten Rollen aufgelistet sind.")
     public void esWirdBestatigtDassImGeoffnetenFensterDieBerechtigtenRollenAufgelistetSind() {
-        List<String> registrierteRolleList = new ArrayList<>();
 
         for (int i = 0; i < departmentPage.departmentList.size(); i++) {
             //JavascriptUtils.clickElementByJS(ParallelDriver.getDriver(), departmentPage.departmentList.get(i));
@@ -89,8 +91,7 @@ public class DepartmentSD extends ReusableMethods {
                     registrierteRolleList.add(departmentPage.registrierteRolle.getText());
                     System.out.println("departmentPage.registrierteRolle.getText() = " + departmentPage.registrierteRolle.getText());
                 }else if (!departmentPage.registrierteRolle.isDisplayed()){
-                    refresch(ParallelDriver.getDriver());
-                    i++;
+                   continue;
                 }
             }catch (NoSuchElementException e) {
                 System.out.println(e);
@@ -133,17 +134,12 @@ public class DepartmentSD extends ReusableMethods {
 
     @And("Der Benutzer wählt als Department Type die Option Department.")
     public void derBenutzerWahltAlsDepartmentTypeDieOptionDepartment() throws InterruptedException {
-        departmentPage.selectedDepartment(departmentPage.departmentType);
-        waitForVisibility(ParallelDriver.getDriver(), departmentPage.departmentType, 4);
-
+        departmentPage.selectedDepartment(departmentPage.departmentTypeDropdown);
     }
 
     @And("Der Benutzer trifft eine Auswahl für Department Roles.")
     public void derBenutzerTrifftEineAuswahlFurDepartmentRoles() {
-        clickMethod(departmentPage.departmentRolesDropDown);
         departmentPage.selectedDepartment(departmentPage.departmentRolesDropDown);
-        waitForVisibility(ParallelDriver.getDriver(), departmentPage.departmentRolesDropDown, 4);
-
     }
 
     @And("Der Benutzer klickt auf die Schaltfläche Save.")
@@ -153,6 +149,8 @@ public class DepartmentSD extends ReusableMethods {
 
     @And("Es wird bestätigt, dass die neue Department dem Departmentsmodul hinzugefügt wurde \\(Auf dem Bildschirm erscheint die Nachricht New department successfully created).")
     public void esWirdBestatigtDassDieNeueDepartmentDemDepartmentsmodulHinzugefugtWurde() {
+
+
 //        WebElement elemet =ParallelDriver.getDriver().findElement(By.id("crx-root-main")).  // ilk shadow_host u bulduk icine girdir (ilk shadow_host un dis cercevesi-baglanti noktasi)
 //                getShadowRoot(). //ilk shadow_host icindeki ShadowRoot a gidildi
 //                findElement(By.cssSelector("div[class='toaster toast-container p-3 position-fixed top-0 end-0']>p")); // oaradanda istedigimiz elemana ulastik ve webelemana aktarildi.

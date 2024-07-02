@@ -38,25 +38,23 @@ public class DepartmentPage {
     @FindBy(xpath = "//input[@name='short_name']")
     public WebElement departmentShortName;
     @FindBy(xpath = "//div[@class=' css-hlgwow']//div[@id='react-select-2-placeholder']")
-    public WebElement departmentType;
-   // @FindBy(xpath = "//*[@id=\"react-select-7-placeholder\"]")
-    @FindBy(xpath = " //div[@class=' css-hlgwow']//div[@class='css-19bb58m']")
+    public WebElement departmentTypeDropdown;
+    @FindBy(xpath = "//div[text()='Department Roles']")
     public WebElement departmentRolesDropDown;
+    @FindBy(xpath = "//input[@name=\"description\"]")
+    public WebElement departmentDescription;
 
-
-
-    @FindBy(xpath = "//div[@aria-label='Save Cancel']/button[.='Save']")
+    @FindBy(xpath = "//button[text()='Save']")
     public WebElement addDepartmentSaveButton;
-    @FindBy(xpath = "//div[@aria-label='Save Cancel']/button[.='Cancel']")
+    @FindBy(xpath = "//button[text()='Cancel']")
     public WebElement addDepartmentCancelButton;
 
     public void selectedDepartment(WebElement element) {
-
         Actions actions = new Actions(ParallelDriver.getDriver());
-        actions.click(element)
+        actions.sendKeys(element, Keys.TAB)
+                .click()
                 .sendKeys(Keys.TAB,Keys.ENTER)
                 .perform();
-
     }
 
 
