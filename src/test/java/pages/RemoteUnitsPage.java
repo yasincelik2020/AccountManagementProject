@@ -17,8 +17,12 @@ public class RemoteUnitsPage {
     public WebElement remoteUnitsSekmesi;
     @FindBy(xpath = "//h3[.='Remote Units']")
     public WebElement remoteUnitsYazisi;
+    @FindBy(xpath = "(//a//b)[1]")
+    public WebElement remoteUnitsIlkEleman;
     @FindBy(xpath = "//p[@class='card-text']//a")
     public List<WebElement> remoteUnitsList;
+    @FindBy(xpath = "//div[@class='col-10']//span[starts-with(@class, 'fw-bold')]")
+    public WebElement remoteUnitsElement;
     @FindBy(xpath = "(//button[@type='button'])[3]")
     public WebElement buttonAddRemoteUnits;
     @FindBy(xpath = "(//div[@class='col'])[3]")
