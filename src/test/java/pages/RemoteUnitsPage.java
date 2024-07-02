@@ -5,6 +5,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utilities.ParallelDriver;
 
+import java.util.List;
+
 public class RemoteUnitsPage {
     public  RemoteUnitsPage(){
         PageFactory.initElements(ParallelDriver.getDriver(), this);
@@ -12,17 +14,11 @@ public class RemoteUnitsPage {
     @FindBy(xpath = "//div[@class='btnCollapse']")
     public WebElement acilirOk;
     @FindBy(xpath = "//a[.='Remote Units']")
-    public WebElement remoteUnits;
+    public WebElement remoteUnitsSekmesi;
     @FindBy(xpath = "//h3[.='Remote Units']")
     public WebElement remoteUnitsYazisi;
-    @FindBy(xpath = "//a[@href='#/department/1718347935474207/51']")  //b[.='admin']
-    public WebElement remoteUnits1;
-    @FindBy(xpath = "//a[@href='#/department/1718347935474207/31']")  //b[.='ne']
-    public WebElement remoteUnits2;
-    @FindBy(xpath = "(//div[@class='col-4'])[3]")  //b[.='nry']
-    public WebElement remoteUnits3;
-    @FindBy(xpath = "(//div[@class='col-4'])[4]")
-    public WebElement remoteUnits4;
+    @FindBy(xpath = "//p[@class='card-text']//a")
+    public List<WebElement> remoteUnitsList;
     @FindBy(xpath = "(//button[@type='button'])[3]")
     public WebElement buttonAddRemoteUnits;
     @FindBy(xpath = "(//div[@class='col'])[3]")
