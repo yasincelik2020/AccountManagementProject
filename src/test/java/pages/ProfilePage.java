@@ -1,20 +1,21 @@
 package pages;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utilities.ParallelDriver;
 
 public class ProfilePage {
+    Actions actions = new Actions(ParallelDriver.getDriver());
     public ProfilePage() {
         PageFactory.initElements(ParallelDriver.getDriver(), this);
     }
-
+    @FindBy(xpath = "//a[@href='#/profile']")
+    public WebElement profileButton;
     @FindBy(xpath = "//button[@class='btn btn-ghost-dark rounded-circle']")
     public WebElement editButton;
-
-    @FindBy(xpath = "//input[@id='username']")
-    public WebElement username;
 
     @FindBy(xpath = "//label[@id='email']")
     public WebElement email;
@@ -49,6 +50,29 @@ public class ProfilePage {
     //div[@role='alert']
     @FindBy(xpath = "//div[@role='alert']")
     public WebElement alertText;
+
+    @FindBy(xpath = "//*[text()='Cancel']")
+    public WebElement cancelButton;
+
+    @FindBy(xpath = "//input[@id='username']")
+    public WebElement usernameBox;
+
+    @FindBy(xpath = "//button[@class='btn btn-ghost-primary rounded-circle']//*[name()='svg']")
+    public WebElement checkButton;
+
+    public void emptyTheField(){
+        actions.keyDown(Keys.CONTROL)
+                .sendKeys("a")
+                .keyUp(Keys.CONTROL)
+                .sendKeys(Keys.ENTER)
+                .perform();
+    }
+    public void dataEnterToTheUsernameBox(String testdata){
+        actions.sendKeys(testdata)
+                .sendKeys(Keys.ENTER)
+                .perform();
+    }
+
 
 
 }
