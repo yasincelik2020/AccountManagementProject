@@ -51,13 +51,11 @@ public class RemoteUnitsSD extends ReusableMethods {
     }
     @And("Der Benutzer bestätigt, dass der Reiter {string} im geöfnetetn Bildschirm angezeigt wird.")
     public void der_benutzer_bestaetigt_dass_der_reiter_im_geofnetetn_bildschirm_angezeigt_wird(String string) {
-        waitForVisibility(ParallelDriver.getDriver(), remoteUnitsPage.remoteUnitsSekmesi, 5);
-        Assert.assertTrue(remoteUnitsPage.remoteUnitsSekmesi.isDisplayed());
+        isDisplayMethod(remoteUnitsPage.remoteUnitsSekmesi);
 
     }
     @Then("Es wird bestätigt, dass der Reiter {string} angeklickt wurde.")
-    public void esWirdBestaetigtDassDerReiterRemoteUnitsAngeklicktWurde() throws IOException {
-        waitForVisibility(ParallelDriver.getDriver(), remoteUnitsPage.remoteUnitsSekmesi, 5);
+    public void esWirdBestaetigtDassDerReiterRemoteUnitsAngeklicktWurde() {
         clickMethod(remoteUnitsPage.remoteUnitsSekmesi);
 
     }
@@ -68,35 +66,37 @@ public class RemoteUnitsSD extends ReusableMethods {
 
     @And("Es wird bestätigt, dass  die gespeicherten Remote Units angezeigt werden.")
     public void esWirdBestaetigtDassDieGespeichertenRemoteUnitsAngezeigtWerden() {
+        Assert.assertFalse(remoteUnitsPage.remoteUnitsList.isEmpty());
         isDisplayMethod(remoteUnitsPage.remoteUnitsIlkEleman);
     }
 
     @And("Es wird bestätigt, dass die gespeicherte {string} angeklickt wurde.")
     public void esWirdBestaetigtDassDieGespeicherteRemoteUnitsAngeklicktWurde() {
-        for (int i = 0; i < remoteUnitsPage.remoteUnitsList.size(); i++) {
-            //JavascriptUtils.clickElementByJS(ParallelDriver.getDriver(), departmentPage.departmentList.get(i));
-            clickMethod(remoteUnitsPage.remoteUnitsList.get(i));
-
-            try {
-                if (remoteUnitsPage.remoteUnitsElement.isDisplayed()) {
-                    registrierteRemoteNameList.add(remoteUnitsPage.remoteUnitsElement.getText());
-                    System.out.println("departmentPage.registrierteRolle.getText() = " + remoteUnitsPage.remoteUnitsElement.getText());
-                }
-            }catch (NoSuchElementException e) {
-                System.out.println(e);
-            }
-
-            refresch(ParallelDriver.getDriver());
-            clickMethod(remoteUnitsPage.remoteUnitsSekmesi);
-
-
-        }
-        System.out.println("registrierteRolleList.size() = " + registrierteRemoteNameList.size());
-        Assert.assertTrue(registrierteRemoteNameList.size()>0);
+        remoteUnitsPage.listeMethod(registrierteRemoteNameList);
     }
+//        for (int i = 0; i < remoteUnitsPage.remoteUnitsList.size(); i++) {
+//            clickMethod(remoteUnitsPage.remoteUnitsList.get(i));
+//
+//            try {
+//                if (remoteUnitsPage.remoteUnitsElement.isDisplayed()) {
+//                    registrierteRemoteNameList.add(remoteUnitsPage.remoteUnitsElement.getText());
+//                    System.out.println("Text = " + remoteUnitsPage.remoteUnitsElement.getText());
+//                }
+//            }catch (NoSuchElementException e) {
+//                System.out.println(e);
+//            }
+//
+//            refresch(ParallelDriver.getDriver());
+//            clickMethod(remoteUnitsPage.remoteUnitsSekmesi);
+//
+//
+//        }
+//        System.out.println("List.size() = " + registrierteRemoteNameList.size());
+//        Assert.assertTrue(registrierteRemoteNameList.size()>0);
+//    }
 
     @And("Es wird bestätigt, dass die gespeicherte {string} aufgelistet wurde.")
     public void esWirdBestaetigtDassDieGespeicherteRemoteUnitsAufgelistetWurde() {
-        Assert.assertTrue(remoteUnitsPage.remoteUnitsList.size()>0);
+        Assert.assertFalse(remoteUnitsPage.remoteUnitsList.isEmpty());
     }
 }

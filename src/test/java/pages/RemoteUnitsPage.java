@@ -1,19 +1,25 @@
 package pages;
 
+import org.junit.Assert;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utilities.ParallelDriver;
+import utilities.ReusableMethods;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
-public class RemoteUnitsPage {
+import static utilities.ReusableMethods.JavascriptUtils.refresch;
+
+public class RemoteUnitsPage extends ReusableMethods {
     public  RemoteUnitsPage(){
         PageFactory.initElements(ParallelDriver.getDriver(), this);
     }
     @FindBy(xpath = "//div[@class='btnCollapse']")
     public WebElement acilirOk;
-    @FindBy(xpath = "//a[.='Remote Units']")
+    @FindBy(xpath = "//*[@id=\"link6\"]/a")
     public WebElement remoteUnitsSekmesi;
     @FindBy(xpath = "//h3[.='Remote Units']")
     public WebElement remoteUnitsYazisi;
@@ -57,5 +63,29 @@ public class RemoteUnitsPage {
     public WebElement buttonDelete;
     @FindBy(xpath = "//input[@type='file']")
     public WebElement buttonEditChangeIMG;
+
+    public  void listeMethod(List<String> list){
+        List<String> registrierteRemoteNameList = new ArrayList<>();
+
+     for (int i = 0; i < remoteUnitsList.size(); i++) {
+        clickMethod(remoteUnitsList.get(i));
+
+        try {
+            if (remoteUnitsElement.isDisplayed()) {
+                registrierteRemoteNameList.add(remoteUnitsElement.getText());
+                System.out.println("Text = " + remoteUnitsElement.getText());
+            }
+        }catch (NoSuchElementException e) {
+            System.out.println(e);
+        }
+
+        refresch(ParallelDriver.getDriver());
+        clickMethod(remoteUnitsSekmesi);
+
+
+    }
+        System.out.println("List.size() = " + registrierteRemoteNameList.size());
+        Assert.assertTrue(registrierteRemoteNameList.size()>0);
+}
 
 }

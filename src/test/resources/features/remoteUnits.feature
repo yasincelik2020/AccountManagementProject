@@ -10,7 +10,12 @@ Feature: login
 
   Scenario: TC_10_01 Nach der Anmeldung sollte der Benutzer auf dem Bildschirm den Reiter "Remote Units" sehen können.
     And Klick auf die Schaltflueche "acilirOk"
-    Then Der Benutzer bestätigt, dass der Reiter 'Remote Units' im geöfnetetn Bildschirm angezeigt wird.
+    And Der Benutzer bestätigt, dass der Reiter 'Remote Units' im geöfnetetn Bildschirm angezeigt wird.
+#    And Es wird bestätigt, dass der Reiter 'Remote Units' angeklickt wurde.
+#    And  Es ist zu sehen, dass die Seite des Remote Units geöffnet wird.
+#    And Es wird bestätigt, dass  die gespeicherten Remote Units angezeigt werden.
+#    And Es wird bestätigt, dass die gespeicherte 'Remote Units' angeklickt wurde.
+#    And Es wird bestätigt, dass die gespeicherte 'Remote Units' aufgelistet wurde.
 
 @US_10
   Scenario: TC_10_02 Nach der Anmeldung sollte der Benutzer auf dem Bildschirm den Reiter "Remote Units" anklicken können.
