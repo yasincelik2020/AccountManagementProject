@@ -14,6 +14,8 @@ import java.time.Duration;
 import java.util.Date;
 import java.util.List;
 
+import static org.junit.Assert.assertTrue;
+
 
 public class ReusableMethods {
     public static String takeScreenshot(String fileName) throws IOException {
@@ -102,6 +104,8 @@ public class ReusableMethods {
     }
 
     public void clickMethod(WebElement element) {
+        WebDriverWait wait = new WebDriverWait(ParallelDriver.getDriver(), Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOf(element));
         element.click();
     }
 
@@ -112,7 +116,7 @@ public class ReusableMethods {
     }
 
     public void isDisplayMethod(WebElement element) {
-        element.isDisplayed();
+        assertTrue(element.isDisplayed());
     }
 
     public class JavascriptUtils {

@@ -7,9 +7,13 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utilities.ParallelDriver;
+import utilities.ReusableMethods;
+
+import static utilities.ReusableMethods.JavascriptUtils.refresch;
 
 
-public class LoginPage {
+public class LoginPage extends ReusableMethods {
+
     public LoginPage() {
         PageFactory.initElements(ParallelDriver.getDriver(), this);
     }
@@ -24,6 +28,12 @@ public class LoginPage {
     public WebElement signInButton;
     @FindBy(xpath = "//a[.='Home']")
     public WebElement homeText;
+
+    public void sendEmail(String email){
+        waitForVisibility(ParallelDriver.getDriver(),userName,10);
+        refresch(ParallelDriver.getDriver());
+       userName.sendKeys(email);
+    }
 
 
 
