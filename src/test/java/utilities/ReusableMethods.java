@@ -1,11 +1,13 @@
 package utilities;
 
 import org.apache.commons.io.FileUtils;
+import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pages.LoginPage;
 
 import java.io.File;
 import java.io.IOException;
@@ -161,6 +163,12 @@ public class ReusableMethods {
                 e.printStackTrace();
             }
         }
+        public static boolean isElementPresentByJS(WebDriver driver, WebElement element) {
+            JavascriptExecutor jsexecutor = (JavascriptExecutor) driver;
+            String script = "return arguments[0] != null && arguments[0].offsetParent !== null;";
+            boolean isPresent = (Boolean) jsexecutor.executeScript(script, element);
+            return isPresent;
+        }
 
         //Flashing the background color
         // https://www.rapidtables.org/tr/web/color/RGB_Color.html  bu siteden renk ayari yapilablir..Kirmizi- Yesil -Mavi
@@ -228,5 +236,9 @@ public class ReusableMethods {
         public static void refresch(WebDriver driver) {
             driver.navigate().refresh();
         }
+    }
+    public static int lenghthElement(WebElement element){
+        return element.getText().length();
+
     }
 }
