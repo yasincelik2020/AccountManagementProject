@@ -9,8 +9,12 @@ public class RemoteUnitsPage {
     public  RemoteUnitsPage(){
         PageFactory.initElements(ParallelDriver.getDriver(), this);
     }
+    @FindBy(xpath = "//div[@class='btnCollapse']")
+    public WebElement acilirOk;
     @FindBy(xpath = "//a[.='Remote Units']")
     public WebElement remoteUnits;
+    @FindBy(xpath = "//h3[.='Remote Units']")
+    public WebElement remoteUnitsYazisi;
     @FindBy(xpath = "//a[@href='#/department/1718347935474207/51']")  //b[.='admin']
     public WebElement remoteUnits1;
     @FindBy(xpath = "//a[@href='#/department/1718347935474207/31']")  //b[.='ne']
