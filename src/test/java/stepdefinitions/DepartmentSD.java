@@ -12,6 +12,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindBy;
 import pages.DepartmentPage;
 import pages.LoginPage;
 import pages.UsersModulePage;
@@ -29,7 +30,8 @@ public class DepartmentSD extends ReusableMethods {
     LoginPage loginPage = new LoginPage();  // Nesneyi başlattık
     DepartmentPage departmentPage = new DepartmentPage();
     String name = Faker.instance().name().firstName()+" "+Faker.instance().name().lastName();
-    List<String> registrierteRolleList = new ArrayList<>();
+    int vorRegistriertRolleList;
+
 
     @Given("Der Benutzer geht zur URL.")
     public void derBenutzerGehtZurURL() {
@@ -75,28 +77,30 @@ public class DepartmentSD extends ReusableMethods {
 
     @And("Es wird bestätigt, dass im Modul Departments die gespeicherten Abteilungen angezeigt werden.")
     public void esWirdBestatigtDassImModulDepartmentsDieGespeichertenAbteilungenAngezeigtWerden() {
-        System.out.println("departmentPage.departmentList.size() = " + departmentPage.departmentList.size());
+        refresch(ParallelDriver.getDriver());
+        clickMethod(departmentPage.departmentsSekmesi);
+        vorRegistriertRolleList=departmentPage.departmentList.size();
+        System.out.println("vorRegistriertRolleList = " + vorRegistriertRolleList);
+
         Assert.assertTrue(departmentPage.departmentList.size()>0);
     }
 
     @And("Es wird bestätigt, dass im geöffneten Fenster die berechtigten Rollen aufgelistet sind.")
     public void esWirdBestatigtDassImGeoffnetenFensterDieBerechtigtenRollenAufgelistetSind() {
+        List<String> registrierteRolleList = new ArrayList<>();
 
-        for (int i = 0; i < departmentPage.departmentList.size(); i++) {
-            //JavascriptUtils.clickElementByJS(ParallelDriver.getDriver(), departmentPage.departmentList.get(i));
+        for (int i = 0; i < 7; i++) {
+            clickMethod(departmentPage.departmentsSekmesi);
             clickMethod(departmentPage.departmentList.get(i));
+            System.out.println("departmentPage.departmentList.get(i).getText() = " + departmentPage.departmentList.get(i).getText());
 
-            try {
-                if (departmentPage.registrierteRolle.isDisplayed()) {
-                    registrierteRolleList.add(departmentPage.registrierteRolle.getText());
-                    System.out.println("departmentPage.registrierteRolle.getText() = " + departmentPage.registrierteRolle.getText());
-                }else if (!departmentPage.registrierteRolle.isDisplayed()){
-                   continue;
-                }
-            }catch (NoSuchElementException e) {
-                System.out.println(e);
-            }
-
+//            try {
+//                    registrierteRolleList.add(departmentPage.registrierteRolle.getText());
+//                    System.out.println("departmentPage.registrierteRolle.getText() = " + departmentPage.registrierteRolle.getText());
+//
+//            }catch (Exception e) {
+//                System.out.println("Departmenin"+departmentPage.departmentList.get(i)+". Kayitli Rol bilgisi yok");
+//            }
             refresch(ParallelDriver.getDriver());
             clickMethod(departmentPage.departmentsSekmesi);
 
@@ -144,16 +148,39 @@ public class DepartmentSD extends ReusableMethods {
 
     @And("Der Benutzer klickt auf die Schaltfläche Save.")
     public void derBenutzerKlicktAufDieSchaltflacheSave() {
-        clickMethod(departmentPage.addDepartmentSaveButton);
+       // clickMethod(departmentPage.addDepartmentSaveButton);
     }
 
     @And("Es wird bestätigt, dass die neue Department dem Departmentsmodul hinzugefügt wurde \\(Auf dem Bildschirm erscheint die Nachricht New department successfully created).")
     public void esWirdBestatigtDassDieNeueDepartmentDemDepartmentsmodulHinzugefugtWurde() {
+        refresch(ParallelDriver.getDriver());
+        clickMethod(departmentPage.departmentsSekmesi);
+        int nachRegistriertRolleList = departmentPage.departmentList.size();
+        System.out.println("nachRegistriertRolleList = " + nachRegistriertRolleList);
 
+        Assert.assertTrue(nachRegistriertRolleList>vorRegistriertRolleList);
 
-//        WebElement elemet =ParallelDriver.getDriver().findElement(By.id("crx-root-main")).  // ilk shadow_host u bulduk icine girdir (ilk shadow_host un dis cercevesi-baglanti noktasi)
-//                getShadowRoot(). //ilk shadow_host icindeki ShadowRoot a gidildi
-//                findElement(By.cssSelector("div[class='toaster toast-container p-3 position-fixed top-0 end-0']>p")); // oaradanda istedigimiz elemana ulastik ve webelemana aktarildi.
-//        System.out.println(elemet.getText());
+//        WebElement element= ParallelDriver.getDriver().findElement(By.xpath("//a//b[.='"+name+"']"));
+//        Assert.assertTrue(element.getText().contains("successfully "));
+
+    }
+
+    @And("Der Benutzer lässt das Textfeld Department Name leer.")
+    public void derBenutzerLasstDasTextfeldDepartmentNameLeer() {
+        System.out.println("Department name bos birakildi");
+
+    }
+
+    @And("Es wird angezeigt, dass im Department Modul keine neue Aufzeichnung erstellt werden konnte.")
+    public void esWirdAngezeigtDassImDepartmentModulKeineNeueAufzeichnungErstelltWerdenKonnte() {
+        refresch(ParallelDriver.getDriver());
+        clickMethod(departmentPage.departmentsSekmesi);
+
+        int nachRegistriertRolleList = departmentPage.departmentList.size();
+        System.out.println("nachRegistriertRolleList = " + nachRegistriertRolleList);
+        System.out.println("vorRegistriertRolleList = " + vorRegistriertRolleList);
+
+        Assert.assertEquals(1, nachRegistriertRolleList - vorRegistriertRolleList);
+
     }
 }

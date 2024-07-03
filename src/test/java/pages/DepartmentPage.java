@@ -49,6 +49,8 @@ public class DepartmentPage {
     @FindBy(xpath = "//button[text()='Cancel']")
     public WebElement addDepartmentCancelButton;
 
+
+
     public void selectedDepartment(WebElement element) {
         Actions actions = new Actions(ParallelDriver.getDriver());
         actions.sendKeys(element, Keys.TAB)

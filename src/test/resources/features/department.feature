@@ -24,17 +24,17 @@ Feature: login
     Then Der Benutzer klickt auf den Reiter Departments.
     And Es wird bestätigt, dass im Modul Departments die gespeicherten Abteilungen angezeigt werden.
     And Es wird bestätigt, dass im geöffneten Fenster die berechtigten Rollen aufgelistet sind.
-
+  @Department2
   Scenario: TC_08_01  Der Benutzer sollte den Button Add New Department sehen können.
     Then Der Benutzer klickt auf den Reiter Departments.
     And Im geöffneten Fenster wird die Schaltfläche Add New Department angezeigt.
-
+  @Department2
   Scenario: TC_08_02  Der Benutzer sollte auf die Schaltfläche Add New Department klicken können.
     Then Der Benutzer klickt auf den Reiter Departments.
     And Der Benutzer klickt auf die Schaltfläche Add New Department.
     And Es wird bestätigt, dass die Schaltfläche Add New Department geklickt wurde.
   @Department2
-  Scenario: TC_08_03  Es sollte möglich sein, im Department-Modul eine neue department hinzuzufügen.
+  Scenario: TC_08_03 Es sollte möglich sein, im Department-Modul eine neue department hinzuzufügen.
     Then Der Benutzer klickt auf den Reiter Departments.
     And Der Benutzer klickt auf die Schaltfläche Add New Department.
     And Der Benutzer füllt das Textfeld Department Name aus.
@@ -43,6 +43,16 @@ Feature: login
     And Der Benutzer trifft eine Auswahl für Department Roles.
     And Der Benutzer klickt auf die Schaltfläche Save.
     And Es wird bestätigt, dass die neue Department dem Departmentsmodul hinzugefügt wurde (Auf dem Bildschirm erscheint die Nachricht New department successfully created).
+  @Department2
+  Scenario: TC_08_04 Beim Hinzufügen einer neuen Department muss das Feld Department Name obligatorisch ausgefüllt werden.
+    Then Der Benutzer klickt auf den Reiter Departments.
+    And Der Benutzer klickt auf die Schaltfläche Add New Department.
+    And Der Benutzer lässt das Textfeld Department Name leer.
+    And Der Benutzer füllt das Textfeld Department Short Name aus.
+    And Der Benutzer trifft eine Auswahl für Department Roles.
+    And Der Benutzer klickt auf die Schaltfläche Save.
+    And Es wird angezeigt, dass im Department Modul keine neue Aufzeichnung erstellt werden konnte.
+
 
 
 
