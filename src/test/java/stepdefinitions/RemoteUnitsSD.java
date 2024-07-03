@@ -5,6 +5,8 @@ import io.cucumber.java.en.*;
 import io.restassured.internal.common.assertion.Assertion;
 import org.junit.Assert;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 import pages.DepartmentPage;
 import pages.LoginPage;
 import pages.RemoteUnitsPage;
@@ -159,6 +161,10 @@ public class RemoteUnitsSD extends ReusableMethods {
     
     @And("Der Benutzer kann das Textfeld Name andern")
     public void derBenutzerKannDasTextfeldNameAndern() {
+        refresch(ParallelDriver.getDriver());
+        refresch(ParallelDriver.getDriver());
+        refresch(ParallelDriver.getDriver());
+        refresch(ParallelDriver.getDriver());
         sendKeysMethod(remoteUnitsPage.name,name);
     }
 
@@ -170,6 +176,7 @@ public class RemoteUnitsSD extends ReusableMethods {
     @And("Der Benutzer kann das Textfeld Department Type andern")
     public void derBenutzerKannDasTextfeldDepartmentTypeAndern() {
         remoteUnitsPage.nonSelectedDepartmentType(remoteUnitsPage.departmentType);   //****************************************************************
+       // clickElementByJS(ParallelDriver.getDriver(), teamsPage.teamTypeDropDown);
     }
 
     @And("Der Benutzer kann das Textfeld Description andern")
@@ -180,7 +187,11 @@ public class RemoteUnitsSD extends ReusableMethods {
 
     @And("Der Benutzer kann das Textfeld Roles andern")
     public void derBenutzerKannDasTextfeldRolesAndern() {
-        sendKeysMethod(remoteUnitsPage.roles,text);
+      Actions action = new Actions(ParallelDriver.getDriver());
+      clickMethod(remoteUnitsPage.rolesEdit);
+      action.keyDown(Keys.DOWN)
+              .click()
+              .perform();
         
     }
 

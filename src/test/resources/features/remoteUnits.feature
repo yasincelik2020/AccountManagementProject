@@ -209,6 +209,7 @@ Feature: login
     And  Der Benutzer klickt auf die registrierte Remote Units
     And  Der Benutzer klickt die Schaltfläche Edit Remote Unit
     And  Der Benutzer kann das Textfeld Roles andern
+    And Der Benutzer klickt auf die Schaltfläche Save an
 
   @US_12
   Scenario: TC_12_10 Nach Aenderungen klickt der Benutzer auf die Schaltfläche Save.
@@ -322,7 +323,7 @@ Feature: login
 
 
 
-
+  ### //button[.='Confirm']
 
 
 

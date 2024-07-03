@@ -57,10 +57,12 @@ public class RemoteUnitsPage extends ReusableMethods {
     public WebElement departmentUyariYazisi;
     @FindBy(xpath = "//div[@class='col-md-2']")
     public WebElement resimNewRemoteUnits;
-    @FindBy(xpath = "(//button[@type='button'])[3]")
+    @FindBy(xpath = "//a[@href='#/department/edit/135']//button")
     public WebElement buttonEditRemoteUnits;
     @FindBy(xpath = "//span[@class='float-end']")
     public WebElement buttonEdit;
+    @FindBy(xpath = "//div[.='Department Roles']")
+    public WebElement rolesEdit;
     @FindBy(xpath = "//input[@id='search']")
     public WebElement buttonSearch;
     @FindBy(xpath = "//select[@id='statusFilter']")
