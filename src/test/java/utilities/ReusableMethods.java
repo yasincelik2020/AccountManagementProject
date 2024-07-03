@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.LoginPage;
+import pages.ProfilePage;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,6 +21,7 @@ import static org.junit.Assert.assertTrue;
 
 
 public class ReusableMethods {
+
     public static String takeScreenshot(String fileName) throws IOException {
         //WebDriverManager.chromedriver().setup();
         //WebDriverManager.firefoxdriver().setup();
@@ -105,7 +107,7 @@ public class ReusableMethods {
         }
     }
 
-    public void clickMethod(WebElement element) {
+    public static void clickMethod(WebElement element) {
         WebDriverWait wait = new WebDriverWait(ParallelDriver.getDriver(), Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOf(element));
         element.click();
@@ -236,6 +238,35 @@ public class ReusableMethods {
         public static void refresch(WebDriver driver) {
             driver.navigate().refresh();
         }
+
+        public static void getTextByValue(WebElement element1,WebElement element2, String value) {
+            ProfilePage profilePage = new ProfilePage();
+            String textelement1 =getElementText(element1);
+            clickMethod(profilePage.profileButton);
+            waitFor(2);
+            String textElement2 =(element2.getAttribute(value));
+            String lines[] = textelement1.split("\\r?\\n");
+            for (String line : lines) {
+                if (line.contains(textElement2)){
+                    textelement1 =line;
+                    assertTrue(textelement1.equalsIgnoreCase(textElement2));
+                    break;
+                }
+            }
+        }
+        public static void getTextByText(WebElement element,String value) {
+            ProfilePage profilePage = new ProfilePage();
+            String textelement =getElementText(element);
+            String lines[] = textelement.split("\\r?\\n");
+            for (String line : lines) {
+                if (line.contains(value)){
+                    textelement =line;
+                    assertTrue(textelement.equalsIgnoreCase(value));
+                    break;
+                }
+            }
+        }
+
     }
     public static int lenghthElement(WebElement element){
         return element.getText().length();
