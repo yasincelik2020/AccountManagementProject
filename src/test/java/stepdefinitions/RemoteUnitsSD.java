@@ -116,7 +116,6 @@ public class RemoteUnitsSD extends ReusableMethods {
     public void derBenutzerFulltOhneDasTextfeldDeparmentTypeAus() {
         remoteUnitsPage.nonSelectedDepartmentType(remoteUnitsPage.departmentType);
     }
-
     @And("Der Benutzer sieht den Warntext.")
     public void derBenutzerSiehtDenWarntext() {
         isDisplayMethod(remoteUnitsPage.departmentUyariYazisi);
@@ -182,7 +181,7 @@ public class RemoteUnitsSD extends ReusableMethods {
     @And("Der Benutzer kann das Textfeld Description andern")
     public void derBenutzerKannDasTextfeldDescriptionAndern() {
         sendKeysMethod(remoteUnitsPage.description,text);
-        
+
     }
 
     @And("Der Benutzer kann das Textfeld Roles andern")
@@ -192,7 +191,7 @@ public class RemoteUnitsSD extends ReusableMethods {
       action.keyDown(Keys.DOWN)
               .click()
               .perform();
-        
+
     }
 
     @And("Der Benutzer zeigt auf Popup-Bildschirm den Text successfully an.")
