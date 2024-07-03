@@ -1,7 +1,9 @@
 package pages;
 
 import org.junit.Assert;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utilities.ParallelDriver;
@@ -31,7 +33,7 @@ public class RemoteUnitsPage extends ReusableMethods {
     public WebElement remoteUnitsElement;
     @FindBy(xpath = "(//button[@type='button'])[3]")
     public WebElement buttonAddRemoteUnits;
-    @FindBy(xpath = "(//div[@class='col'])[3]")
+    @FindBy(xpath = "//a[@href='#/department/new/remote']//button")
     public WebElement addRemoteUnitsIMG;
     @FindBy(xpath = "//input[@name='name']")
     public WebElement name;
@@ -45,6 +47,10 @@ public class RemoteUnitsPage extends ReusableMethods {
     public WebElement roles;
     @FindBy(xpath = "//button[.='Save']")
     public WebElement buttonSave;
+    @FindBy(xpath = "//p[.='New department successfully created']")
+    public WebElement addSuccess;
+    @FindBy(xpath = "//button[.='Changes successfully saved']")
+    public WebElement changeSuccess;
     @FindBy(xpath = "//span[.='Please enter a name for department']")
     public WebElement nameUyariYazisi;
     @FindBy(xpath = "//span[.='Please select a type for department']")
@@ -80,12 +86,18 @@ public class RemoteUnitsPage extends ReusableMethods {
         }
 
         refresch(ParallelDriver.getDriver());
-        clickMethod(remoteUnitsSekmesi);
+       clickMethod(remoteUnitsSekmesi);
+         refresch(ParallelDriver.getDriver());
 
 
     }
         System.out.println("List.size() = " + registrierteRemoteNameList.size());
         Assert.assertTrue(registrierteRemoteNameList.size()>0);
 }
-
+    public void nonSelectedDepartmentType(WebElement element) {
+        Actions actions = new Actions(ParallelDriver.getDriver());
+        actions.sendKeys(element, Keys.TAB)
+                .sendKeys(Keys.TAB)
+                .perform();
+    }
 }
