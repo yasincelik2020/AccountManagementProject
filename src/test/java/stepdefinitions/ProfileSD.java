@@ -15,6 +15,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class ProfileSD extends ReusableMethods {
+
+
     ProfilePage profilePage = new ProfilePage();
     @Given("Klicken Sie auf das Profilmodul in der Seitenleiste.")
     public void klickenSieAufDasProfilmodulInDerSeitenleiste() {
@@ -92,12 +94,110 @@ public class ProfileSD extends ReusableMethods {
 
     @Then("Es ist ersichtlich, dass sich der Name mit den von uns eingegebenen Testdaten {string} ändert.")
     public void esIstErsichtlichDassSichDerNameMitDenVonUnsEingegebenenTestdatenÄndert(String testdata) {
-        waitForVisibility(ParallelDriver.getDriver(),profilePage.usernameBox,10);
-        System.out.println("getElementText(profilePage.usernameBox) = " + getElementText(profilePage.usernameBox));
-        assertTrue(getElementText(profilePage.usernameBox).equalsIgnoreCase(testdata));
+        waitForVisibility(ParallelDriver.getDriver(),profilePage.usernameBoxForText,10);
+        assertTrue(getElementText(profilePage.usernameBoxForText).equalsIgnoreCase(testdata));
+        waitFor(1);
+    }
+
+    @And("Schließen die WarnungAlert.")
+    public void schließenDieWarnungAlert() {
+        clickMethod(profilePage.alertButtonClose);
+    }
+
+    @And("Klicken Sie auf das Feld „Name“, um den Namen zu ändern..")
+    public void klickenSieAufDasFeldNameUmDenNamenZuÄndern() {
+        clickMethod(profilePage.name);
+        profilePage.emptyTheField();
+    }
+
+    @When("Testdaten werden in das NameFeld {string} eingegeben.")
+    public void testdatenWerdenInDasNameFeldEingegeben(String testdata) {
+        profilePage.dataEnterToTheUsernameBox(testdata);
+    }
+
+    @Then("Es ist ersichtlich, dass sich der NameFeld mit den von uns eingegebenen Testdaten {string} ändert.")
+    public void esIstErsichtlichDassSichDerNameFeldMitDenVonUnsEingegebenenTestdatenÄndert(String testdata) {
+        waitForVisibility(ParallelDriver.getDriver(),profilePage.nameBoxFortext,10);
+        assertTrue(getElementText(profilePage.nameBoxFortext).contains(testdata));
+        waitFor(1);
+    }
+
+    @And("Klicken Sie auf das Feld „Nachname“, um den Nachnamen zu ändern.")
+    public void klickenSieAufDasFeldNachnameUmDenNachnamenZuÄndern() {
+        clickMethod(profilePage.lastname);
+        profilePage.emptyTheField();
+    }
+
+    @When("Die Testdaten werden in das Feld „Nachname“ {string} eingegeben.")
+    public void dieTestdatenWerdenInDasFeldNachnameEingegeben(String testdata) {
+        profilePage.dataEnterToTheUsernameBox(testdata);
+    }
+
+    @Then("Es ist ersichtlich, dass sich der Nachname mit den von uns eingegebenen Testdaten {string} ändert.")
+    public void esIstErsichtlichDassSichDerNachnameMitDenVonUnsEingegebenenTestdatenÄndert(String testdata) {
+        waitForVisibility(ParallelDriver.getDriver(),profilePage.nameBoxFortext,10);
+        assertTrue(getElementText(profilePage.nameBoxFortext).contains(testdata));
+        waitFor(1);
+    }
+
+    @And("Klicken Sie auf das Feld „Adresse“ , um die Adresse zu ändern.")
+    public void klickenSieAufDasFeldAdresseUmDieAdresseZuÄndern() {
+        clickMethod(profilePage.address);
+        profilePage.emptyTheField();
+    }
+
+    @When("Testdaten {string} werden in das Adressfeld eingegeben.")
+    public void testdatenWerdenInDasAdressfeldEingegeben(String testdata) {
+        profilePage.dataEnterToTheUsernameBox(testdata);
+    }
+
+    @Then("Es ist ersichtlich, dass sich die Adresse mit den von uns eingegebenen Testdaten {string} ändert.")
+    public void esIstErsichtlichDassSichDieAdresseMitDenVonUnsEingegebenenTestdatenÄndert(String testdata) {
+        waitForVisibility(ParallelDriver.getDriver(),profilePage.addressForText,10);
+        assertTrue(getElementText(profilePage.addressForText).contains(testdata));
+        waitFor(1);
+    }
+
+    @And("Um das Land zu ändern, wählen Sie Testdaten aus dem Dropdown-Menü aus.")
+    public void umDasLandZuÄndernWählenSieTestdatenAusDemDropdownMenüAus() {
+        clickMethod(profilePage.country1);
+        profilePage.emptyTheField();
+    }
+
+    @When("Testdaten {string} werden in das Landfeld eingegeben.")
+    public void testdatenWerdenInDasLandfeldEingegeben(String testdata) {
+        profilePage.dataEnterToTheUsernameBox(testdata);
+    }
+
+    @Then("Es ist ersichtlich, dass sich der Land mit den von uns eingegebenen Testdaten {string} ändert.")
+    public void esIstErsichtlichDassSichDerLandMitDenVonUnsEingegebenenTestdatenÄndert(String testdata) {
+        waitForVisibility(ParallelDriver.getDriver(),profilePage.country1,10);
+        assertTrue(getElementText(profilePage.country1).contains(testdata));
+        waitFor(1);
+    }
+
+    @And("Klicken Sie auf das Feld „Telefon“, um die Telefonnummer zu ändern.")
+    public void klickenSieAufDasFeldTelefonUmDieTelefonnummerZuÄndern() {
+        clickMethod(profilePage.phone);
+        profilePage.emptyTheField();
+    }
+
+    @When("Testdaten {string} werden in die Telefonbox eingegeben.")
+    public void testdatenWerdenInDieTelefonboxEingegeben(String testdata) {
+        profilePage.dataEnterToTheUsernameBox(testdata);
+    }
+
+    @Then("Es ist ersichtlich, dass sich die Telefonnummer mit den von uns eingegebenen Testdaten {string} ändert.")
+    public void esIstErsichtlichDassSichDieTelefonnummerMitDenVonUnsEingegebenenTestdatenÄndert(String testdata) {
+        waitForVisibility(ParallelDriver.getDriver(),profilePage.phoneForText,10);
+        assertTrue(getElementText(profilePage.phoneForText).contains(testdata));
+        waitFor(1);
     }
 
 
-
-
+    @Then("Sie sehen eine WarnAlertmeldung {string}, die besagt, dass das Passwort erfolgreich geändert.")
+    public void sieSehenEineWarnAlertmeldungDieBesagtDassDasPasswortErfolgreichGeändert(String testdata) {
+        waitForVisibility(ParallelDriver.getDriver(),profilePage.changePasswordSuccessfulAlert,10);
+        assertTrue(getElementText(profilePage.changePasswordSuccessfulAlert).contains(testdata));
+    }
 }
