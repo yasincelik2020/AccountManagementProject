@@ -1,24 +1,42 @@
 package pages;
 
+import org.junit.Assert;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utilities.ParallelDriver;
+import utilities.ReusableMethods;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
+import static utilities.ReusableMethods.JavascriptUtils.refresch;
 import static utilities.ReusableMethods.waitForVisibility;
 
 
-public class DepartmentPage {
+public class DepartmentPage extends ReusableMethods {
     public DepartmentPage() {
         PageFactory.initElements(ParallelDriver.getDriver(), this);
     }
 
+    // @FindBy(xpath = "//*[@id=\"link5\"]")
     @FindBy(xpath = "//*[@id=\"link5\"]/a")
     public WebElement departmentsSekmesi;
+    @FindBy(xpath = "//*[@id=\"search\"]")
+    public WebElement search;
+    @FindBy(xpath = "//*[text()=\"Ali Can\"]")
+    public WebElement nachSearchAliCan;
+    @FindBy(xpath = "//*[text()=\"Bahri\"]")
+    public WebElement nachSearchBahri;
+    @FindBy(xpath = "//*[text()=\"Erkan\"]")
+    public WebElement nachSearchErkan;
+    @FindBy(xpath = "//*[text()=\"Talat\"]")
+    public WebElement nachSearchTalat;
+    @FindBy(xpath = "//*[text()=\"Fatma\"]")
+    public List<WebElement> FatmaList;
 
     @FindBy(xpath = "//h3[.='Departments']")
     public WebElement departmentsHomepage;
@@ -31,8 +49,6 @@ public class DepartmentPage {
     @FindBy(xpath = "//a[@href=\"#/department/new/department\"]//button")
     public WebElement addNewDepartment;
 
-    @FindBy(xpath = "//li[@class='breadcrumb-item active']")
-    public WebElement addNewDepartmentHomePage;
     @FindBy(xpath = "//input[@id='name']")
     public WebElement departmentName;
     @FindBy(xpath = "//input[@name='short_name']")
@@ -48,27 +64,68 @@ public class DepartmentPage {
     public WebElement addDepartmentSaveButton;
     @FindBy(xpath = "//button[text()='Cancel']")
     public WebElement addDepartmentCancelButton;
+    @FindBy(xpath = "//span[text()='Please enter a name for department']")
+    public WebElement ohneNameKeineAddDepartment;
+    @FindBy(xpath = "//span[text()='Please select a type for department']")
+    public WebElement ohneTypeKeineAddDepartment;
 
+    @FindBy(xpath = "(//button[@type='button'])[3]")
+    public WebElement editDepartmentButton;
+    @FindBy(xpath = "//button[.='Delete Department']")
+    public WebElement deleteDepartmentButton;
+
+    @FindBy(xpath = "//button[.='Confirm']")
+    public WebElement deleteDepartmentBestatig;
 
 
     public void selectedDepartment(WebElement element) {
         Actions actions = new Actions(ParallelDriver.getDriver());
         actions.sendKeys(element, Keys.TAB)
                 .click()
-                .sendKeys(Keys.TAB,Keys.ENTER)
                 .perform();
     }
 
+    public void selectedDepartment2(WebElement element) {
+        Actions actions = new Actions(ParallelDriver.getDriver());
+        actions.sendKeys(element, Keys.TAB)
+                .click()
+                .sendKeys(Keys.TAB, Keys.ENTER)
+                .perform();
+    }
 
+    public void deleteMethod(WebElement element) {
+        clickMethod(element);
+        clickMethod(editDepartmentButton);
+        while (!deleteDepartmentButton.isDisplayed()) {
+            refresch(ParallelDriver.getDriver());
+            waitForVisibility(ParallelDriver.getDriver(), deleteDepartmentButton, 5);
+        }
+        clickMethod(deleteDepartmentButton);
+        clickMethod(deleteDepartmentBestatig);
+    }
 
+    public void searchMethod(String str) {
+        refresch(ParallelDriver.getDriver());
+        clickMethod(departmentsSekmesi);
+        clickMethod(search);
+        sendKeysMethod(search, str);
 
-
-
-
-
-
-
-
-
+    }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
