@@ -5,6 +5,8 @@ import io.cucumber.java.en.*;
 import io.restassured.internal.common.assertion.Assertion;
 import org.junit.Assert;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 import pages.DepartmentPage;
 import pages.LoginPage;
 import pages.RemoteUnitsPage;
@@ -26,7 +28,7 @@ public class RemoteUnitsSD extends ReusableMethods {
     LoginPage loginPage = new LoginPage();
     List<String> registrierteRemoteNameList = new ArrayList<>();
     String name = Faker.instance().name().firstName()+" "+Faker.instance().name().lastName();
-    String text = Faker.instance().letterify(" ");
+    String text = Faker.instance().lorem().sentence(5);
     DepartmentPage departmentPage = new DepartmentPage();
 
     @When("Klick auf die Schaltflueche acilirOk")
@@ -100,24 +102,28 @@ public class RemoteUnitsSD extends ReusableMethods {
     public void derBenutzerFulltDasTextfeldRolesAus() {
         departmentPage.selectedDepartment(remoteUnitsPage.roles);
     }
-
+    @And("Der Benutzer klickt auf die Schaltfläche Save an")
+    public void derBenutzerKlicktAufDieSchaltflaecheSaveAn() {
+        clickMethod(remoteUnitsPage.buttonSave);
+    }
     @And("Der Benutzer zeigt Popup-Bildschirm wird der Text successfully an.")
     public void derBenutzerZeigtPopupBildschirmWirdDerTextSuccessfullyAn() {
         clickMethod(remoteUnitsPage.addSuccess);
         isDisplayMethod(remoteUnitsPage.addSuccess);
     }
-    @And("Der Benutzer füllt kein das Textfeld Deparment Type aus.")
-    public void derBenutzerFulltKeinDasTextfeldDeparmentTypeAus() {
+
+    @And("Der Benutzer füllt ohne das Textfeld Deparment Type aus.")
+    public void derBenutzerFulltOhneDasTextfeldDeparmentTypeAus() {
         remoteUnitsPage.nonSelectedDepartmentType(remoteUnitsPage.departmentType);
     }
+
     @And("Der Benutzer sieht den Warntext.")
     public void derBenutzerSiehtDenWarntext() {
         isDisplayMethod(remoteUnitsPage.departmentUyariYazisi);
     }
 
-
-    @And("Der Benutzer füllt kein das Textfeld Name aus.")
-    public void derBenutzerFulltKeinDasTextfeldNameAus() {
+    @And("Der Benutzer füllt ohne das Textfeld Name aus.")
+    public void derBenutzerFulltOhneDasTextfeldNameAus() {
         remoteUnitsPage.nonSelectedDepartmentType(remoteUnitsPage.name);
     }
 
@@ -128,6 +134,7 @@ public class RemoteUnitsSD extends ReusableMethods {
 
     @And("Der Benutzer zeigt Popup-Bildschirm wird den Text successfully an.")
     public void derBenutzerZeigtPopupBildschirmWirdDenTextSuccessfullyAn() {
+        clickMethod(remoteUnitsPage.changeSuccess);
         isDisplayMethod(remoteUnitsPage.changeSuccess);
     }
 
@@ -154,29 +161,91 @@ public class RemoteUnitsSD extends ReusableMethods {
     
     @And("Der Benutzer kann das Textfeld Name andern")
     public void derBenutzerKannDasTextfeldNameAndern() {
-        sendKeysMethod(remoteUnitsPage.name,"B");
+        refresch(ParallelDriver.getDriver());
+        refresch(ParallelDriver.getDriver());
+        refresch(ParallelDriver.getDriver());
+        refresch(ParallelDriver.getDriver());
+        sendKeysMethod(remoteUnitsPage.name,name);
     }
 
     @And("Der Benutzer kann das Textfeld Short Name andern")
     public void derBenutzerKannDasTextfeldShortNameAndern() {
-        sendKeysMethod(remoteUnitsPage.shortName,"B");
+        sendKeysMethod(remoteUnitsPage.shortName,text);
     }
 
     @And("Der Benutzer kann das Textfeld Department Type andern")
     public void derBenutzerKannDasTextfeldDepartmentTypeAndern() {
+        remoteUnitsPage.nonSelectedDepartmentType(remoteUnitsPage.departmentType);   //****************************************************************
+       // clickElementByJS(ParallelDriver.getDriver(), teamsPage.teamTypeDropDown);
     }
 
     @And("Der Benutzer kann das Textfeld Description andern")
     public void derBenutzerKannDasTextfeldDescriptionAndern() {
+        sendKeysMethod(remoteUnitsPage.description,text);
         
     }
 
     @And("Der Benutzer kann das Textfeld Roles andern")
     public void derBenutzerKannDasTextfeldRolesAndern() {
+      Actions action = new Actions(ParallelDriver.getDriver());
+      clickMethod(remoteUnitsPage.rolesEdit);
+      action.keyDown(Keys.DOWN)
+              .click()
+              .perform();
         
     }
 
-    @And("Der Benutzer zeigt Popup-Bildschirm wird der Text {string} an.")
-    public void derBenutzerZeigtPopupBildschirmWirdDerTextAn(String arg0) {
+    @And("Der Benutzer zeigt auf Popup-Bildschirm den Text successfully an.")
+    public void derBenutzerZeigtAufPopupBildschirmDenTextSuccessfullyAn() {
+        clickMethod(remoteUnitsPage.changeSuccess);
+        isDisplayMethod(remoteUnitsPage.changeSuccess);
     }
+
+    @And("Der Benutzer sieht die Schaltfläche Edit, um neue Änderungen vorzunehmen, ohne die Seite zu verlassen.")
+    public void derBenutzerSiehtDieSchaltflaecheEditUmNeueAenderungenVorzunehmenOhneDieSeiteZuVerlassen() {
+
+        waitForPageToLoad(10);
+        isDisplayMethod(remoteUnitsPage.buttonEdit);
+    }
+
+    @And("Der Benutzer klickt die Schaltfläche Edit, um neue Änderungen vorzunehmen, ohne die Seite zu verlassen.")
+    public void derBenutzerKlicktDieSchaltflaecheEditUmNeueAenderungenVorzunehmenOhneDieSeiteZuVerlassen() {
+        waitForPageToLoad(10);
+        clickMethod(remoteUnitsPage.buttonEdit);
+    }
+
+
+    @And("Der Benutzer kann ohne das Textfeld Department Type andern")
+    public void derBenutzerKannOhneDasTextfeldDepartmentTypeAndern() {
+        remoteUnitsPage.nonSelectedDepartmentType(remoteUnitsPage.departmentType);
+    }
+
+    @And("Der Benutzer kann ohne das Textfeld Name andern")
+    public void derBenutzerKannOhneDasTextfeldNameAndern() {
+        remoteUnitsPage.nonSelectedDepartmentType(remoteUnitsPage.name);
+
+    }
+
+    @And("Der Benutzer klickt auf die Schaltfläche Change Image")
+    public void derBenutzerKlicktAufDieSchaltflaecheChangeImage() {
+        waitForPageToLoad(10);
+        clickMethod(remoteUnitsPage.buttonEditChangeIMG);
+    }
+
+    @And("Es wird ein Foto aus dem Browser oder vom Computer ausgewählt und auf die Schaltfläche Öffnen geklickt.")
+    public void esWirdEinFotoAusDemBrowserOderVomComputerAusgewaehltUndAufDieSchaltflaecheoffnenGeklickt() {
+
+    }
+
+    @And("Das Foto wird ausgewaehlt und auf die Schaltfläche Crop geklickt.")
+    public void dasFotoWirdAusgewaehltUndAufDieSchaltflaecheCropGeklickt() {
+       // clickMethod(remoteUnitsPage.);
+    }
+
+    @And("Der Benutzer klickt die Schaltfläche Delete Department.")
+    public void derBenutzerKlicktDieSchaltflaecheDeleteDepartment() {
+        //clickMethod(remoteUnitsPage);
+    }
+
+
 }

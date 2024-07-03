@@ -154,7 +154,6 @@ public class UsersSD extends ReusableMethods {
 
     @And("Schliesssen Sie Information")
     public void schliesssenSieInformation() {
-
         clickMethod(usersModulePage.SchliessenInfo);
     }
 
@@ -170,22 +169,22 @@ public class UsersSD extends ReusableMethods {
     }
 
     @And("User information updated successfully wird nicht bestätigt.")
-    public void userInformationUpdatedSuccessfullyWirdBestätigt() {
+    public void userInformationUpdatedSuccessfullyWirdBestaetigt() {
         assertNotEquals("User information updated successfully", getElementTextWithJS(usersModulePage.verifyVeraenderung));
     }
 
     @Then("Klicken Sie auf die drei Punkte am Ende der neu hinzugefügten Benutzerzeile.")
-    public void klickenSieAufDieDreiPunkteAmEndeDerNeuHinzugefügtenBenutzerzeile() {
+    public void klickenSieAufDieDreiPunkteAmEndeDerNeuHinzugefaegtenBenutzerzeile() {
         clickElementWithJS(usersModulePage.dreiPunkte);
     }
 
     @And("Klicken Sie auf dem sich öffnenden Bildschirm auf „Aus Organisation entfernen“.")
-    public void klickenSieAufDemSichÖffnendenBildschirmAufAusOrganisationEntfernen() {
+    public void klickenSieAufDemSichoffnendenBildschirmAufAusOrganisationEntfernen() {
         clickElementWithJS(usersModulePage.removeFromOrganization);
     }
 
     @And("Es wird bestätigt, dass das neue POP-UP, das geöffnet wird, „Selected user removed“ enthält.")
-    public void esWirdBestätigtDassDasNeuePOPUPDasGeöffnetWirdSelectedUserRemovedEnthält() throws InterruptedException {
+    public void esWirdBestätigtDassDasNeuePOPUPDasGeoffnetWirdSelectedUserRemovedEnthaelt() throws InterruptedException {
         assertEquals("Selected user removed", getElementTextWithJS(usersModulePage.bestautigSelectedUserRemoved));
     }
 }
