@@ -59,6 +59,8 @@ public class RemoteUnitsPage extends ReusableMethods {
     public WebElement resimNewRemoteUnits;
     @FindBy(xpath = "(//button[@type='button'])[3]")
     public WebElement buttonEditRemoteUnits;
+    @FindBy(xpath = "//span[@class='float-end']")
+    public WebElement buttonEdit;
     @FindBy(xpath = "//input[@id='search']")
     public WebElement buttonSearch;
     @FindBy(xpath = "//select[@id='statusFilter']")
