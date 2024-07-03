@@ -22,24 +22,21 @@ public class DepartmentPage extends ReusableMethods {
         PageFactory.initElements(ParallelDriver.getDriver(), this);
     }
 
-    // @FindBy(xpath = "//*[@id=\"link5\"]")
-    @FindBy(xpath = "//*[@id=\"link5\"]/a")
+    @FindBy(xpath = "//*[@id=\"link5\"]")
+    //@FindBy(xpath = "//*[@id=\"link5\"]/a")
     public WebElement departmentsSekmesi;
     @FindBy(xpath = "//*[@id=\"search\"]")
     public WebElement search;
-    @FindBy(xpath = "//*[text()=\"Ali Can\"]")
-    public WebElement nachSearchAliCan;
-    @FindBy(xpath = "//*[text()=\"Bahri\"]")
-    public WebElement nachSearchBahri;
+
+    @FindBy(xpath = "//*[text()=\"Ali\"]")
+    public WebElement nachSearchAli;
+    @FindBy(xpath = "//*[text()=\"Ahmet\"]")
+    public WebElement nachSearchAhmet;
     @FindBy(xpath = "//*[text()=\"Erkan\"]")
     public WebElement nachSearchErkan;
     @FindBy(xpath = "//*[text()=\"Talat\"]")
     public WebElement nachSearchTalat;
-    @FindBy(xpath = "//*[text()=\"Fatma\"]")
-    public List<WebElement> FatmaList;
 
-    @FindBy(xpath = "//h3[.='Departments']")
-    public WebElement departmentsHomepage;
 
     @FindBy(xpath = "//p[@class='card-text']//a")  // department modülünde kayitli departmentlerin listesini dönderir,
     public List<WebElement> departmentList;      //Bulunamadiginda bos liste
@@ -69,8 +66,11 @@ public class DepartmentPage extends ReusableMethods {
     @FindBy(xpath = "//span[text()='Please select a type for department']")
     public WebElement ohneTypeKeineAddDepartment;
 
-    @FindBy(xpath = "(//button[@type='button'])[3]")
+    //@FindBy(xpath = "(//button[@type='button'])[3]")
+    @FindBy(xpath = "//div[@class='col']/a/button")
     public WebElement editDepartmentButton;
+    @FindBy(xpath = "//span[.='Ali']")
+    public WebElement textAli;
     @FindBy(xpath = "//button[.='Delete Department']")
     public WebElement deleteDepartmentButton;
 
@@ -82,14 +82,6 @@ public class DepartmentPage extends ReusableMethods {
         Actions actions = new Actions(ParallelDriver.getDriver());
         actions.sendKeys(element, Keys.TAB)
                 .click()
-                .perform();
-    }
-
-    public void selectedDepartment2(WebElement element) {
-        Actions actions = new Actions(ParallelDriver.getDriver());
-        actions.sendKeys(element, Keys.TAB)
-                .click()
-                .sendKeys(Keys.TAB, Keys.ENTER)
                 .perform();
     }
 
@@ -105,11 +97,9 @@ public class DepartmentPage extends ReusableMethods {
     }
 
     public void searchMethod(String str) {
-        refresch(ParallelDriver.getDriver());
         clickMethod(departmentsSekmesi);
         clickMethod(search);
         sendKeysMethod(search, str);
-
     }
 
 }

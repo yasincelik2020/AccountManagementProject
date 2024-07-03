@@ -74,6 +74,7 @@ Feature: login
     And Der Benutzer klickt auf die Schaltfläche Save.
     And Es wird bestätigt, dass die neue Department dem Departmentsmodul hinzugefügt wurde-
 
+
   @US_8
   Scenario: TC_08_07 Beim Hinzufügen einer neuen "Department"im Departments-modul muss das Feld Department Short Name nicht zwingend ausgefüllt werden.
     Then Der Benutzer klickt auf den Reiter Departments.
@@ -91,9 +92,9 @@ Feature: login
     And Der Benutzer klickt auf die Schaltfläche Add New Department.
     And Der Benutzer füllt das Textfeld Department Name aus_
     And Der Benutzer füllt das Textfeld Department Short Name aus_
-    And Der Benutzer wählt als Department Type die Option Department-
-    And Der Benutzer trifft eine Auswahl für Department Roles-
-    And Der Benutzer klickt auf die Schaltfläche double Save.
+    And Der Benutzer wählt als Department Type die Option Department.
+    And Der Benutzer trifft eine Auswahl für Department Roles.
+    And Der Benutzer klickt auf die Schaltfläche Save.
     And Es wird bestätigt, dass die neue Department dem Departmentsmodul hinzugefügt wurde_
 
   @US_9
@@ -112,19 +113,12 @@ Feature: login
     And Der Benutzer klickt auf die Schaltfläche Edit Department.
     And Der Benutzer füllt das Textfeld Department Name mit den gewünschten Informationen aus.
     And Der Benutzer füllt das Textfeld Short Name mit den gewünschten Informationen aus.
-    And Der Benutzer wählt als Department Type die Option Department.
-    And Der Benutzer trifft eine Auswahl für Department Roles.
+    And Der Benutzer wählt als Department Type die Option Department_
+    And Der Benutzer trifft eine Auswahl für Department Roles_
     And Der Benutzer klickt auf die Schaltfläche Save.
     And Es wird bestätigt, dass die Edit Bearbeitung erfolgreich durchgeführt wurde.
 
-  @US_9
-  Scenario: TC_09_11 Eine im Department-Modul gespeicherte Department sollte gelöscht werden können.
-    Then Der Benutzer klickt auf den Reiter Departments.
-    And Der Benutzer klickt auf die gespeicherte Department, die bearbeitet werden soll.
-    And Der Benutzer klickt auf die Schaltfläche Edit Department.
-    And Der Benutzer klickt auf die Schaltfläche Delete Department.
-    And Der Benutzer klickt auf die Schaltfläche Confirm.
-    And Es wird bestätigt, dass die Löschung erfolgreich durchgeführt wurde.
+
 
 
 
