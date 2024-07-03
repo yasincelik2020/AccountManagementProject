@@ -241,4 +241,19 @@ public class ReusableMethods {
         return element.getText().length();
 
     }
+    public static String getElementTextWithJS(WebElement element){
+        // JavaScriptExecutor kullanarak elementin metnini alın
+        JavascriptExecutor js = (JavascriptExecutor) ParallelDriver.getDriver();
+        String text = (String) js.executeScript("return arguments[0].innerText;", element);
+
+        // Metni yazdırın
+        System.out.println("Element text is: " + text);
+        return text;
+    }
+    public static void clickElementWithJS(WebElement element){
+        JavascriptExecutor js = (JavascriptExecutor) ParallelDriver.getDriver();
+        js.executeScript("arguments[0].click();", element);
+    }
+
+
 }

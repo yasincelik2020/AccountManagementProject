@@ -9,8 +9,8 @@ Feature: login
     And Der Benutzer bestaetigt, dass er auf HomePageSD ist
 
 
-  @Ignore
-  Scenario: TC_15_01 und TC_15_02 Neues Mitglied hinzufügen und überprüfen
+  @Aktiv
+  Scenario: TC_15_01, TC_15_02 und TC_17_01 Neues Mitglied hinzufügen, überprüfen und loschen
     Given Der Benutzer klickt auf der Startseite auf den Users Button.
     When Der Benutzer klickt auf der Users Seite auf den +Add New Member Button.
     And Der Benutzer waehlt eine Abteilung aus dem Dropdown-Menü aus.
@@ -20,8 +20,11 @@ Feature: login
     And Der Benutzer überprüft, ob die Nachricht successful im geöffneten Pop-up-Fenster angezeigt wird.
     And Der Benutzer clickt auf Close Button
     And Der Benutzer verifiziert, dass die E-Mail des zuletzt hinzugefügten Benutzers angezeigt wird."
+    Then Klicken Sie auf die drei Punkte am Ende der neu hinzugefügten Benutzerzeile.
+    And Klicken Sie auf dem sich öffnenden Bildschirm auf „Aus Organisation entfernen“.
+    And Es wird bestätigt, dass das neue POP-UP, das geöffnet wird, „Selected user removed“ enthält.
 
-  @Ignore
+  @Aktiv
   Scenario: TC_16_03 Der im Benutzermodul registrierte Benutzername darf nicht leer sein.
 
     Given Der Benutzer klickt auf der Startseite auf den Users Button.
@@ -30,7 +33,7 @@ Feature: login
     And Auf der Seite, die geöffnet wird, wird der Benutzername im Feld Benutzername gelöscht.
     And Stellen Sie sicher, dass die Meldung „Username cannot be empty“ angezeigt wird
 
-  @Ignore
+  @Aktiv
   Scenario: TC_16_04, TC_16_05, TC_16_06 Das registrierte Benutzerpasswort im Benutzermodul kann zurückgesetzt werden und abmelden dann wieder anmelden.
 
     Given Der Benutzer klickt auf der Startseite auf den Users Button.
@@ -47,7 +50,7 @@ Feature: login
     And Der Benutzer bestaetigt, dass er auf HomePageSD ist
 
   @Aktiv
-  Scenario: TC_16_07 Kullaniciya başka roller eklenebilir
+  Scenario: TC_16_07 Dem Benutzer können weitere Rollen hinzugefügt werden
 
     Given Der Benutzer klickt auf der Startseite auf den Users Button.
     Then Klicken Sie auf der sich öffnenden Seite auf den Benutzernamen des zuletzt hinzugefügten Benutzers.
@@ -58,5 +61,14 @@ Feature: login
     And Schliesssen Sie Information
 
 
+  @Aktiv
+  Scenario: TC_16_08 Der Benutzername muss mit Buchstaben beginnen (A-Za-z)
 
+    Given Der Benutzer klickt auf der Startseite auf den Users Button.
+    Given Klicken Sie auf der sich öffnenden Seite auf den Benutzernamen des zuletzt hinzugefügten Benutzers.
+    And Klicken Sie auf die Schaltfläche Bearbeiten
+    And Auf der Seite, die geöffnet wird, wird der Benutzername im Feld Benutzername gelöscht.
+    And Der Benutzer gibt einen Benutzernamen ein, der nur aus Zahlen besteht
+    And Der Benutzer clickt auf der Bestautigung Button
+    And User information updated successfully wird nicht bestätigt.
 

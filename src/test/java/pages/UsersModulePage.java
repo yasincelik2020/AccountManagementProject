@@ -10,7 +10,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utilities.ParallelDriver;
 import utilities.ReusableMethods;
-
 import static stepdefinitions.UsersSD.userNameLength;
 import static utilities.ReusableMethods.JavascriptUtils.isElementPresentByJS;
 
@@ -59,9 +58,6 @@ public class UsersModulePage extends ReusableMethods {
     @FindBy(xpath = "//span[.='Username cannot be empty']")
     public WebElement nichtLeerSein;
 
-    @FindBy(xpath = "//button[@class='btn btn-ghost-primary rounded-circle']")
-    public WebElement bestautigungButton;
-
     @FindBy(xpath = "//*[@id='changePasswordButton']")
     public WebElement resetPasswordButton;
 
@@ -91,6 +87,23 @@ public class UsersModulePage extends ReusableMethods {
 
     @FindBy(xpath = "//button[@aria-label='Close']")
     public WebElement SchliessenInfo;;
+
+    @FindBy(xpath = "//button[@class='btn btn-ghost-primary rounded-circle']")
+    public WebElement bestautigungButton;
+
+    @FindBy(xpath = "//*[.='User information updated successfully'] ")
+    public WebElement verifyVeraenderung;
+
+    @FindBy(xpath = "(//div[@class='btn-group'])[2]")
+    public WebElement dreiPunkte;
+
+    @FindBy(xpath = "(//a[text()='Remove from Organization'])[1]")
+    public WebElement removeFromOrganization;
+
+    @FindBy(xpath = "//p[.='Selected user removed']")
+    public WebElement bestautigSelectedUserRemoved;
+
+
 
     public void clearUserNameField() {
 
