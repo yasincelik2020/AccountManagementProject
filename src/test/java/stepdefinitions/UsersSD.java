@@ -1,20 +1,16 @@
 package stepdefinitions;
 
-import Hooks.Hooks;
+import com.github.javafaker.Faker;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.interactions.Actions;
-import pages.Homepage;
 import pages.LoginPage;
 import pages.UsersModulePage;
 import utilities.ParallelDriver;
 import utilities.ReusableMethods;
+import static org.junit.Assert.*;
 
-import static org.junit.Assert.assertTrue;
 
 
 public class UsersSD extends ReusableMethods {
@@ -119,19 +115,20 @@ public class UsersSD extends ReusableMethods {
     public void klickenSieAufDemSichÖffnendenPOPUPBildschirmAufClose() {
         clickMethod(usersModulePage.closeButton);
     }
+
     @And("Der Benutzer muss abgemelted sein")
     public void derBenutzerMussAbgemeltedSein() {
-       usersModulePage.logout();
+        usersModulePage.logout();
     }
 
     @And("Der Benutzer gibt ein gültiges Email ein")
     public void derBenutzerGibtEinGultigesEmailEin() {
-        sendKeysMethod(loginPage.userName,userEmailMemberText);
+        sendKeysMethod(loginPage.userName, userEmailMemberText);
     }
 
     @And("Benutzer gibt gültiges Password ein")
     public void benutzerGibtGultigesPasswordEin() {
-        sendKeysMethod(loginPage.password,userPasswordText);
+        sendKeysMethod(loginPage.password, userPasswordText);
     }
 
     @And("Klicken Sie auf der sich öffnenden Benutzerseite auf das + Symbol neben der Überschrift „Rollen“.")
@@ -151,7 +148,7 @@ public class UsersSD extends ReusableMethods {
 
     @And("Stellen Sie sicher, dass die neu hinzugefügte Rolle „Vertriebsmanager“ neben der Standardrolle hinzugefügt wurde.")
     public void stellenSieSicherDassDieNeuHinzugefugteRolleVertriebsmanagerNebenDerStandardrolleHinzugefugtWurde() {
-        waitForVisibility(ParallelDriver.getDriver(),usersModulePage.verifySave,5);
+        waitForVisibility(ParallelDriver.getDriver(), usersModulePage.verifySave, 5);
         isDisplayMethod(usersModulePage.verifySave);
     }
 
@@ -159,5 +156,36 @@ public class UsersSD extends ReusableMethods {
     public void schliesssenSieInformation() {
 
         clickMethod(usersModulePage.SchliessenInfo);
+    }
+
+    @And("Der Benutzer gibt einen Benutzernamen ein, der nur aus Zahlen besteht")
+    public void derBenutzerGibtEinenBenutzernamenEinDerNurAusZahlenBesteht() {
+        Faker faker = new Faker();
+        sendKeysMethod(usersModulePage.userNameField, "1"+faker.name().username());
+    }
+
+    @And("Der Benutzer clickt auf der Bestautigung Button")
+    public void derBenutzerClicktAufDerBestautigungButton() {
+        clickMethod(usersModulePage.bestautigungButton);
+    }
+
+    @And("User information updated successfully wird nicht bestätigt.")
+    public void userInformationUpdatedSuccessfullyWirdBestätigt() {
+        assertNotEquals("User information updated successfully", getElementTextWithJS(usersModulePage.verifyVeraenderung));
+    }
+
+    @Then("Klicken Sie auf die drei Punkte am Ende der neu hinzugefügten Benutzerzeile.")
+    public void klickenSieAufDieDreiPunkteAmEndeDerNeuHinzugefügtenBenutzerzeile() {
+        clickElementWithJS(usersModulePage.dreiPunkte);
+    }
+
+    @And("Klicken Sie auf dem sich öffnenden Bildschirm auf „Aus Organisation entfernen“.")
+    public void klickenSieAufDemSichÖffnendenBildschirmAufAusOrganisationEntfernen() {
+        clickElementWithJS(usersModulePage.removeFromOrganization);
+    }
+
+    @And("Es wird bestätigt, dass das neue POP-UP, das geöffnet wird, „Selected user removed“ enthält.")
+    public void esWirdBestätigtDassDasNeuePOPUPDasGeöffnetWirdSelectedUserRemovedEnthält() throws InterruptedException {
+        assertEquals("Selected user removed", getElementTextWithJS(usersModulePage.bestautigSelectedUserRemoved));
     }
 }
