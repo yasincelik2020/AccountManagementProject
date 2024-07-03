@@ -12,11 +12,13 @@ import utilities.ReusableMethods;
 
 import static org.junit.Assert.assertEquals;
 import static utilities.ReusableMethods.JavascriptUtils.clickElementByJS;
+import static utilities.ReusableMethods.JavascriptUtils.refresch;
 
 public class TeamsSD extends ReusableMethods {
     LoginPage loginPage = new LoginPage();
     TeamsPage teamsPage = new TeamsPage();
     String name = Faker.instance().name().firstName() + " " + Faker.instance().name().lastName();
+// 13 1
 
     @Given("„Teams“ wird im Modul links angezeigt.")
     public void teams_wird_im_modul_links_angezeigt() {
@@ -35,8 +37,9 @@ public class TeamsSD extends ReusableMethods {
     public void das_wort_teams_erscheint_oben_links() {
         assertEquals("Teams", getElementText(teamsPage.teamsHomepage));
 
-
     }
+
+    // 13 2
 
     @When("Die Schaltfläche „Neues Team hinzufügen“ erscheint.")
     public void die_schaltflaeche_neues_team_hinzufugen_erscheint() {
@@ -51,9 +54,11 @@ public class TeamsSD extends ReusableMethods {
 
     }
 
+    // 13 3
+
     @When("Das Textfeld „Abteilungsname“ bleibt leer.")
     public void das_textfeld_abteilungsname_bleibt_leer() {
-        sendKeysMethod(teamsPage.teamName,"");
+        sendKeysMethod(teamsPage.teamName, "");
         String text = teamsPage.teamName.getText();
         System.out.println(text);
         Assert.assertTrue(text.isEmpty());
@@ -68,12 +73,13 @@ public class TeamsSD extends ReusableMethods {
 
     @When("„Abteilungstyp“ ist als Team ausgewählt.")
     public void abteilungstyp_ist_als_team_ausgewählt() {
-        teamsPage.selectedDepartment(teamsPage.teamTypeDropDown);
+        waitForVisibility(ParallelDriver.getDriver(), teamsPage.teamTypeDropDown, 5);
+        teamsPage.selectedTeam(teamsPage.teamTypeDropDown);
     }
 
     @When("Trifft eine Auswahl für „Abteilungsrollen“.")
     public void trifft_eine_auswahl_für_abteilungsrollen() {
-        teamsPage.selectedDepartment(teamsPage.teamRolesDropDown);
+        teamsPage.selectedTeam(teamsPage.teamRolesDropDown);
 
     }
 
@@ -91,13 +97,13 @@ public class TeamsSD extends ReusableMethods {
     // 13 4
     @When("Das Textfeld „Abteilungsname“ ist ausgefüllt.")
     public void das_textfeld_abteilungsname_ist_ausgefüllt() {
-        sendKeysMethod(teamsPage.teamName,"Beyza");
+        sendKeysMethod(teamsPage.teamName, "Beyza");
 
     }
 
     @When("Das Feld „Abteilungstyp“ bleibt leer.")
     public void das_feld_abteilungstyp_bleibt_leer() {
-        clickElementByJS(ParallelDriver.getDriver(),teamsPage.teamTypeDropDown);
+        clickElementByJS(ParallelDriver.getDriver(), teamsPage.teamTypeDropDown);
     }
 
     @Then("Es wird angezeigt, dass keine neue Registrierung für das Abteilungsmodul vorgenommen werden kann. Es wird überprüft, dass unter dem Textfeld „Abteilungsname“ „Bitte wählen Sie einen Typ für die Abteilung“ steht.")
@@ -106,25 +112,125 @@ public class TeamsSD extends ReusableMethods {
 
     }
 
-
     // 13 5
     @When("Das Textfeld „Abteilungskurzname“ bleibt leer.")
     public void das_textfeld_abteilungskurzname_bleibt_leer() {
-        sendKeysMethod(teamsPage.teamShortName,"");
-        int listSize = teamsPage.teamsList.size();
-        System.out.println("listSize = " + listSize);
+        sendKeysMethod(teamsPage.teamShortName, "");
+    }
+
+    @Then("Es wird bestätigt, dass die neue Abteilung zum Modul „Abteilungen“ hinzugefügt wurde. Auf dem Bildschirm erscheint „Neue Abteilung erfolgreich erstellt“..")
+    public void es_wird_bestätigt_dass_die_neue_abteilung_zum_modul_abteilungen_hinzugefügt_wurde_auf_dem_bildschirm_erscheint_neue_abteilung_erfolgreich_erstellt() {
+        clickMethod(teamsPage.basariliKayitYazisi);
+        isDisplayMethod(teamsPage.basariliKayitYazisi);
+    }
+
+    // 13 6
+    @When("Das Feld „Abteilungsbeschreibung“ bleibt leer.")
+    public void das_feld_abteilungsbeschreibung_bleibt_leer() {
+        sendKeysMethod(teamsPage.teamDescription, "");
+        String text = teamsPage.teamDescription.getText();
+        System.out.println(text);
+        Assert.assertTrue(text.isEmpty());
 
     }
 
-    @Then("Es wird überprüft, ob das neu hinzugefügte Team in der Teamliste enthalten ist.")
-    public void es_wird_überprüft_ob_das_neu_hinzugefügte_team_in_der_teamliste_enthalten_ist() {
-        System.out.println("teamsPage.teamsList.size() = " + teamsPage.teamsList.size());
+    // 13 7
+    @When("„Abteilungsrollen“ ist nicht ausgewählt.")
+    public void abteilungsrollen_ist_nicht_ausgewählt() {
+        clickElementByJS(ParallelDriver.getDriver(), teamsPage.teamRolesDropDown);
+
 
     }
 
-    // 13
+    // 14 1
+    @When("Klicken Sie auf eines der angezeigten Teams.")
+    public void klicken_sie_auf_eines_der_angezeigten_teams() {
+        waitForClickablility(ParallelDriver.getDriver(), teamsPage.teamsList.getFirst(), 10);
+        clickMethod(teamsPage.teamsList.getFirst());
+    }
+
+    @When("Klicken Sie auf die Schaltfläche „Team bearbeiten“.")
+    public void klicken_sie_auf_die_schaltfläche_team_bearbeiten() {
+        clickMethod(teamsPage.teamEditButton);
+
+    }
+
+    @When("„Abteilungsname“ wird neu angeordnet.")
+    public void abteilungsname_wird_neu_angeordnet() {
+        refresch(ParallelDriver.getDriver());
+        refresch(ParallelDriver.getDriver());
+        refresch(ParallelDriver.getDriver());
+        refresch(ParallelDriver.getDriver());
+        sendKeysMethod(teamsPage.teamName, "A");
+
+    }
+
+    @Then("Der Text „Änderungen erfolgreich gespeichert“ wird angezeigt.")
+    public void der_text_änderungen_erfolgreich_gespeichert_wird_angezeigt() {
+        clickMethod(teamsPage.basariliDegistirmeYazisi);
+        isDisplayMethod(teamsPage.basariliDegistirmeYazisi);
+
+    }
+
+    // 14 2
+    @When("„Kurzname“ wird neu angeordnet.")
+    public void kurzname_wird_neu_angeordnet() {
+        sendKeysMethod(teamsPage.teamShortName, name.substring(0, name.indexOf(" ")));
+
+    }
+
+    // 14 3
+    @When("„Abteilungstyp“ wird neu angeordnet.")
+    public void abteilungstyp_wird_neu_angeordnet() {
+        teamsPage.selectedTeam(teamsPage.teamTypeDropDown);
+
+    }
+
+    // 14 4
+    @When("„Abteilungsname“ wird gelöscht.")
+    public void abteilungsname_wird_gelöscht() {
+        sendKeysMethod(teamsPage.teamName, "");
+        String text = teamsPage.teamName.getText();
+        System.out.println(text);
+        Assert.assertTrue(text.isEmpty());
+    }
+
+    @Then("Der Text „Bitte geben Sie einen Namen für die Abteilung ein“ wird angezeigt.")
+    public void der_text_bitte_geben_sie_einen_namen_für_die_abteilung_ein_wird_angezeigt() {
+        isDisplayMethod(teamsPage.teamNameGirinYazisi);
+    }
+
+    // 14 5
+    @When("„Abteilungstyp“ wird gelöscht.")
+    public void abteilungstyp_wird_gelöscht() {
+        clickElementByJS(ParallelDriver.getDriver(), teamsPage.teamTypeDropDown);
+    }
+
+    @Then("Der Text „Bitte wählen Sie einen Typ für die Abteilung“ wird angezeigt.")
+    public void der_text_bitte_wählen_sie_einen_typ_für_die_abteilung_wird_angezeigt() {
+        isDisplayMethod(teamsPage.teamDepartmentTypeGirinYazisi);
+
+    }
+
+    // 14 6
+    @When("Klicken Sie auf die Schaltfläche „Abteilung löschen“.")
+    public void klicken_sie_auf_die_schaltfläche_abteilung_löschen() {
+        clickMethod(teamsPage.teamDeleteButton);
+
+    }
+    @When("„Teams“ wird im Modul links angezeigt und kann angeklickt werden.")
+    public void teams_wird_im_modul_links_angezeigt_und_kann_angeklickt_werden() {
+        clickMethod(teamsPage.confirmButton);
+
+    }
+    @Then("Welches Team gelöscht wird, wird hier nicht angezeigt.")
+    public void welches_team_gelöscht_wird_wird_hier_nicht_angezeigt() {
+        clickMethod(teamsPage.teamsButton);
 
 
+
+
+    }
 
 
 }

@@ -27,7 +27,7 @@ public class TeamsPage {
     public WebElement addNewTeamButton;
 
    @FindBy(xpath = "//li[@class='breadcrumb-item active']")
-   public WebElement addNewDepartmentHomePage;
+   public WebElement addNewTeamHomePage;
 
     @FindBy(xpath = "//input[@id='name']")
     public WebElement teamName;
@@ -35,7 +35,7 @@ public class TeamsPage {
     @FindBy(xpath = "//input[@name='short_name']")
     public WebElement teamShortName;
 
-    @FindBy(xpath = "//div[@class=' css-hlgwow']//div[@id='react-select-2-placeholder']")
+    @FindBy(xpath = "(//div[.='Department Type'])[1]")
     public WebElement teamTypeDropDown;
 
     @FindBy(xpath = "//input[@name='description']")
@@ -50,11 +50,12 @@ public class TeamsPage {
     @FindBy(xpath = "//button[text()='Cancel']")
     public WebElement teamAddCancelButton;
 
-    public void selectedDepartment(WebElement element) {
+    public void selectedTeam(WebElement element) {
         Actions actions = new Actions(ParallelDriver.getDriver());
-        actions.sendKeys(element, Keys.TAB)
+        actions.sendKeys(element, Keys.DOWN)
+                .sendKeys(Keys.DOWN,Keys.TAB)
                 .click()
-                .sendKeys(Keys.TAB,Keys.ENTER)
+                //.sendKeys(Keys.TAB,Keys.ENTER)
                 .perform();
     }
 
@@ -65,14 +66,14 @@ public class TeamsPage {
     @FindBy(xpath = "//span[.='Please select a type for department']")
     public WebElement teamDepartmentTypeGirinYazisi;
 
-   // @FindBy(xpath = "//span[.='New department successfully created']")
-    //public WebElement basariliKayitYazisi;
+    @FindBy(xpath = "//p[.='New department successfully created']")
+    public WebElement basariliKayitYazisi;
 
     @FindBy(xpath = "(//button[@type='button'])[3]")
     public WebElement teamEditButton;
 
- //   @FindBy(xpath = "//span[.='Changes successfully saved']")
-  //  public WebElement basariliDegistirmeYazisi;
+    @FindBy(xpath = "//button[.='Changes successfully saved']")
+    public WebElement basariliDegistirmeYazisi;
 
     @FindBy(xpath = "(//button[@type='button'])[5]")
     public WebElement teamDeleteButton;
