@@ -7,16 +7,14 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 
+import org.openqa.selenium.Keys;
 import pages.DepartmentPage;
 import pages.LoginPage;
 import utilities.ConfigReader;
 import utilities.ParallelDriver;
 import utilities.ReusableMethods;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
-
 import static utilities.ReusableMethods.JavascriptUtils.*;
 
 public class DepartmentSD extends ReusableMethods {
@@ -61,11 +59,9 @@ public class DepartmentSD extends ReusableMethods {
     }
     @And("Es wird bestätigt, dass im Modul Departments die gespeicherten Abteilungen angezeigt werden.")
     public void esWirdBestatigtDassImModulDepartmentsDieGespeichertenAbteilungenAngezeigtWerden() {
-        refresch(ParallelDriver.getDriver());
         clickMethod(departmentPage.departmentsSekmesi);
         Assert.assertTrue(departmentPage.departmentList.size() > 0);
     }
-
     @And("Es wird bestätigt, dass im geöffneten Fenster die berechtigten Rollen aufgelistet sind.")
     public void esWirdBestatigtDassImGeoffnetenFensterDieBerechtigtenRollenAufgelistetSind() {
     }
@@ -90,7 +86,7 @@ public class DepartmentSD extends ReusableMethods {
     @And("Der Benutzer füllt das Textfeld Department Name aus.")
     public void derBenutzerFulltDasTextfeldDepartmentNameAus() {
         clickMethod(departmentPage.departmentName);
-        String departmentName = "Ali Can";
+        String departmentName = "Ali";
         sendKeysMethod(departmentPage.departmentName, departmentName);
     }
     @And("Der Benutzer füllt das Textfeld Department Short Name aus.")
@@ -116,9 +112,13 @@ public class DepartmentSD extends ReusableMethods {
 
     @And("Es wird bestätigt, dass die neue Department dem Departmentsmodul hinzugefügt wurde.")
     public void esWirdBestatigtDassDieNeueDepartmentDemDepartmentsmodulHinzugefugtWurde() {
-        departmentPage.searchMethod("Ali Can");
-        waitForVisibility(ParallelDriver.getDriver(), departmentPage.nachSearchAliCan, 5);
-        isDisplayMethod(departmentPage.nachSearchAliCan);
+        //departmentPage.searchMethod("Ali");
+        clickMethod(departmentPage.departmentsSekmesi);
+        clickMethod(departmentPage.search);
+        sendKeysMethod(departmentPage.search,"Ali");
+        waitForVisibility(ParallelDriver.getDriver(), departmentPage.nachSearchAli, 5);
+        isDisplayMethod(departmentPage.nachSearchAli);
+        //refresch(ParallelDriver.getDriver());
 
       //  departmentPage.deleteMethod(departmentPage.nachSearchAliCan);
     }
@@ -127,7 +127,6 @@ public class DepartmentSD extends ReusableMethods {
     public void derBenutzerLasstDasTextfeldDepartmentNameLeer() {
         System.out.println("Department Name bleibt leer");
     }
-
     @And("Es wird angezeigt, dass ohne DepartmentName im Department Modul keine neue Aufzeichnung erstellt werden konnte.")
     public void esWirdAngezeigtDassOhneDepartmentNameImDepartmentModulKeineNeueAufzeichnungErstelltWerdenKonnte() {
         waitForVisibility(ParallelDriver.getDriver(), departmentPage.addDepartmentSaveButton, 5);
@@ -138,35 +137,31 @@ public class DepartmentSD extends ReusableMethods {
     public void derBenutzerLasstAlsDepartmentTypeDieOptionDepartmentLeer() {
         System.out.println("Department Type bleibt leer");
     }
-
     @And("Es wird angezeigt, dass ohne DepartmentType im Department Modul keine neue Aufzeichnung erstellt werden konnte.")
     public void esWirdAngezeigtDassOhneDepartmentTypeImDepartmentModulKeineNeueAufzeichnungErstelltWerdenKonnte() {
         waitForVisibility(ParallelDriver.getDriver(), departmentPage.ohneTypeKeineAddDepartment, 5);
         isDisplayMethod(departmentPage.ohneTypeKeineAddDepartment);
     }
 
-    //===========6===============
+    //===========8/6===============
     @And("Der Benutzer füllt das Textfeld_ Department Name aus.")
     public void derBenutzerFulltDasTextfeld_DepartmentNameAus() {
         clickMethod(departmentPage.departmentName);
-        String departmentName = "Bahri";
+        String departmentName = "Ahmet";
         sendKeysMethod(departmentPage.departmentName, departmentName);
     }
     @And("Der Benutzer lässt das Textfeld Department Short Name leer.")
     public void derBenutzerLasstDasTextfeldDepartmentShortNameLeer() {
         System.out.println("Department Short Name bleibt leer");
     }
-
     @And("Es wird bestätigt, dass die neue Department dem Departmentsmodul hinzugefügt wurde-")
     public void esWirdBestatigt_DassDieNeueDepartmentDemDepartmentsmodulHinzugefugtWurde() {
-        departmentPage.searchMethod("Bahri");
-        waitForVisibility(ParallelDriver.getDriver(), departmentPage.nachSearchBahri, 5);
-        isDisplayMethod(departmentPage.nachSearchBahri);
-
-       // departmentPage.deleteMethod(departmentPage.nachSearchBahri);
+        departmentPage.searchMethod("Ahmet");
+        waitForVisibility(ParallelDriver.getDriver(), departmentPage.nachSearchAhmet, 5);
+        isDisplayMethod(departmentPage.nachSearchAhmet);
+       // departmentPage.deleteMethod(departmentPage.nachSearchAhmet);
     }
-
-    //===========7===============
+    //===========8/7===============
     @And("Der Benutzer füllt das_ Textfeld Department Name aus.")
     public void derBenutzerFulltDas_TextfeldDepartmentNameAus() {
         clickMethod(departmentPage.departmentName);
@@ -182,49 +177,39 @@ public class DepartmentSD extends ReusableMethods {
         departmentPage.searchMethod("Erkan");
         waitForVisibility(ParallelDriver.getDriver(), departmentPage.nachSearchErkan, 5);
         isDisplayMethod(departmentPage.nachSearchErkan);
-
         //departmentPage.deleteMethod(departmentPage.nachSearchErkan);
     }
 
-
-    //===========8===============
+    //===========8/8===============
     @And("Der Benutzer füllt das Textfeld Department Name aus_")
     public void derBenutzerFulltDasTextfeldDepartmentNameAus_() {
         clickMethod(departmentPage.departmentName);
-        String departmentName = "Fatma";
+        String departmentName = "Ali";
         sendKeysMethod(departmentPage.departmentName, departmentName);
     }
     @And("Der Benutzer füllt das Textfeld Department Short Name aus_")
     public void derBenutzerFulltDasTextfeldDepartmentShortNameAus_() {
-        clickMethod(departmentPage.departmentName);
-        String departmentShortName = "Fatma";
-        sendKeysMethod(departmentPage.departmentName, departmentShortName);
-    }
-    @And("Der Benutzer wählt als Department Type die Option Department-")
-    public void derBenutzer_WahltAlsDepartmentTypeDieOptionDepartment() {
-        departmentPage.selectedDepartment(departmentPage.departmentTypeDropdown);
-    }
-    @And("Der Benutzer trifft eine Auswahl für Department Roles-")
-    public void derBenutzer_TrifftEineAuswahlFurDepartmentRoles() {
-        departmentPage.selectedDepartment2(departmentPage.departmentRolesDropDown);
-    }
-    @And("Der Benutzer klickt auf die Schaltfläche double Save.")
-    public void derBenutzer_KlicktAufDieSchaltflacheDoubleSave() {
-        clickMethod(departmentPage.addDepartmentSaveButton);
+        clickMethod(departmentPage.departmentShortName);
+        String departmentShortName = "Ali";
+        sendKeysMethod(departmentPage.departmentShortName, departmentShortName);
     }
     @And("Es wird bestätigt, dass die neue Department dem Departmentsmodul hinzugefügt wurde_")
-    public void esWirdBestatigtDassDieNeueDepartmentDemDepartmentsmodulHinzugefugtWurde_() {
-        departmentPage.searchMethod("Fatma");
-        Assert.assertTrue(departmentPage.FatmaList.size()>1);
+    public void esWirdBestatigtDassDieNeueDepartmentDemDepartmentsmodulHinzugefugtWurde_() throws InterruptedException {
+        clickMethod(departmentPage.departmentsSekmesi);
+        clickMethod(departmentPage.search);
+        sendKeysMethod(departmentPage.search,"Ali");
+        waitForVisibility(ParallelDriver.getDriver(), departmentPage.nachSearchAli, 5);
+        Assert.assertTrue(departmentPage.departmentList.size()>1);
     }
 
     //===========9/1===============
     @And("Der Benutzer klickt auf die gespeicherte Department, die bearbeitet werden soll.")
     public void derBenutzerKlicktAufDieGespeicherteDepartmentDieBearbeitetWerdenSoll() {
-        clickMethod(departmentPage.departmentList.get(0));
+        clickMethod(departmentPage.nachSearchAli);
     }
     @And("Es wird bestätigt, dass die registrierten Departments erfolgreich angeklickt wurden.")
-    public void esWirdBestätigtDassDieRegistriertenDepartmentsErfolgreichAngeklicktWurden() {
+    public void esWirdBestatigtDassDieRegistriertenDepartmentsErfolgreichAngeklicktWurden() {
+        waitForVisibility(ParallelDriver.getDriver(), departmentPage.nachSearchAli, 10);
         isDisplayMethod(departmentPage.editDepartmentButton);
     }
     @And("Der Benutzer klickt auf die Schaltfläche Edit Department.")
@@ -238,16 +223,28 @@ public class DepartmentSD extends ReusableMethods {
     }
 //=============9/5===================================
     @And("Der Benutzer füllt das Textfeld Department Name mit den gewünschten Informationen aus.")
-    public void derBenutzerFulltDasTextfeldDepartmentNameMitDenGewunschtenInformationenAus() {
-        clickMethod(departmentPage.departmentName);
-        String departmentName = "Talat Bil";
+    public void derBenutzerFulltDasTextfeldDepartmentNameMitDenGewunschtenInformationenAus() throws InterruptedException {
+        String departmentName = "Talat";
+        //clickMethod(departmentPage.departmentName);
+        departmentPage.departmentName.sendKeys(Keys.chord(Keys.CONTROL,"a"),Keys.BACK_SPACE);
+        Thread.sleep(3000);
+        //departmentPage.departmentName.clear();
         sendKeysMethod(departmentPage.departmentName, departmentName);
     }
     @And("Der Benutzer füllt das Textfeld Short Name mit den gewünschten Informationen aus.")
-    public void derBenutzerFulltDasTextfeldShortNameMitDenGewunschtenInformationenAus() {
-        clickMethod(departmentPage.departmentName);
-        String departmentShortName = "Talat";
+    public void derBenutzerFulltDasTextfeldShortNameMitDenGewunschtenInformationenAus() throws InterruptedException {
+        String departmentShortName = "Tal";
+        //clickMethod(departmentPage.departmentShortName);
+        departmentPage.departmentShortName.sendKeys(Keys.chord(Keys.CONTROL,"a"),Keys.BACK_SPACE);
+        Thread.sleep(3000);
+       // departmentPage.departmentShortName.clear();
         sendKeysMethod(departmentPage.departmentShortName, departmentShortName);
+    }
+    @And("Der Benutzer wählt als Department Type die Option Department_")
+    public void derBenutzerWahltAlsDepartmentTypeDieOptionDepartment_() {
+    }
+    @And("Der Benutzer trifft eine Auswahl für Department Roles_")
+    public void derBenutzerTrifftEineAuswahlFurDepartmentRoles_() {
     }
     @And("Es wird bestätigt, dass die Edit Bearbeitung erfolgreich durchgeführt wurde.")
     public void esWirdBestatigtDassDieEditBearbeitungErfolgreichDurchgefuhrtWurde() {
@@ -255,6 +252,7 @@ public class DepartmentSD extends ReusableMethods {
         waitForVisibility(ParallelDriver.getDriver(), departmentPage.nachSearchTalat, 5);
         isDisplayMethod(departmentPage.nachSearchTalat);//__________________________
     }
+
 
 
 }
