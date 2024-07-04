@@ -112,12 +112,13 @@ public class RemoteUnitsPage extends ReusableMethods {
 
     public void nonSelected(WebElement element) {
         Actions actions = new Actions(ParallelDriver.getDriver());
-        actions.click(element)
+        actions.sendKeys(element, Keys.TAB)
                 .sendKeys(Keys.TAB)
                 .perform();
     }  public void nonSelectedDepartmentType(WebElement element) {
         Actions actions = new Actions(ParallelDriver.getDriver());
-        actions.sendKeys(element, Keys.TAB)
+        actions.sendKeys(element)
+                .click(description)
                 .sendKeys(Keys.TAB)
                 .perform();
     }
@@ -125,6 +126,15 @@ public class RemoteUnitsPage extends ReusableMethods {
     public void deleteMethod(WebElement element1,WebElement element2) {
         Actions actions = new Actions(ParallelDriver.getDriver());
         actions.click(element1)
+                .click(element2)
+                .perform();
+    }
+    public void andernMethod(WebElement element1,WebElement element2) {
+        waitForClickablility(ParallelDriver.getDriver(),roles,10);
+        Actions action = new Actions(ParallelDriver.getDriver());
+        clickMethod(element1);
+        action.keyDown(Keys.DOWN)
+                .click()
                 .click(element2)
                 .perform();
     }
