@@ -3,10 +3,12 @@ package utilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.safari.SafariDriver;
+
 
 import java.time.Duration;
 
@@ -22,48 +24,68 @@ public class ParallelDriver {
 
     private static WebDriver driver;
 
-    public static WebDriver getDriver(){
+    public static WebDriver getDriver() {
         if (driverPool.get() == null) {
-            // this line will tell which browser should open based on the value from properties file
+            // Ortam değişkenlerinden tarayıcı parametresini al
             String browserParamFromEnv = System.getProperty("browser");
-            String browser = browserParamFromEnv == null ? getProperty("browser") : browserParamFromEnv;
+            // Eğer ortam değişkeni yoksa varsayılan değeri al
+            String browser = (browserParamFromEnv == null) ? getProperty("browser") : browserParamFromEnv;
+
+            WebDriver driver = null;
+
+            // Tarayıcı türüne göre işlem yap
             switch (browser) {
                 case "chrome":
-                    driverPool.set(new ChromeDriver());
+                    // Chrome için sürücüyü ayarla ve oluştur
+                    driver = new ChromeDriver();
+                    break;
+                case "chrome_headless":
+                    // Başsız (Headless) Chrome için sürücüyü ayarla ve oluştur
+                    driver = new ChromeDriver(new ChromeOptions().addArguments("--headless=new"));
                     break;
                 case "firefox":
-                    driverPool.set(new FirefoxDriver());
+                    // Firefox için sürücüyü ayarla ve oluştur
+
+                    driver = new FirefoxDriver();
                     break;
                 case "ie":
+                    // Internet Explorer için sürücüyü ayarla ve oluştur
                     if (!System.getProperty("os.name").toLowerCase().contains("windows")) {
                         throw new WebDriverException("Your OS doesn't support Internet Explorer");
                     }
-                    driverPool.set(new InternetExplorerDriver());
+                    driver = new InternetExplorerDriver();
                     break;
                 case "edge":
+                    // Edge için sürücüyü ayarla ve oluştur
                     if (!System.getProperty("os.name").toLowerCase().contains("windows")) {
                         throw new WebDriverException("Your OS doesn't support Edge");
                     }
-                    driverPool.set(new EdgeDriver());
+                    driver = new EdgeDriver();
                     break;
                 case "safari":
+                    // Safari için sürücüyü ayarla ve oluştur
                     if (!System.getProperty("os.name").toLowerCase().contains("mac")) {
                         throw new WebDriverException("Your OS doesn't support Safari");
                     }
-                    driverPool.set(new SafariDriver());
+                    driver = new SafariDriver();
                     break;
-
                 default:
-                    driverPool.set(new ChromeDriver());
+                    // Varsayılan olarak Chrome sürücüsünü ayarla ve oluştur
+                    driver = new ChromeDriver();
+                    break;
             }
-            driverPool.get().manage().window().maximize();
-            driverPool.get().manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+
+            // Oluşturulan sürücü varsa pencereyi maksimize et ve bekleme süresini ayarla
+            driver.manage().window().maximize();
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+            driverPool.set(driver); // Sürücüyü havuza ekle
         }
-        return driverPool.get();
+
+        return driverPool.get(); // Oluşturulan veya mevcut sürücüyü döndür
     }
-    public static void closeDriver(){
+    public static void closeDriver() {
         WebDriver driver = driverPool.get();
-        if (driver!=null){
+        if (driver != null) {
             driverPool.get().quit();
             driverPool.remove();
         }

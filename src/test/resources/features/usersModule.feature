@@ -9,7 +9,7 @@ Feature: login
     And Der Benutzer bestaetigt, dass er auf HomePageSD ist
 
 
-  @Aktiv
+  @Smoke1
   Scenario: TC_15_01, TC_15_02 und TC_17_01 Neues Mitglied hinzufügen, überprüfen und loschen
     Given Der Benutzer klickt auf der Startseite auf den Users Button.
     When Der Benutzer klickt auf der Users Seite auf den +Add New Member Button.
@@ -24,7 +24,7 @@ Feature: login
     And Klicken Sie auf dem sich öffnenden Bildschirm auf „Aus Organisation entfernen“.
     And Es wird bestätigt, dass das neue POP-UP, das geöffnet wird, „Selected user removed“ enthält.
 
-  @Aktiv
+  @Regression1
   Scenario: TC_16_03 Der im Benutzermodul registrierte Benutzername darf nicht leer sein.
 
     Given Der Benutzer klickt auf der Startseite auf den Users Button.
@@ -33,13 +33,13 @@ Feature: login
     And Auf der Seite, die geöffnet wird, wird der Benutzername im Feld Benutzername gelöscht.
     And Stellen Sie sicher, dass die Meldung „Username cannot be empty“ angezeigt wird
 
-  @Aktiv
+  @Regression1
   Scenario: TC_16_04, TC_16_05, TC_16_06 Das registrierte Benutzerpasswort im Benutzermodul kann zurückgesetzt werden und abmelden dann wieder anmelden.
 
     Given Der Benutzer klickt auf der Startseite auf den Users Button.
     Then Klicken Sie auf der sich öffnenden Seite auf den Benutzernamen des zuletzt hinzugefügten Benutzers.
     Then Klicken Sie auf der sich öffnenden Benutzerseite auf „Reset Password“.
-    And Klicken Sie auf dem sich öffnenden POP-UP-Bildschirm auf „Confirm“.
+    And Klicken Sie auf dem sich öffnenden POP-UP-Bildschirm auf Confirm
     And Es wird bestätigt, dass das neue POP-UP, das geöffnet wird, „Reset password successfully“ enthält.
     And Klicken Sie auf dem sich öffnenden POP-UP-Bildschirm auf „Close“.
     And Der Benutzer muss abgemelted sein
@@ -49,8 +49,8 @@ Feature: login
     And Klick auf die Schaltflueche Login
     And Der Benutzer bestaetigt, dass er auf HomePageSD ist
 
-  @Aktiv
-  Scenario: TC_16_07 Dem Benutzer können weitere Rollen hinzugefügt werden
+  @Regression1
+  Scenario: TC_16_07 Dem Benutzer können weitere Rollen hinzugefügt werden und loschen
 
     Given Der Benutzer klickt auf der Startseite auf den Users Button.
     Then Klicken Sie auf der sich öffnenden Seite auf den Benutzernamen des zuletzt hinzugefügten Benutzers.
@@ -59,9 +59,12 @@ Feature: login
     And Klicken Sie auf die Schaltfläche Speichern.
     And Stellen Sie sicher, dass die neu hinzugefügte Rolle „Vertriebsmanager“ neben der Standardrolle hinzugefügt wurde.
     And Schliesssen Sie Information
+    And Click drei Punkte auf die neu Role
+    And Click auf Remove Role
+    And Klicken Sie auf dem sich öffnenden POP-UP-Bildschirm auf Confirm
+    And Schliesssen Sie Information
 
-
-  @Aktiv
+  @Smoke1
   Scenario: TC_16_08 Der Benutzername muss mit Buchstaben beginnen (A-Za-z)
 
     Given Der Benutzer klickt auf der Startseite auf den Users Button.

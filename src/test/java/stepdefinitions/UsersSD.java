@@ -9,9 +9,8 @@ import pages.LoginPage;
 import pages.UsersModulePage;
 import utilities.ParallelDriver;
 import utilities.ReusableMethods;
+
 import static org.junit.Assert.*;
-
-
 
 public class UsersSD extends ReusableMethods {
     UsersModulePage usersModulePage = new UsersModulePage();
@@ -19,6 +18,7 @@ public class UsersSD extends ReusableMethods {
     public static String userEmailMemberText; // tekrar giris yapmak icin kaydediyoruz
     public static String userPasswordText; // tekrar giris yapmak icin password u kaydediyoruz
     LoginPage loginPage = new LoginPage();
+    Faker faker = new Faker();
 
 
     @Given("Der Benutzer klickt auf der Startseite auf den Users Button.")
@@ -99,7 +99,7 @@ public class UsersSD extends ReusableMethods {
         clickMethod(usersModulePage.resetPasswordButton);
     }
 
-    @And("Klicken Sie auf dem sich öffnenden POP-UP-Bildschirm auf „Confirm“.")
+    @And("Klicken Sie auf dem sich öffnenden POP-UP-Bildschirm auf Confirm")
     public void klickenSieAufDemSichoffnendenPOPUPBildschirmAufConfirm() {
         clickMethod(usersModulePage.confirmButton);
     }
@@ -153,14 +153,14 @@ public class UsersSD extends ReusableMethods {
     }
 
     @And("Schliesssen Sie Information")
-    public void schliesssenSieInformation() {
+    public void schliesssenSieInformation() throws InterruptedException {
         clickMethod(usersModulePage.SchliessenInfo);
+        Thread.sleep(3000);
     }
 
     @And("Der Benutzer gibt einen Benutzernamen ein, der nur aus Zahlen besteht")
     public void derBenutzerGibtEinenBenutzernamenEinDerNurAusZahlenBesteht() {
-        Faker faker = new Faker();
-        sendKeysMethod(usersModulePage.userNameField, "1"+faker.name().username());
+        sendKeysMethod(usersModulePage.userNameField, "1" + faker.name().username());
     }
 
     @And("Der Benutzer clickt auf der Bestautigung Button")
@@ -169,22 +169,32 @@ public class UsersSD extends ReusableMethods {
     }
 
     @And("User information updated successfully wird nicht bestätigt.")
-    public void userInformationUpdatedSuccessfullyWirdBestaetigt() {
+    public void userInformationUpdatedSuccessfullyWirdBestätigt() {
         assertNotEquals("User information updated successfully", getElementTextWithJS(usersModulePage.verifyVeraenderung));
     }
 
     @Then("Klicken Sie auf die drei Punkte am Ende der neu hinzugefügten Benutzerzeile.")
-    public void klickenSieAufDieDreiPunkteAmEndeDerNeuHinzugefaegtenBenutzerzeile() {
+    public void klickenSieAufDieDreiPunkteAmEndeDerNeuHinzugefügtenBenutzerzeile() {
         clickElementWithJS(usersModulePage.dreiPunkte);
     }
 
     @And("Klicken Sie auf dem sich öffnenden Bildschirm auf „Aus Organisation entfernen“.")
-    public void klickenSieAufDemSichoffnendenBildschirmAufAusOrganisationEntfernen() {
+    public void klickenSieAufDemSichÖffnendenBildschirmAufAusOrganisationEntfernen() {
         clickElementWithJS(usersModulePage.removeFromOrganization);
     }
 
     @And("Es wird bestätigt, dass das neue POP-UP, das geöffnet wird, „Selected user removed“ enthält.")
-    public void esWirdBestätigtDassDasNeuePOPUPDasGeoffnetWirdSelectedUserRemovedEnthaelt() throws InterruptedException {
+    public void esWirdBestätigtDassDasNeuePOPUPDasGeöffnetWirdSelectedUserRemovedEnthält() throws InterruptedException {
         assertEquals("Selected user removed", getElementTextWithJS(usersModulePage.bestautigSelectedUserRemoved));
+    }
+
+    @And("Click drei Punkte auf die neu Role")
+    public void clickDreiPunkteAufDieNeuRole() {
+        clickMethod(usersModulePage.dreiPunkteRole);
+    }
+
+    @And("Click auf Remove Role")
+    public void clickAufRemoveRole() {
+        clickMethod(usersModulePage.removeRole);
     }
 }
