@@ -149,8 +149,8 @@ public class TeamsSD extends ReusableMethods {
     // 14 1
     @When("Klicken Sie auf eines der angezeigten Teams.")
     public void klicken_sie_auf_eines_der_angezeigten_teams() {
-        waitForClickablility(ParallelDriver.getDriver(), teamsPage.teamsList.getFirst(), 10);
-        clickMethod(teamsPage.teamsList.getFirst());
+        waitForClickablility(ParallelDriver.getDriver(), teamsPage.teamsList.get(0), 10);
+        clickMethod(teamsPage.teamsList.get(0));
 
     }
 

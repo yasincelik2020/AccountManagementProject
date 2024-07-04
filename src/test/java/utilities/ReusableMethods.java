@@ -123,7 +123,7 @@ public class ReusableMethods {
         assertTrue(element.isDisplayed());
     }
 
-    public class JavascriptUtils {
+    public static class JavascriptUtils {
         //This method will takes two parameter: WebElement, and WebDriver
         //When you pass the element, JS will click on that element
         public static void clickElementByJS(WebDriver driver, WebElement element) {
