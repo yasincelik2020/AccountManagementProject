@@ -1,4 +1,4 @@
-@Profile @US04
+@Profile @US04 @RegressionTest @FunctionalTest
   Feature: Profile
     Background: login
       Given Der Benutzer geht zur URL
