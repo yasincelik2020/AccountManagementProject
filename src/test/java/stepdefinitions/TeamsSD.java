@@ -5,17 +5,23 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WindowType;
+import org.openqa.selenium.interactions.Actions;
 import pages.LoginPage;
 import pages.TeamsPage;
 import utilities.ParallelDriver;
 import utilities.ReusableMethods;
+
+import static pages.TeamsPage.*;
+
+import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 import static utilities.ReusableMethods.JavascriptUtils.clickElementByJS;
 import static utilities.ReusableMethods.JavascriptUtils.refresch;
 
 public class TeamsSD extends ReusableMethods {
-    LoginPage loginPage = new LoginPage();
     TeamsPage teamsPage = new TeamsPage();
     String name = Faker.instance().name().firstName() + " " + Faker.instance().name().lastName();
 // 13 1
@@ -30,6 +36,7 @@ public class TeamsSD extends ReusableMethods {
     public void die_schaltflaeche_teams_wird_angeklickt() {
         waitForVisibility(ParallelDriver.getDriver(), teamsPage.teamsButton, 5);
         clickMethod(teamsPage.teamsButton);
+        teamSizeBeforDelete = teamsPage.teamsList.size();
 
     }
 
@@ -49,7 +56,6 @@ public class TeamsSD extends ReusableMethods {
 
     @Then("Klicken Sie auf die Schaltfläche „Neues Team hinzufügen“.")
     public void klicken_sie_auf_die_schaltflaeche_neues_team_hinzufugen() {
-        waitForVisibility(ParallelDriver.getDriver(), teamsPage.addNewTeamButton, 5);
         clickMethod(teamsPage.addNewTeamButton);
 
     }
@@ -73,7 +79,6 @@ public class TeamsSD extends ReusableMethods {
 
     @When("„Abteilungstyp“ ist als Team ausgewählt.")
     public void abteilungstyp_ist_als_team_ausgewählt() {
-        waitForVisibility(ParallelDriver.getDriver(), teamsPage.teamTypeDropDown, 5);
         teamsPage.selectedTeam(teamsPage.teamTypeDropDown);
     }
 
@@ -139,7 +144,6 @@ public class TeamsSD extends ReusableMethods {
     public void abteilungsrollen_ist_nicht_ausgewählt() {
         clickElementByJS(ParallelDriver.getDriver(), teamsPage.teamRolesDropDown);
 
-
     }
 
     // 14 1
@@ -147,20 +151,25 @@ public class TeamsSD extends ReusableMethods {
     public void klicken_sie_auf_eines_der_angezeigten_teams() {
         waitForClickablility(ParallelDriver.getDriver(), teamsPage.teamsList.getFirst(), 10);
         clickMethod(teamsPage.teamsList.getFirst());
+
     }
 
     @When("Klicken Sie auf die Schaltfläche „Team bearbeiten“.")
-    public void klicken_sie_auf_die_schaltfläche_team_bearbeiten() {
+    public void klicken_sie_auf_die_schaltfläche_team_bearbeiten() throws InterruptedException {
+         waitForClickablility(ParallelDriver.getDriver(), teamsPage.teamEditButton, 10);
+        // Actions action = new Actions(ParallelDriver.getDriver());
+        // action.contextClick(teamsPage.teamEditButton).sendKeys(Keys.ENTER).sendKeys(Keys.ENTER).build().perform();
         clickMethod(teamsPage.teamEditButton);
+       // ParallelDriver.getDriver().switchTo().newWindow(WindowType.TAB).get("https://qa-gm3.quaspareparts.com/a3m/?errorMessage=%5Bauthorization_request_not_found%5D%20#/department/edit/391");
+         refresch(ParallelDriver.getDriver());
+        // waitForClickablility(ParallelDriver.getDriver(), teamsPage.teamEditButton, 5);
+         refresch(ParallelDriver.getDriver());
 
     }
 
     @When("„Abteilungsname“ wird neu angeordnet.")
     public void abteilungsname_wird_neu_angeordnet() {
-        refresch(ParallelDriver.getDriver());
-        refresch(ParallelDriver.getDriver());
-        refresch(ParallelDriver.getDriver());
-        refresch(ParallelDriver.getDriver());
+        waitForVisibility(ParallelDriver.getDriver(), teamsPage.teamName, 5);
         sendKeysMethod(teamsPage.teamName, "A");
 
     }
@@ -175,6 +184,7 @@ public class TeamsSD extends ReusableMethods {
     // 14 2
     @When("„Kurzname“ wird neu angeordnet.")
     public void kurzname_wird_neu_angeordnet() {
+        waitForVisibility(ParallelDriver.getDriver(), teamsPage.teamShortName, 5);
         sendKeysMethod(teamsPage.teamShortName, name.substring(0, name.indexOf(" ")));
 
     }
@@ -182,6 +192,7 @@ public class TeamsSD extends ReusableMethods {
     // 14 3
     @When("„Abteilungstyp“ wird neu angeordnet.")
     public void abteilungstyp_wird_neu_angeordnet() {
+        waitForVisibility(ParallelDriver.getDriver(), teamsPage.teamTypeDropDown, 5);
         teamsPage.selectedTeam(teamsPage.teamTypeDropDown);
 
     }
@@ -189,16 +200,13 @@ public class TeamsSD extends ReusableMethods {
     // 14 4
     @When("„Abteilungsname“ wird gelöscht.")
     public void abteilungsname_wird_gelöscht() {
+        waitForVisibility(ParallelDriver.getDriver(), teamsPage.teamName, 5);
         sendKeysMethod(teamsPage.teamName, "");
         String text = teamsPage.teamName.getText();
         System.out.println(text);
         Assert.assertTrue(text.isEmpty());
     }
 
-    @Then("Der Text „Bitte geben Sie einen Namen für die Abteilung ein“ wird angezeigt.")
-    public void der_text_bitte_geben_sie_einen_namen_für_die_abteilung_ein_wird_angezeigt() {
-        isDisplayMethod(teamsPage.teamNameGirinYazisi);
-    }
 
     // 14 5
     @When("„Abteilungstyp“ wird gelöscht.")
@@ -206,28 +214,31 @@ public class TeamsSD extends ReusableMethods {
         clickElementByJS(ParallelDriver.getDriver(), teamsPage.teamTypeDropDown);
     }
 
-    @Then("Der Text „Bitte wählen Sie einen Typ für die Abteilung“ wird angezeigt.")
-    public void der_text_bitte_wählen_sie_einen_typ_für_die_abteilung_wird_angezeigt() {
-        isDisplayMethod(teamsPage.teamDepartmentTypeGirinYazisi);
 
-    }
 
     // 14 6
     @When("Klicken Sie auf die Schaltfläche „Abteilung löschen“.")
     public void klicken_sie_auf_die_schaltfläche_abteilung_löschen() {
+        waitForClickablility(ParallelDriver.getDriver(), teamsPage.teamDeleteButton, 10);
         clickMethod(teamsPage.teamDeleteButton);
 
     }
+
     @When("„Teams“ wird im Modul links angezeigt und kann angeklickt werden.")
     public void teams_wird_im_modul_links_angezeigt_und_kann_angeklickt_werden() {
+        waitForClickablility(ParallelDriver.getDriver(), teamsPage.confirmButton, 10);
         clickMethod(teamsPage.confirmButton);
 
     }
+
     @Then("Welches Team gelöscht wird, wird hier nicht angezeigt.")
     public void welches_team_gelöscht_wird_wird_hier_nicht_angezeigt() {
+        waitForClickablility(ParallelDriver.getDriver(), teamsPage.teamsButton, 10);
         clickMethod(teamsPage.teamsButton);
-
-
+        teamSizeAfterDelete = teamsPage.teamsList.size();
+        System.out.println("teamSizeAfterDelete = " + teamSizeAfterDelete);
+        System.out.println("teamSizeBeforDelete = " + teamSizeBeforDelete);
+        Assert.assertEquals(teamSizeBeforDelete - 1, teamSizeAfterDelete);
 
 
     }

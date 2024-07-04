@@ -10,6 +10,8 @@ import utilities.ParallelDriver;
 import java.util.List;
 
 public class TeamsPage {
+    public static int teamSizeBeforDelete = 0;
+    public static int teamSizeAfterDelete = 0;
     public TeamsPage() {
         PageFactory.initElements(ParallelDriver.getDriver(), this);
     }
@@ -20,8 +22,9 @@ public class TeamsPage {
     @FindBy(xpath = "//h3[.='Teams']")
     public WebElement teamsHomepage;
 
-    @FindBy(xpath = "//p[@class='card-text']//a")
+    @FindBy(xpath = "//p[@class='card-text']//a//b")
     public List<WebElement> teamsList;
+
 
     @FindBy(xpath = "//a[@href=\"#/department/new/team\"]//button")
     public WebElement addNewTeamButton;

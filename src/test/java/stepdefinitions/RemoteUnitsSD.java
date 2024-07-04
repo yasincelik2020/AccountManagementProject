@@ -152,13 +152,13 @@ public class RemoteUnitsSD extends ReusableMethods {
     @And("Der Benutzer klickt auf die registrierte Remote Units")
     public void derBenutzerKlicktAufDieRegistrierteRemoteUnits() {
         clickMethod(remoteUnitsPage.remoteUnitsList.getFirst());
-
     }
 
     @And("Der Benutzer sieht die Schaltfläche Edit Remote Unit")
     public void derBenutzerSiehtDieSchaltflaecheEditRemoteUnit() {
         waitForVisibility(ParallelDriver.getDriver(),remoteUnitsPage.buttonEditRemoteUnits,5);
         isDisplayMethod(remoteUnitsPage.buttonEditRemoteUnits);
+
     }
 
     @And("Der Benutzer klickt die Schaltfläche Edit Remote Unit")
@@ -171,9 +171,12 @@ public class RemoteUnitsSD extends ReusableMethods {
     
     @And("Der Benutzer kann das Textfeld Name andern")
     public void derBenutzerKannDasTextfeldNameAndern() {
+        refresch(ParallelDriver.getDriver());
+        refresch(ParallelDriver.getDriver());
+        refresch(ParallelDriver.getDriver());
+        refresch(ParallelDriver.getDriver());
         sendKeysMethod(remoteUnitsPage.name,name);
-
-           }
+    }
 
     @And("Der Benutzer kann das Textfeld Short Name andern")
     public void derBenutzerKannDasTextfeldShortNameAndern() {
