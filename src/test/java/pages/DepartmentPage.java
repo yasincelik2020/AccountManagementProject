@@ -36,6 +36,15 @@ public class DepartmentPage extends ReusableMethods {
     public WebElement nachSearchErkan;
     @FindBy(xpath = "//*[text()=\"Talat\"]")
     public WebElement nachSearchTalat;
+    @FindBy(xpath = "//*[text()=\"\"]")
+    public WebElement nachSearchOhneName;
+    @FindBy(xpath = "//*[text()=\"Adana\"]")
+    public WebElement nachSearchAdana;
+    @FindBy(xpath = "//*[text()=\"Ankara\"]")
+    public WebElement nachSearchAnkara;
+    @FindBy(xpath = "//*[text()=\"Antalya\"]")
+    public WebElement nachSearchAntalya;
+
 
 
     @FindBy(xpath = "//p[@class='card-text']//a")  // department modülünde kayitli departmentlerin listesini dönderir,
@@ -58,7 +67,7 @@ public class DepartmentPage extends ReusableMethods {
     public WebElement departmentDescription;
 
     @FindBy(xpath = "//button[text()='Save']")
-    public WebElement addDepartmentSaveButton;
+    public WebElement SaveButton;
     @FindBy(xpath = "//button[text()='Cancel']")
     public WebElement addDepartmentCancelButton;
     @FindBy(xpath = "//span[text()='Please enter a name for department']")
@@ -69,13 +78,13 @@ public class DepartmentPage extends ReusableMethods {
     //@FindBy(xpath = "(//button[@type='button'])[3]")
     @FindBy(xpath = "//div[@class='col']/a/button")
     public WebElement editDepartmentButton;
-    @FindBy(xpath = "//span[.='Ali']")
-    public WebElement textAli;
+
     @FindBy(xpath = "//button[.='Delete Department']")
     public WebElement deleteDepartmentButton;
-
+    @FindBy(xpath = " (//div[@class=' css-1wy0on6']/div)[1]")
+    public WebElement deleteDepartmentType;
     @FindBy(xpath = "//button[.='Confirm']")
-    public WebElement deleteDepartmentBestatig;
+    public WebElement ConfirmButton;
 
 
     public void selectedDepartment(WebElement element) {
@@ -93,13 +102,33 @@ public class DepartmentPage extends ReusableMethods {
             waitForVisibility(ParallelDriver.getDriver(), deleteDepartmentButton, 5);
         }
         clickMethod(deleteDepartmentButton);
-        clickMethod(deleteDepartmentBestatig);
+        clickMethod(ConfirmButton);
     }
 
     public void searchMethod(String str) {
         clickMethod(departmentsSekmesi);
         clickMethod(search);
         sendKeysMethod(search, str);
+    }
+    public void addNewDepartment(String name, String shortName) {
+        JavascriptUtils.clickElementByJS(ParallelDriver.getDriver(), departmentsSekmesi);
+        JavascriptUtils.clickElementByJS(ParallelDriver.getDriver(), addNewDepartment);
+        sendKeysMethod(departmentName,name);
+        sendKeysMethod(departmentName,shortName);
+        selectedDepartment(departmentTypeDropdown);
+        selectedDepartment(departmentRolesDropDown);
+        JavascriptUtils.clickElementByJS(ParallelDriver.getDriver(),SaveButton );
+    }
+    public void clearUserNameField(WebElement element,String str) {
+      Actions actions = new Actions(ParallelDriver.getDriver());
+        actions
+                .click(element)
+                .perform();
+        int sayi =str.length();
+        for (int i = 0; i <= sayi; i++) {
+            actions.sendKeys(element, Keys.BACK_SPACE)
+                    .perform();
+        }
     }
 
 }
