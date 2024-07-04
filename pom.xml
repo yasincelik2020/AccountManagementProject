@@ -88,7 +88,7 @@
                                     <outputDirectory>${project.build.directory}</outputDirectory>
                                     <inputDirectory>${project.build.directory}</inputDirectory>
                                     <jsonFiles>
-                                        <param>**/json-reports/*.json</param>
+                                        <param>**/cucumber*.json</param>
                                     </jsonFiles><classificationFiles>->
                                     <param>sample.properties</param>
                                     <param>other.properties</param>
@@ -174,7 +174,7 @@
                                     <outputDirectory>${project.build.directory}</outputDirectory>
                                     <inputDirectory>${project.build.directory}</inputDirectory>
                                     <jsonFiles>
-                                        <param>**/json-reports/*.json</param>
+                                        <param>**/cucumber*.json</param>
                                     </jsonFiles><classificationFiles>->
                                     <param>sample.properties</param>
                                     <param>other.properties</param>
