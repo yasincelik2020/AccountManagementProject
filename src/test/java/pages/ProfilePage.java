@@ -77,6 +77,7 @@ public class ProfilePage extends ReusableMethods {
 
 
     public void emptyTheField(){
+        waitFor(1);
         actions.keyDown(Keys.CONTROL)
                 .sendKeys("a")
                 .keyUp(Keys.CONTROL)
