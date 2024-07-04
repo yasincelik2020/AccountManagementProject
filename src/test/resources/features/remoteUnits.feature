@@ -121,6 +121,7 @@ Feature: login
     And Der Benutzer klickt auf die Schaltfläche Add New Remote Units an.
     And Der Benutzer füllt das Textfeld Name aus.
     And Der Benutzer füllt ohne das Textfeld Deparment Type aus.
+    ## **************************** ohne
     And Der Benutzer klickt auf die Schaltfläche Save.
     And Der Benutzer sieht den Warntext.
 
@@ -130,18 +131,28 @@ Feature: login
     And Es wird bestätigt, dass der Reiter Remote Units angeklickt wurde
     And Der Benutzer klickt auf die Schaltfläche Add New Remote Units an.
     And Der Benutzer füllt ohne das Textfeld Name aus.
+    ## *************************************** ohne name
     And Der Benutzer füllt das Textfeld Deparment Type aus.
     And Der Benutzer klickt auf die Schaltfläche Save.
     And Der Benutzer sieht den WarntextName.
+
   @US_11
-  Scenario: TC_11_12 Ein zuvor hinzugefügtes Remote Unit(mit denselben Informationen) kann nicht auf der Seite New Remote Unit hinzugefügt werden.
+  Scenario Outline: TC_11_12 Ein zuvor hinzugefügtes Remote Unit(mit denselben Informationen) kann nicht auf der Seite New Remote Unit hinzugefügt werden.
     And Klick auf die Schaltflueche acilirOk
     And Es wird bestätigt, dass der Reiter Remote Units angeklickt wurde
     And Der Benutzer klickt auf die Schaltfläche Add New Remote Units an.
-    And Der Benutzer füllt das Textfeld "Roles" aus.
-      ## ************** BURAYI DÜZENLE *************
+    And Der Benutzer füllt das Textfeld "<Name>" aus.
+    And Der Benutzer füllt das Textfeld "<Short Name>" aus
+    And Der Benutzer füllt das Textfeld Deparment Type aus.
+    And das Textfeld "<Description>" wir von der Benutzer ausgefühlt
+    And Der Benutzer füllt das Textfeld Roles aus.
     And Der Benutzer klickt auf die Schaltfläche Save.
     And  Der Benutzer zeigt Popup-Bildschirm wird den Text successfully an.
+
+    Examples:
+      |Name|Short Name|Description|
+      |Ali |Can       |Fleissig |
+      |Ali |Can       |Fleissig |
 
   @US_12
   Scenario: TC_12_01 Der Benutzer sollte gespeicherte Remote Units sehen können.
@@ -177,6 +188,7 @@ Feature: login
     And  Der Benutzer klickt auf die registrierte Remote Units
     And  Der Benutzer klickt die Schaltfläche Edit Remote Unit
     And  Der Benutzer kann das Textfeld Name andern
+    And Der Benutzer klickt auf die Schaltfläche Save an
 
   @US_12
   Scenario: TC_12_06 Aenderungen sollten am Feld "Short Name" auf der Seite "Edit Remote Unit" vorgenommen werden.
@@ -185,6 +197,7 @@ Feature: login
     And  Der Benutzer klickt auf die registrierte Remote Units
     And  Der Benutzer klickt die Schaltfläche Edit Remote Unit
     And  Der Benutzer kann das Textfeld Short Name andern
+    And Der Benutzer klickt auf die Schaltfläche Save an
 
   @US_12
   Scenario: TC_12_07 Aenderungen sollten am Feld "Department Type" auf der Seite "Edit Remote Unit" vorgenommen werden.
@@ -193,6 +206,7 @@ Feature: login
     And  Der Benutzer klickt auf die registrierte Remote Units
     And  Der Benutzer klickt die Schaltfläche Edit Remote Unit
     And  Der Benutzer kann das Textfeld Department Type andern
+    And Der Benutzer klickt auf die Schaltfläche Save an
 
   @US_12
   Scenario: TC_12_08 Aenderungen sollten am Feld "Description" auf der Seite "Edit Remote Unit" vorgenommen werden.
@@ -201,6 +215,7 @@ Feature: login
     And  Der Benutzer klickt auf die registrierte Remote Units
     And  Der Benutzer klickt die Schaltfläche Edit Remote Unit
     And  Der Benutzer kann das Textfeld Description andern
+    And Der Benutzer klickt auf die Schaltfläche Save an
 
   @US_12
   Scenario: TC_12_09 Aenderungen sollten am Feld "Roles" auf der Seite "Edit Remote Unit" vorgenommen werden.
@@ -222,9 +237,10 @@ Feature: login
     And  Der Benutzer kann das Textfeld Department Type andern
     And  Der Benutzer kann das Textfeld Description andern
     And  Der Benutzer kann das Textfeld Roles andern
+    And Der Benutzer klickt auf die Schaltfläche Save an
 
   @US_12
-  Scenario: TC_12_11 Auf der Seite Edit Remote Unit wird überprüft, ob die vorgenommenen Änderungen übernommen wurden.
+  Scenario: TC_12_11 Auf der Seite Edit Remote Unit wird überprüft, ob die vorgenommenen Aenderungen übernommen wurden
     And Klick auf die Schaltflueche acilirOk
     And Es wird bestätigt, dass der Reiter Remote Units angeklickt wurde
     And  Der Benutzer klickt auf die registrierte Remote Units
@@ -234,6 +250,7 @@ Feature: login
     And  Der Benutzer kann das Textfeld Department Type andern
     And  Der Benutzer kann das Textfeld Description andern
     And  Der Benutzer kann das Textfeld Roles andern
+    And Der Benutzer klickt auf die Schaltfläche Save an
     And  Der Benutzer zeigt Popup-Bildschirm wird der Text successfully an.
 
   @US_12
@@ -253,7 +270,7 @@ Feature: login
     And Der Benutzer klickt die Schaltfläche Edit, um neue Änderungen vorzunehmen, ohne die Seite zu verlassen.
 
   @US_12
-  Scenario: TC_12_14 Auf der Seite Edit Remote Unit wird ein Warntext angezeigt, wenn das Formular gespeichert wird, ohne das Feld "Department Type" auszufüllen.
+  Scenario: TC_12_14 Auf der Seite Edit Remote Unit wird ein Warntext angezeigt, wenn das Formular gespeichert wird, ohne das Feld "Department Type" auszufüllen
     And Klick auf die Schaltflueche acilirOk
     And Es wird bestätigt, dass der Reiter Remote Units angeklickt wurde
     And  Der Benutzer klickt auf die registrierte Remote Units
@@ -264,6 +281,7 @@ Feature: login
     And  Der Benutzer kann das Textfeld Description andern
     And  Der Benutzer kann das Textfeld Roles andern
     And Der Benutzer klickt auf die Schaltfläche Save.
+
 
   @US_12
   Scenario: TC_12_15 Auf der Seite Edit Remote Unit wird ein Warntext angezeigt, wenn das Formular gespeichert wird, ohne das Feld "Name" auszufüllen.
@@ -279,18 +297,6 @@ Feature: login
     And Der Benutzer klickt auf die Schaltfläche Save.
 
   @US_12
-  Scenario: TC_12_16 Wenn ein im Departments modul gespeichertes Department erneut bearbeitet wird, wurde festgestellt, dass der Benutzer das Bild des Departments nicht ändern oder hinzufügen und die Bearbeitung nicht vornehmen konnte.
-    And Klick auf die Schaltflueche acilirOk
-    And Es wird bestätigt, dass der Reiter Remote Units angeklickt wurde
-    And  Der Benutzer klickt auf die registrierte Remote Units
-    And  Der Benutzer klickt die Schaltfläche Edit Remote Unit
-    And Der Benutzer klickt auf die Schaltfläche Change Image
-    And Es wird ein Foto aus dem Browser oder vom Computer ausgewählt und auf die Schaltfläche Öffnen geklickt.
-    And Das Foto wird ausgewaehlt und auf die Schaltfläche Crop geklickt.
-    And Der Benutzer klickt auf die Schaltfläche Save.
-    And Der Benutzer sieht den Warntext.
-
-  @US_12
   Scenario: TC_12_17 Ein auf der Seite des Remote Units registriertes Remote Unit wird gelöscht.
     And Klick auf die Schaltflueche acilirOk
     And Es wird bestätigt, dass der Reiter Remote Units angeklickt wurde
@@ -298,32 +304,23 @@ Feature: login
     And  Der Benutzer klickt die Schaltfläche Edit Remote Unit
     And Der Benutzer klickt die Schaltfläche Delete Department.
 
-  @US_12
+  @US_120
   Scenario: TC_12_18 Es scheint, dass ein auf der Seite des Remote Units gespeichertes Remote Unit gelöscht wurde.
     And Klick auf die Schaltflueche acilirOk
     And Es wird bestätigt, dass der Reiter Remote Units angeklickt wurde
     And  Der Benutzer klickt auf die registrierte Remote Units
     And  Der Benutzer klickt die Schaltfläche Edit Remote Unit
     And Der Benutzer klickt die Schaltfläche Delete Department.
-    And Der Benutzer zeigt Popup-Bildschirm wird den Text successfully an.
+    And Der Benutzer löscht die ausgewählte Remote Unit
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  ### //button[.='Confirm']
+  ### Examples:
+  #      |Name|Short Name|Description|
+  #      |Ali |Can |Fleissig |
+  #      |    |Can |Fleissig |
+  #      |Ali |    |Fleissig |
+  #      |Ali |Can |         |
 
 
 
