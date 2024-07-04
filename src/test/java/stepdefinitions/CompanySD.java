@@ -147,6 +147,7 @@ public class CompanySD extends ReusableMethods {
     public void umDenWährungsstatusZuÄndernWählenSieDenStatusAusDemDropdownMenüAus() {
         clickMethod(companyPage.currency);
         companyPage.emptyTheField();
+
     }
 
     @Then("Es ist ersichtlich, dass sich der Name mit den von uns eingegebenen Testdaten für den Währungsstatus  {string} ändert.")
