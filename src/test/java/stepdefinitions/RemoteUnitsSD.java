@@ -119,8 +119,9 @@ public class RemoteUnitsSD extends ReusableMethods {
 
     @And("Der Benutzer füllt ohne das Textfeld Deparment Type aus.")
     public void derBenutzerFulltOhneDasTextfeldDeparmentTypeAus() {
-        waitForVisibility(ParallelDriver.getDriver(),remoteUnitsPage.departmentType,5);
+
         remoteUnitsPage.nonSelectedDepartmentType(remoteUnitsPage.departmentType);
+        waitForVisibility(ParallelDriver.getDriver(),remoteUnitsPage.departmentType,5);
     }
     @And("Der Benutzer sieht den Warntext.")
     public void derBenutzerSiehtDenWarntext() {
@@ -185,26 +186,27 @@ public class RemoteUnitsSD extends ReusableMethods {
 
     @And("Der Benutzer kann das Textfeld Department Type andern")
     public void derBenutzerKannDasTextfeldDepartmentTypeAndern() {
-       // remoteUnitsPage.nonSelectedDepartmentType(remoteUnitsPage.departmentType);   //****************************************************************
-        clickElementByJS(ParallelDriver.getDriver(), teamsPage.teamTypeDropDown);
-        waitForVisibility(ParallelDriver.getDriver(),remoteUnitsPage.buttonEditRemoteUnits,5);
+        remoteUnitsPage.nonSelectedDepartmentType(remoteUnitsPage.departmentType);   //****************************************************************
+       // clickElementByJS(ParallelDriver.getDriver(), teamsPage.teamTypeDropDown);
     }
 
     @And("Der Benutzer kann das Textfeld Description andern")
     public void derBenutzerKannDasTextfeldDescriptionAndern() {
         waitForVisibility(ParallelDriver.getDriver(),remoteUnitsPage.description,5);
         sendKeysMethod(remoteUnitsPage.description,text);
-
+        
     }
 
     @And("Der Benutzer kann das Textfeld Roles andern")
     public void derBenutzerKannDasTextfeldRolesAndern() {
         waitForPageToLoad(5);
-      Actions action = new Actions(ParallelDriver.getDriver());
-      clickMethod(remoteUnitsPage.rolesEdit);
-      action.keyDown(Keys.DOWN)
-              .click()
-              .perform();
+        remoteUnitsPage.andernMethod(remoteUnitsPage.roles,remoteUnitsPage.description);
+//      Actions action = new Actions(ParallelDriver.getDriver());
+//      clickMethod(remoteUnitsPage.rolesEdit);
+//      action.keyDown(Keys.DOWN)
+//              .click()
+//              .click(remoteUnitsPage.roles)
+//              .perform();
 
     }
 
