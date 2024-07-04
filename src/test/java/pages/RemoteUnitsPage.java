@@ -16,9 +16,12 @@ import java.util.NoSuchElementException;
 import static utilities.ReusableMethods.JavascriptUtils.refresch;
 
 public class RemoteUnitsPage extends ReusableMethods {
-    public  RemoteUnitsPage(){
+    public static int remoteSizeBeforeDelete =0;
+    public static int remoteSizeAfterDelete =0;
+    public RemoteUnitsPage() {
         PageFactory.initElements(ParallelDriver.getDriver(), this);
     }
+
     @FindBy(xpath = "//div[@class='btnCollapse']")
     public WebElement acilirOk;
     @FindBy(xpath = "//*[@id=\"link6\"]/a")
@@ -52,12 +55,12 @@ public class RemoteUnitsPage extends ReusableMethods {
     @FindBy(xpath = "//button[.='Changes successfully saved']")
     public WebElement changeSuccess;
     @FindBy(xpath = "//span[.='Please enter a name for department']")
-    public WebElement nameUyariYazisi;
+    public WebElement nameWarnText;
     @FindBy(xpath = "//span[.='Please select a type for department']")
-    public WebElement departmentUyariYazisi;
+    public WebElement departmentWarnText;
     @FindBy(xpath = "//div[@class='col-md-2']")
     public WebElement resimNewRemoteUnits;
-    @FindBy(xpath = "//a[@href='#/department/edit/135']//button")
+    @FindBy(xpath = "(//button[@type='button'])[3]")
     public WebElement buttonEditRemoteUnits;
     @FindBy(xpath = "//span[@class='float-end']")
     public WebElement buttonEdit;
@@ -69,39 +72,60 @@ public class RemoteUnitsPage extends ReusableMethods {
     public WebElement statusFilter;
     @FindBy(xpath = "(//button[@type='button'])[4]")
     public WebElement clearFilter;
-    @FindBy(xpath = "(//button[@type='button'])[5]")
+    @FindBy(xpath = "//button[.='Delete Department']")
     public WebElement buttonDelete;
+    @FindBy(xpath = "//button[.='Confirm']")
+    public WebElement buttonConfirm;
     @FindBy(xpath = "//input[@type='file']")
     public WebElement buttonEditChangeIMG;
+    @FindBy(xpath = "//button[.='Crop']")
+    public WebElement buttonCrop;
+    @FindBy(xpath = "(//button[.='Save'])[1]")
+    public WebElement buttonSaveChangeIMG;
+    @FindBy(xpath = "(//button[.='Save'])[2]")
+    public WebElement buttonSaveChange;
 
-    public  void listeMethod(List<String> list){
+    public void listeMethod(List<String> list) {
         List<String> registrierteRemoteNameList = new ArrayList<>();
 
-     for (int i = 0; i < remoteUnitsList.size(); i++) {
-        clickMethod(remoteUnitsList.get(i));
+        for (int i = 0; i < remoteUnitsList.size(); i++) {
+            clickMethod(remoteUnitsList.get(i));
 
-        try {
-            if (remoteUnitsElement.isDisplayed()) {
-                registrierteRemoteNameList.add(remoteUnitsElement.getText());
-                System.out.println("Text = " + remoteUnitsElement.getText());
+            try {
+                if (remoteUnitsElement.isDisplayed()) {
+                    registrierteRemoteNameList.add(remoteUnitsElement.getText());
+                    System.out.println("Text = " + remoteUnitsElement.getText());
+                }
+            } catch (NoSuchElementException e) {
+                System.out.println(e);
             }
-        }catch (NoSuchElementException e) {
-            System.out.println(e);
+
+            refresch(ParallelDriver.getDriver());
+            clickMethod(remoteUnitsSekmesi);
+            refresch(ParallelDriver.getDriver());
+
+
         }
-
-        refresch(ParallelDriver.getDriver());
-       clickMethod(remoteUnitsSekmesi);
-         refresch(ParallelDriver.getDriver());
-
-
-    }
         System.out.println("List.size() = " + registrierteRemoteNameList.size());
-        Assert.assertTrue(registrierteRemoteNameList.size()>0);
-}
-    public void nonSelectedDepartmentType(WebElement element) {
+        Assert.assertTrue(registrierteRemoteNameList.size() > 0);
+    }
+
+    public void nonSelected(WebElement element) {
+        Actions actions = new Actions(ParallelDriver.getDriver());
+        actions.click(element)
+                .sendKeys(Keys.TAB)
+                .perform();
+    }  public void nonSelectedDepartmentType(WebElement element) {
         Actions actions = new Actions(ParallelDriver.getDriver());
         actions.sendKeys(element, Keys.TAB)
                 .sendKeys(Keys.TAB)
+                .perform();
+    }
+
+    public void deleteMethod(WebElement element1,WebElement element2) {
+        Actions actions = new Actions(ParallelDriver.getDriver());
+        actions.click(element1)
+                .click(element2)
                 .perform();
     }
 }
