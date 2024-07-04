@@ -4,11 +4,14 @@ package Hooks;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
+import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import pages.Homepage;
 import utilities.ParallelDriver;
+import utilities.ReusableMethods;
 
 import java.io.IOException;
 
@@ -27,11 +30,19 @@ public class Hooks {
         System.out.println("senaryodan sonra test ortami temizleniyor");
         Homepage homepage = new Homepage();
 
-       waitForVisibility(ParallelDriver.getDriver(),homepage.logoutDropDownMenu,10);
-            Actions actions = new Actions(ParallelDriver.getDriver());
-            actions.click(homepage.logoutDropDownMenu)
-                    .click(homepage.logoutButton)
-                    .perform();
+        WebElement logoutDropDown =ParallelDriver.getDriver().findElement(By.xpath("(//span[@class='fw-bold'])[1]"));
+        WebElement logout =ParallelDriver.getDriver().findElement(By.xpath("//a[.='Logout']"));
+
+        waitForVisibility(ParallelDriver.getDriver(),logoutDropDown,10);
+        ReusableMethods.JavascriptUtils.clickElementByJS(ParallelDriver.getDriver(),logoutDropDown);
+        ReusableMethods.JavascriptUtils.clickElementByJS(ParallelDriver.getDriver(),logout);
+
+
+//       waitForVisibility(ParallelDriver.getDriver(),homepage.logoutDropDownMenu,10);
+//            Actions actions = new Actions(ParallelDriver.getDriver());
+//            actions.click(homepage.logoutDropDownMenu)
+//                    .click(homepage.logoutButton)
+//                    .perform();
 
 
         if(scenario.isFailed()){
