@@ -59,7 +59,7 @@ public class DepartmentPage extends ReusableMethods {
     public WebElement departmentName;
     @FindBy(xpath = "//input[@name='short_name']")
     public WebElement departmentShortName;
-    @FindBy(xpath = "//div[@class=' css-hlgwow']//div[@id='react-select-2-placeholder']")
+    @FindBy(xpath = "(//div[@class=' css-hlgwow']//div)[1]")
     public WebElement departmentTypeDropdown;
     @FindBy(xpath = "//div[text()='Department Roles']")
     public WebElement departmentRolesDropDown;

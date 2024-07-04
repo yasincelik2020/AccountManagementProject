@@ -99,7 +99,7 @@ Feature: login
     And Klicken Sie auf die Schaltfläche „Team bearbeiten“.
     And „Abteilungsname“ wird gelöscht.
     And Klicken Sie auf die Schaltfläche „Speichern“.
-    Then Der Text „Bitte geben Sie einen Namen für die Abteilung ein“ wird angezeigt.
+    Then Es wird angezeigt, dass keine neue Registrierung für das Abteilungsmodul vorgenommen werden kann. Es wird überprüft, dass „Bitte geben Sie einen Namen für die Abteilung ein“ im Textfeld „Abteilungsname“ steht.
 
   Scenario: TC_14_05 Der Benutzer stellt sicher, dass der „Abteilungstyp“, wenn er beim Bearbeiten eines Teams im Teams-Modul gelöscht wird, nicht bearbeitet werden kann.
     Given Die Schaltfläche „Teams“ wird angeklickt.
@@ -107,7 +107,7 @@ Feature: login
     And Klicken Sie auf die Schaltfläche „Team bearbeiten“.
     And „Abteilungstyp“ wird gelöscht.
     And Klicken Sie auf die Schaltfläche „Speichern“.
-    Then Der Text „Bitte wählen Sie einen Typ für die Abteilung“ wird angezeigt.
+    Then Es wird angezeigt, dass keine neue Registrierung für das Abteilungsmodul vorgenommen werden kann. Es wird überprüft, dass unter dem Textfeld „Abteilungsname“ „Bitte wählen Sie einen Typ für die Abteilung“ steht.
 
   Scenario: TC_14_06 Überprüft, ob Benutzerteams gelöscht werden können.
     Given Die Schaltfläche „Teams“ wird angeklickt.
