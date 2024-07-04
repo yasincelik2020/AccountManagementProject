@@ -85,8 +85,15 @@ public class UsersModulePage extends ReusableMethods {
     @FindBy(xpath = "//p[.='New role added for this user successfuly']")
     public WebElement verifySave;
 
+    @FindBy(xpath = "(//button[@class='btn btn-transparent p-0'])[1]")
+    public WebElement dreiPunkteRole;
+
+    @FindBy(xpath = "//a[.='Remove Role']")
+    public WebElement removeRole;
+
     @FindBy(xpath = "//button[@aria-label='Close']")
     public WebElement SchliessenInfo;;
+
 
     @FindBy(xpath = "//button[@class='btn btn-ghost-primary rounded-circle']")
     public WebElement bestautigungButton;

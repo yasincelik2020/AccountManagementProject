@@ -11,12 +11,11 @@ import org.junit.runner.RunWith;
                 "html:target/reports/default-cucumber-reports.html",//plugin used to generate reports in html format
         },
         features = "src/test/resources/",
-        glue = {"stepdefinitions","Hooks"},// java code larinin calisacagi package lar.
-        tags = "@Department",
+        glue = {"stepdefinitions", "Hooks"},// java code larinin calisacagi package lar.
+        tags = "@Regression1 or @Smoke1",
         dryRun = false // test calismasi icin false dememiz gerekiyor.
         // True dendigi zaman test calismaz,sadece eksik definitionlar verir.
 
 )
 public class RunnerUsers {}
-
 
