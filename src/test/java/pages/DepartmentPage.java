@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import static utilities.ReusableMethods.JavascriptUtils.clickElementByJS;
 import static utilities.ReusableMethods.JavascriptUtils.refresch;
 import static utilities.ReusableMethods.waitForVisibility;
 
@@ -44,6 +45,8 @@ public class DepartmentPage extends ReusableMethods {
     public WebElement nachSearchAnkara;
     @FindBy(xpath = "//*[text()=\"Antalya\"]")
     public WebElement nachSearchAntalya;
+    @FindBy(xpath = "//*[text()=\"Kaan\"]")
+    public WebElement nachSearchKaan;
 
 
 
@@ -85,6 +88,8 @@ public class DepartmentPage extends ReusableMethods {
     public WebElement deleteDepartmentType;
     @FindBy(xpath = "//button[.='Confirm']")
     public WebElement ConfirmButton;
+    @FindBy(xpath = "//div[@class='btnCollapse']")
+    public WebElement acilirOk;
 
 
     public void selectedDepartment(WebElement element) {
@@ -95,7 +100,9 @@ public class DepartmentPage extends ReusableMethods {
     }
 
     public void deleteMethod(WebElement element) {
-        clickMethod(element);
+        clickElementByJS(ParallelDriver.getDriver(), departmentsSekmesi);
+        clickElementByJS(ParallelDriver.getDriver(), element);
+
         clickMethod(editDepartmentButton);
         while (!deleteDepartmentButton.isDisplayed()) {
             refresch(ParallelDriver.getDriver());
@@ -104,6 +111,27 @@ public class DepartmentPage extends ReusableMethods {
         clickMethod(deleteDepartmentButton);
         clickMethod(ConfirmButton);
     }
+    public int listeMethod(List<WebElement> element) {
+        List<WebElement> registrierteRolleListe = new ArrayList<>();
+
+        ReusableMethods.clickMethod(departmentsSekmesi);
+        int i;
+        for (i = 0; i < departmentList.size(); i++) {
+            clickElementByJS(ParallelDriver.getDriver(),departmentList.get(i));
+            if (!registrierteRolle.isDisplayed()) {
+                continue;
+            }
+            registrierteRolleListe.add(departmentList.get(i));
+            if (!departmentsSekmesi.isDisplayed()) {
+                refresch(ParallelDriver.getDriver());
+                clickMethod(acilirOk);
+            }
+            clickElementByJS(ParallelDriver.getDriver(), departmentsSekmesi);
+
+        }
+        return registrierteRolleListe.size();
+
+    }
 
     public void searchMethod(String str) {
         clickMethod(departmentsSekmesi);
@@ -111,13 +139,15 @@ public class DepartmentPage extends ReusableMethods {
         sendKeysMethod(search, str);
     }
     public void addNewDepartment(String name, String shortName) {
-        JavascriptUtils.clickElementByJS(ParallelDriver.getDriver(), departmentsSekmesi);
-        JavascriptUtils.clickElementByJS(ParallelDriver.getDriver(), addNewDepartment);
+        clickElementByJS(ParallelDriver.getDriver(), departmentsSekmesi);
+        clickElementByJS(ParallelDriver.getDriver(), addNewDepartment);
         sendKeysMethod(departmentName,name);
-        sendKeysMethod(departmentName,shortName);
+        sendKeysMethod(departmentShortName,shortName);
         selectedDepartment(departmentTypeDropdown);
         selectedDepartment(departmentRolesDropDown);
-        JavascriptUtils.clickElementByJS(ParallelDriver.getDriver(),SaveButton );
+        clickElementByJS(ParallelDriver.getDriver(),SaveButton );
+        refresch(ParallelDriver.getDriver());
+        clickMethod(departmentsSekmesi);
     }
     public void clearUserNameField(WebElement element,String str) {
       Actions actions = new Actions(ParallelDriver.getDriver());

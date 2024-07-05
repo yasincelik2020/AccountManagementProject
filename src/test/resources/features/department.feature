@@ -158,12 +158,12 @@ Feature: login
   @US_9
   Scenario: TC_09_09 Der Bearbeitungsvorgang kann auch dann durchgeführt werden, wenn das Department Roles nicht ausgefüllt ist.
     Then Der Benutzer klickt auf den Reiter Departments.
-    And Der Benutzer klickt auf die gespeicherte Department, die bearbeitet werden soll.
+    And Der Benutzer klickt auf die gespeicherte Department, _die bearbeitet _werden soll.
     And Der Benutzer klickt auf die Schaltfläche Edit Department.
     And Der Benutzer füllt_das Textfeld Department Name_mit den gewünschten Informationen aus_
-    And Der Benutzer füllt das Textfeld Short Name mit den gewünschten Informationen aus.
+    And Der Benutzer füllt das Textfeld _Short Name mit den gewünschten Informationen aus.
     And Der Benutzer wählt als Department Type die Option Department_
-    And Der Benutzer lässt eine Auswahl für Department Roles leer.
+    And Der Benutzer trifft eine Auswahl für Department Roles_
     And Der Benutzer klickt auf die Schaltfläche Save.
     And Es wird bestätigt, _dass die Edit Bearbeitung erfolgreich durchgeführt_wurde.
 

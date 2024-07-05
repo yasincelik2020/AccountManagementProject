@@ -70,7 +70,33 @@
             <id>RunnerUsers</id>
             <build>
 
+
                 <plugins>
+                    <plugin>
+                        <groupId>net.masterthought</groupId>
+                        <artifactId>maven-cucumber-reporting</artifactId>
+                        <version>5.7.7</version>
+                        <executions>
+                            <execution>
+                                <id>execution</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+                                <configuration>
+                                    <projectName>cucumber-jvm-example</projectName>
+                                    <outputDirectory>${project.build.directory}</outputDirectory>
+                                    <inputDirectory>${project.build.directory}</inputDirectory>
+                                    <jsonFiles>
+                                        <param>**/cucumber*.json</param>
+                                    </jsonFiles><classificationFiles>->
+                                    <param>sample.properties</param>
+                                    <param>other.properties</param>
+                                </classificationFiles>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
 
                     <!--Bu aşağıdaki plug in parallel test için gerekli olan plugin dir
                     Bu aşağıdaki fail safe'dir. Testin güvenli bir şekilde fail olmasına yardımcı olur-->
@@ -94,12 +120,25 @@
                             <useFile>false</useFile>
                             <includes>
                                 <include>runners.Runner</include> <!-- Burada çalışacak Runner class belirtilir -->
+                                <include>runners.RunnerProfile</include> <!-- Burada çalışacak Runner class belirtilir -->
                             </includes>
                             <testFailureIgnore>true</testFailureIgnore>
                         </configuration>
                     </plugin>
 
-
+                    <!--Failsafe plugin-->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>3.2.2</version>
+                        <configuration>
+                            <testFailureIgnore>true</testFailureIgnore>
+                            <skipTests>false</skipTests>
+                            <includes>
+                                <include>**/runners/*Runner*.java</include>
+                            </includes>
+                        </configuration>
+                    </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-compiler-plugin</artifactId>
@@ -119,6 +158,31 @@
             <build>
 
                 <plugins>
+                    <plugin>
+                        <groupId>net.masterthought</groupId>
+                        <artifactId>maven-cucumber-reporting</artifactId>
+                        <version>5.7.7</version>
+                        <executions>
+                            <execution>
+                                <id>execution</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+                                <configuration>
+                                    <projectName>cucumber-jvm-example</projectName>
+                                    <outputDirectory>${project.build.directory}</outputDirectory>
+                                    <inputDirectory>${project.build.directory}</inputDirectory>
+                                    <jsonFiles>
+                                        <param>**/cucumber*.json</param>
+                                    </jsonFiles><classificationFiles>->
+                                    <param>sample.properties</param>
+                                    <param>other.properties</param>
+                                </classificationFiles>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
 
                     <!--Bu aşağıdaki plug in parallel test için gerekli olan plugin dir
                     Bu aşağıdaki fail safe'dir. Testin güvenli bir şekilde fail olmasına yardımcı olur-->
@@ -148,7 +212,19 @@
                         </configuration>
                     </plugin>
 
-
+                    <!--Failsafe plugin-->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>3.2.2</version>
+                        <configuration>
+                            <testFailureIgnore>true</testFailureIgnore>
+                            <skipTests>false</skipTests>
+                            <includes>
+                                <include>**/runners/*Runner*.java</include>
+                            </includes>
+                        </configuration>
+                    </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-compiler-plugin</artifactId>
