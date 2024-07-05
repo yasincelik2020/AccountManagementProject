@@ -25,6 +25,7 @@ public class UsersSD extends ReusableMethods {
     public void der_benutzer_klickt_auf_der_startseite_auf_den_button() {
         waitForVisibility(ParallelDriver.getDriver(), usersModulePage.users, 5);
         clickMethod(usersModulePage.users);
+
     }
 
     @When("Der Benutzer klickt auf der Users Seite auf den +Add New Member Button.")
@@ -76,6 +77,7 @@ public class UsersSD extends ReusableMethods {
         userNameLength = usersModulePage.userNameMember.getText().length();
         userEmailMemberText = usersModulePage.userEmailMember.getText();
         clickMethod(usersModulePage.userNameMember);
+        System.out.println();
     }
 
     @And("Klicken Sie auf die Schaltfläche Bearbeiten")
