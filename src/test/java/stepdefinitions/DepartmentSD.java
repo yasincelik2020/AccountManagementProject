@@ -69,11 +69,14 @@ public class DepartmentSD extends ReusableMethods {
     @And("Es wird bestätigt, dass im Modul Departments die gespeicherten Abteilungen angezeigt werden.")
     public void esWirdBestatigtDassImModulDepartmentsDieGespeichertenAbteilungenAngezeigtWerden() {
         clickMethod(departmentPage.departmentsSekmesi);
-        Assert.assertTrue(departmentPage.departmentList.size() > 0);
+        int departmentListSize = departmentPage.departmentList.size();
+        Assert.assertTrue(departmentListSize > 0);
     }
 
     @And("Es wird bestätigt, dass im geöffneten Fenster die berechtigten Rollen aufgelistet sind.")
     public void esWirdBestatigtDassImGeoffnetenFensterDieBerechtigtenRollenAufgelistetSind() {
+        int departmentListSize = departmentPage.departmentList.size();
+        Assert.assertTrue(departmentListSize>1);
     }
 
     //==========================8==========================
@@ -169,7 +172,7 @@ public class DepartmentSD extends ReusableMethods {
     }
 
     @And("Es wird bestätigt, dass die neue Department dem Departmentsmodul hinzugefügt wurde-")
-    public void esWirdBestatigt_DassDieNeueDepartmentDemDepartmentsmodulHinzugefugtWurde() {
+    public void esWirdBestatigt_DassDieNeueDepartmentDemDepartmentsmodulHinzugefugtWurde() throws InterruptedException {
         departmentPage.searchMethod("Ahmet");
         waitForVisibility(ParallelDriver.getDriver(), departmentPage.nachSearchAhmet, 10);
         isDisplayMethod(departmentPage.nachSearchAhmet);
@@ -220,22 +223,24 @@ public class DepartmentSD extends ReusableMethods {
     //===========9/1===============
     @And("Der Benutzer klickt auf die gespeicherte Department, die bearbeitet werden soll.")
     public void derBenutzerKlicktAufDieGespeicherteDepartmentDieBearbeitetWerdenSoll() {
+        waitForClickablility(ParallelDriver.getDriver(), departmentPage.nachSearchAli, 10);
         clickMethod(departmentPage.nachSearchAli);
     }
 
     @And("Es wird bestätigt, dass die registrierten Departments erfolgreich angeklickt wurden.")
     public void esWirdBestatigtDassDieRegistriertenDepartmentsErfolgreichAngeklicktWurden() {
-        waitForVisibility(ParallelDriver.getDriver(), departmentPage.nachSearchAli, 10);
+        waitForVisibility(ParallelDriver.getDriver(), departmentPage.editDepartmentButton, 10);
         isDisplayMethod(departmentPage.editDepartmentButton);
+        refresch(ParallelDriver.getDriver());
     }
 
     @And("Der Benutzer klickt auf die Schaltfläche Edit Department.")
     public void derBenutzerKlicktAufDieSchaltflacheEditDepartment() {
-        clickMethod(departmentPage.editDepartmentButton);
+        waitForClickablility(ParallelDriver.getDriver(), departmentPage.editDepartmentButton, 10);
+        clickElementByJS(ParallelDriver.getDriver(), departmentPage.editDepartmentButton);
+        //departmentPage.editRefreschMethode();
         refresch(ParallelDriver.getDriver());
         refresch(ParallelDriver.getDriver());
-        refresch(ParallelDriver.getDriver());
-
     }
 
     @And("Es wird bestätigt, dass die Schaltfläche Edit Department erfolgreich angeklickt wurde.")
@@ -250,14 +255,13 @@ public class DepartmentSD extends ReusableMethods {
         String departmentShortName = "Tal";
         waitForVisibility(ParallelDriver.getDriver(), departmentPage.departmentShortName, 10);
         departmentPage.clearUserNameField(departmentPage.departmentShortName, "Ali");
-       // departmentPage.departmentShortName.sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.BACK_SPACE);
         sendKeysMethod(departmentPage.departmentShortName, departmentShortName);
     }
 
     @And("Der Benutzer füllt das Textfeld Department Name mit den gewünschten Informationen aus.")
     public void derBenutzerFulltDasTextfeldDepartmentNameMitDenGewunschtenInformationenAus() throws InterruptedException {
         String departmentName = "Talat";
-        waitForVisibility(ParallelDriver.getDriver(), departmentPage.departmentName, 10);
+        waitForClickablility(ParallelDriver.getDriver(), departmentPage.departmentName, 10);
         departmentPage.clearUserNameField(departmentPage.departmentName, "Ali");
         sendKeysMethod(departmentPage.departmentName, departmentName);
     }
