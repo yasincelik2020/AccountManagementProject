@@ -9,7 +9,7 @@ Feature: login
     And Der Benutzer bestaetigt, dass er auf HomePageSD ist
 
 
-  @Smoke1
+  @Smoke
   Scenario: TC_15_01, TC_15_02 und TC_17_01 Neues Mitglied hinzufügen, überprüfen und loschen
     Given Der Benutzer klickt auf der Startseite auf den Users Button.
     When Der Benutzer klickt auf der Users Seite auf den +Add New Member Button.
@@ -24,7 +24,7 @@ Feature: login
     And Klicken Sie auf dem sich öffnenden Bildschirm auf „Aus Organisation entfernen“.
     And Es wird bestätigt, dass das neue POP-UP, das geöffnet wird, „Selected user removed“ enthält.
 
-  @Regression1
+  @Regression
   Scenario: TC_16_03 Der im Benutzermodul registrierte Benutzername darf nicht leer sein.
 
     Given Der Benutzer klickt auf der Startseite auf den Users Button.
@@ -33,7 +33,7 @@ Feature: login
     And Auf der Seite, die geöffnet wird, wird der Benutzername im Feld Benutzername gelöscht.
     And Stellen Sie sicher, dass die Meldung „Username cannot be empty“ angezeigt wird
 
-  @Regression1
+  @Regression
   Scenario: TC_16_04, TC_16_05, TC_16_06 Das registrierte Benutzerpasswort im Benutzermodul kann zurückgesetzt werden und abmelden dann wieder anmelden.
 
     Given Der Benutzer klickt auf der Startseite auf den Users Button.
@@ -49,7 +49,7 @@ Feature: login
     And Klick auf die Schaltflueche Login
     And Der Benutzer bestaetigt, dass er auf HomePageSD ist
 
-  @Regression1
+  @Regression
   Scenario: TC_16_07 Dem Benutzer können weitere Rollen hinzugefügt werden und loschen
 
     Given Der Benutzer klickt auf der Startseite auf den Users Button.
@@ -64,7 +64,7 @@ Feature: login
     And Klicken Sie auf dem sich öffnenden POP-UP-Bildschirm auf Confirm
     And Schliesssen Sie Information
 
-  @Smoke1
+  @Regression
   Scenario: TC_16_08 Der Benutzername muss mit Buchstaben beginnen (A-Za-z)
 
     Given Der Benutzer klickt auf der Startseite auf den Users Button.
