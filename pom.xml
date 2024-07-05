@@ -85,59 +85,6 @@
 
 
                 <plugins>
-                    <plugin>
-                        <groupId>net.masterthought</groupId>
-                        <artifactId>maven-cucumber-reporting</artifactId>
-                        <version>5.7.7</version>
-                        <executions>
-                            <execution>
-                                <id>execution</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>generate</goal>
-                                </goals>
-                                <configuration>
-                                    <projectName>cucumber-jvm-example</projectName>
-                                    <outputDirectory>${project.build.directory}</outputDirectory>
-                                    <inputDirectory>${project.build.directory}</inputDirectory>
-                                    <jsonFiles>
-                                        <param>**/cucumber*.json</param>
-                                    </jsonFiles><classificationFiles>->
-                                    <param>sample.properties</param>
-                                    <param>other.properties</param>
-                                </classificationFiles>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-
-                    <!--Bu aşağıdaki plug in parallel test için gerekli olan plugin dir
-                    Bu aşağıdaki fail safe'dir. Testin güvenli bir şekilde fail olmasına yardımcı olur-->
-
-
-                    <!--Bu aşağıdaki plug in parallel test için gerekli olan plugin dir -->
-                    <!-- Maven-Surefire eklentisi testleri paralel olarak çalıştırmak için kullanılır,
-                    paralel çalıştırma ayarları yapılır. -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>3.2.5</version>
-                        <configuration>
-                            <parallel>methods</parallel>
-                            <threadCount>10</threadCount>  <!-- Burada kaç tane thread çalıştırılacak belirtilir -->
-                            <reuseForks>false</reuseForks>
-                            <argLine>-Duser.language=en</argLine>
-                            <argLine>-Xmx1024m</argLine>
-                            <argLine>-XX:MaxPermSize=256m</argLine>
-                            <argLine>-Dfile.encoding=UTF-8</argLine>
-                            <useFile>false</useFile>
-                            <includes>
-                                <include>runners.Runner</include> <!-- Burada çalışacak Runner class belirtilir -->
-                                <include>runners.RunnerProfile</include> <!-- Burada çalışacak Runner class belirtilir -->
-                            </includes>
-                            <testFailureIgnore>true</testFailureIgnore>
-                        </configuration>
-                    </plugin>
 
                     <!--Failsafe plugin-->
                     <plugin>
@@ -171,31 +118,8 @@
             <build>
 
                 <plugins>
-                    <plugin>
-                        <groupId>net.masterthought</groupId>
-                        <artifactId>maven-cucumber-reporting</artifactId>
-                        <version>5.7.7</version>
-                        <executions>
-                            <execution>
-                                <id>execution</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>generate</goal>
-                                </goals>
-                                <configuration>
-                                    <projectName>cucumber-jvm-example</projectName>
-                                    <outputDirectory>${project.build.directory}</outputDirectory>
-                                    <inputDirectory>${project.build.directory}</inputDirectory>
-                                    <jsonFiles>
-                                        <param>**/cucumber*.json</param>
-                                    </jsonFiles><classificationFiles>->
-                                    <param>sample.properties</param>
-                                    <param>other.properties</param>
-                                </classificationFiles>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
+
+
 
                     <!--Bu aşağıdaki plug in parallel test için gerekli olan plugin dir
                     Bu aşağıdaki fail safe'dir. Testin güvenli bir şekilde fail olmasına yardımcı olur-->
@@ -219,7 +143,7 @@
                             <argLine>-Dfile.encoding=UTF-8</argLine>
                             <useFile>false</useFile>
                             <includes>
-                                <include>runners.RunnerSmoke.java</include> <!-- Burada çalışacak Runner class belirtilir -->
+                                <include>runners.RunnerSmoke</include> <!-- Burada çalışacak Runner class belirtilir -->
                             </includes>
                             <testFailureIgnore>true</testFailureIgnore>
                         </configuration>
