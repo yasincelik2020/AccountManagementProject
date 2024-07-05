@@ -100,7 +100,7 @@
                             <argLine>-Dfile.encoding=UTF-8</argLine>
                             <useFile>false</useFile>
                             <includes>
-                                <include>runners.RunnerSmoke</include> <!-- Burada çalışacak Runner class belirtilir -->
+                                <include>runners.Runner</include> <!-- Burada çalışacak Runner class belirtilir -->
                             </includes>
                             <testFailureIgnore>true</testFailureIgnore>
                         </configuration>
@@ -115,7 +115,7 @@
                             <testFailureIgnore>true</testFailureIgnore>
                             <skipTests>false</skipTests>
                             <includes>
-                                <include>**/runners.RunnerSmoke</include>
+                                <include>**/runners.Runner</include>
                             </includes>
                         </configuration>
                     </plugin>
