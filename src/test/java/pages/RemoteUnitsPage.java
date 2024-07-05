@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import static utilities.ReusableMethods.JavascriptUtils.clickElementByJS;
 import static utilities.ReusableMethods.JavascriptUtils.refresch;
 
 public class RemoteUnitsPage extends ReusableMethods {
@@ -40,6 +41,8 @@ public class RemoteUnitsPage extends ReusableMethods {
     public WebElement addRemoteUnitsIMG;
     @FindBy(xpath = "//input[@name='name']")
     public WebElement name;
+    @FindBy(xpath = "(//*[text()='Kadir'])[1]")
+    public WebElement nameKadir;
     @FindBy(xpath = "//input[@name='short_name']")
     public WebElement shortName;
     @FindBy(xpath = "(//div[.='Department Type'])[1]")
@@ -85,29 +88,20 @@ public class RemoteUnitsPage extends ReusableMethods {
     @FindBy(xpath = "(//button[.='Save'])[2]")
     public WebElement buttonSaveChange;
 
-    public void listeMethod(List<String> list) {
-        List<String> registrierteRemoteNameList = new ArrayList<>();
-
+    public int listeMethod() {
+        ReusableMethods.clickMethod(remoteUnitsSekmesi);
+        int count =0;
         for (int i = 0; i < remoteUnitsList.size(); i++) {
-            clickMethod(remoteUnitsList.get(i));
-
-            try {
-                if (remoteUnitsElement.isDisplayed()) {
-                    registrierteRemoteNameList.add(remoteUnitsElement.getText());
-                    System.out.println("Text = " + remoteUnitsElement.getText());
-                }
-            } catch (NoSuchElementException e) {
-                System.out.println(e);
+            clickElementByJS(ParallelDriver.getDriver(),remoteUnitsList.get(i));
+            count++;
+            while (!remoteUnitsSekmesi.isDisplayed()) {
+                refresch(ParallelDriver.getDriver());
+                waitForVisibility(ParallelDriver.getDriver(), remoteUnitsSekmesi, 5);
             }
 
-            refresch(ParallelDriver.getDriver());
             clickMethod(remoteUnitsSekmesi);
-            refresch(ParallelDriver.getDriver());
 
-
-        }
-        System.out.println("List.size() = " + registrierteRemoteNameList.size());
-        Assert.assertTrue(registrierteRemoteNameList.size() > 0);
+        }return count;
     }
 
     public void nonSelected(WebElement element) {
@@ -120,6 +114,11 @@ public class RemoteUnitsPage extends ReusableMethods {
         actions.sendKeys(element)
                 .click(description)
                 .sendKeys(Keys.TAB)
+                .perform();
+    }public void andernDepartmentType(WebElement element) {
+        Actions actions = new Actions(ParallelDriver.getDriver());
+        actions.click(element)
+                .sendKeys(Keys.DOWN,Keys.ENTER)
                 .perform();
     }
 
@@ -137,5 +136,15 @@ public class RemoteUnitsPage extends ReusableMethods {
                 .click()
                 .click(element2)
                 .perform();
+    }
+    public void clearUserNameField(WebElement element,int str) {
+        Actions actions = new Actions(ParallelDriver.getDriver());
+        actions
+                .click(element)
+                .perform();
+        for (int i = 0; i <= str; i++) {
+            actions.sendKeys(element, Keys.BACK_SPACE)
+                    .perform();
+        }
     }
 }

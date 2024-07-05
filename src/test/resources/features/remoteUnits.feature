@@ -121,7 +121,6 @@ Feature: login
     And Der Benutzer klickt auf die Schaltfläche Add New Remote Units an.
     And Der Benutzer füllt das Textfeld Name aus.
     And Der Benutzer füllt ohne das Textfeld Deparment Type aus.
-    ## **************************** ohne
     And Der Benutzer klickt auf die Schaltfläche Save.
     And Der Benutzer sieht den Warntext.
 
@@ -131,7 +130,6 @@ Feature: login
     And Es wird bestätigt, dass der Reiter Remote Units angeklickt wurde
     And Der Benutzer klickt auf die Schaltfläche Add New Remote Units an.
     And Der Benutzer füllt ohne das Textfeld Name aus.
-    ## *************************************** ohne name
     And Der Benutzer füllt das Textfeld Deparment Type aus.
     And Der Benutzer klickt auf die Schaltfläche Save.
     And Der Benutzer sieht den WarntextName.
