@@ -162,8 +162,8 @@ public class RemoteUnitsSD extends ReusableMethods {
 
     @And("Der Benutzer klickt auf die registrierte Remote Units")
     public void derBenutzerKlicktAufDieRegistrierteRemoteUnits() {
-        clickMethod(remoteUnitsPage.remoteUnitsList.getFirst());
-        nameLength = remoteUnitsPage.remoteUnitsList.getFirst().getText().length();
+        clickMethod(remoteUnitsPage.remoteUnitsList.get(0));
+        nameLength = remoteUnitsPage.remoteUnitsList.get(0).getText().length();
     }
 
     @And("Der Benutzer sieht die Schaltfläche Edit Remote Unit")
