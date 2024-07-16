@@ -13,7 +13,7 @@ public class Gm3BaseUrl {
     public static void setSpec(){
 
         spec = new RequestSpecBuilder()
-                .setBaseUri("https://qa-gm3.quaspareparts.com/a3m/auth/api")
+                .setBaseUri("https://qa-gm3.quaspareparts.com/a3m/auth/api/")
                 .addHeader("Cookie","GSESSIONID="+getSessionId())
                 .build();
     }
