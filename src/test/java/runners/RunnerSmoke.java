@@ -9,16 +9,15 @@ import org.junit.runner.RunWith;
         plugin = {//report plugins
                 "pretty",//prints colored logs to the console
                 "html:target/reports/html_reports/cucumber.html", //html formatinda rapor almak icin kullanilan plugin
-                "json:target/reports/json-reports/cucumber1.json", //json formatinda rapor almak icin kullanilan plugin
-                "junit:target/reports/xml-reports/cucumber1.xml",  //xml formatinda rapor almak icin kullanilan plugin
-                "rerun:target/reports/failed-reports/failed1.txt",//plugin used to generate reports in html format
+                "json:target/reports/json-reports/cucumber1.json", //json formatinda rapor almak icin kullanilan plugin json:target/cucumber.json
+
         },
         features = "src/test/resources/",
-        glue = {"stepdefinitions", "Hooks"},// java code larinin calisacagi package lar.
-        tags = "@Regression1 or @Smoke1",
+        glue = {"stepdefinitions","Hooks"},// java code larinin calisacagi package lar.
+        tags = "@Smoke",
         dryRun = false // test calismasi icin false dememiz gerekiyor.
         // True dendigi zaman test calismaz,sadece eksik definitionlar verir.
 
 )
-public class RunnerUsers {}
+public class RunnerSmoke {}
 

@@ -1,4 +1,4 @@
-@Company @US06 @SmokeTest
+@Company @US06 @Smoke
 Feature: Profile
   Background: login
     Given Der Benutzer geht zur URL

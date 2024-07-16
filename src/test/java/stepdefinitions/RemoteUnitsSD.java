@@ -4,7 +4,9 @@ import com.github.javafaker.Faker;
 import io.cucumber.java.en.*;
 import io.restassured.internal.common.assertion.Assertion;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.WindowType;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
@@ -34,9 +36,11 @@ public class RemoteUnitsSD extends ReusableMethods {
     String name = Faker.instance().name().firstName()+" "+Faker.instance().name().lastName();
     String text = Faker.instance().lorem().sentence(5);
     DepartmentPage departmentPage = new DepartmentPage();
+    static int nameLength=0;
 
     @When("Klick auf die Schaltflueche acilirOk")
     public void klick_auf_die_schaltflueche_acilir_ok() {
+
         clickMethod(remoteUnitsPage.acilirOk);
     }
     @When("Der Benutzer bestätigt, dass der Reiter Remote Units im geöfnetetn Bildschirm angezeigt wird.")
@@ -62,7 +66,8 @@ public class RemoteUnitsSD extends ReusableMethods {
 
     @And("Es wird bestätigt, dass die gespeicherte Remote Units angeklickt wurde")
     public void esWirdBestaetigtDassDieGespeicherteRemoteUnitsAngeklicktWurde() {
-        remoteUnitsPage.listeMethod(registrierteRemoteNameList);
+        int count=remoteUnitsPage.listeMethod();
+        int listSize =remoteUnitsPage.remoteUnitsList.size();
     }
 
     @And("Es wird bestätigt, dass die gespeicherte Remote Units aufgelistet wurde.")
@@ -104,11 +109,13 @@ public class RemoteUnitsSD extends ReusableMethods {
     }
 
     @And("Der Benutzer füllt das Textfeld Roles aus.")
-    public void derBenutzerFulltDasTextfeldRolesAus() {
+    public void derBenutzerFulltDasTextfeldRolesAus()
+    {
         departmentPage.selectedDepartment(remoteUnitsPage.roles);
     }
     @And("Der Benutzer klickt auf die Schaltfläche Save an")
     public void derBenutzerKlicktAufDieSchaltflaecheSaveAn() {
+
         clickMethod(remoteUnitsPage.buttonSave);
     }
     @And("Der Benutzer zeigt Popup-Bildschirm wird der Text successfully an.")
@@ -121,28 +128,31 @@ public class RemoteUnitsSD extends ReusableMethods {
     public void derBenutzerFulltOhneDasTextfeldDeparmentTypeAus() {
 
         remoteUnitsPage.nonSelectedDepartmentType(remoteUnitsPage.departmentType);
-        waitForVisibility(ParallelDriver.getDriver(),remoteUnitsPage.departmentType,5);
+        waitForVisibility(ParallelDriver.getDriver(),remoteUnitsPage.departmentWarnText,5);
     }
     @And("Der Benutzer sieht den Warntext.")
     public void derBenutzerSiehtDenWarntext() {
         waitForVisibility(ParallelDriver.getDriver(),remoteUnitsPage.departmentWarnText,5);
         isDisplayMethod(remoteUnitsPage.departmentWarnText);
+
     }
 
     @And("Der Benutzer füllt ohne das Textfeld Name aus.")
     public void derBenutzerFulltOhneDasTextfeldNameAus() {
+
         remoteUnitsPage.nonSelected(remoteUnitsPage.name);
     }
 
     @And("Der Benutzer sieht den WarntextName.")
     public void derBenutzerSiehtDenWarntextName() {
+
         isDisplayMethod(remoteUnitsPage.nameWarnText);
     }
 
     @And("Der Benutzer zeigt Popup-Bildschirm wird den Text successfully an.")
     public void derBenutzerZeigtPopupBildschirmWirdDenTextSuccessfullyAn() {
-        clickMethod(remoteUnitsPage.changeSuccess);
-        isDisplayMethod(remoteUnitsPage.changeSuccess);
+        clickMethod(remoteUnitsPage.addSuccess);
+        isDisplayMethod(remoteUnitsPage.addSuccess);
     }
 
     @And("Der Benutzer sieht die registrierten Remote Units")
@@ -153,6 +163,7 @@ public class RemoteUnitsSD extends ReusableMethods {
     @And("Der Benutzer klickt auf die registrierte Remote Units")
     public void derBenutzerKlicktAufDieRegistrierteRemoteUnits() {
         clickMethod(remoteUnitsPage.remoteUnitsList.get(0));
+        nameLength = remoteUnitsPage.remoteUnitsList.get(0).getText().length();
     }
 
     @And("Der Benutzer sieht die Schaltfläche Edit Remote Unit")
@@ -172,41 +183,45 @@ public class RemoteUnitsSD extends ReusableMethods {
     
     @And("Der Benutzer kann das Textfeld Name andern")
     public void derBenutzerKannDasTextfeldNameAndern() {
-        refresch(ParallelDriver.getDriver());
-        refresch(ParallelDriver.getDriver());
-        refresch(ParallelDriver.getDriver());
-        refresch(ParallelDriver.getDriver());
-        sendKeysMethod(remoteUnitsPage.name,name);
+
+        waitForVisibility(ParallelDriver.getDriver(),remoteUnitsPage.name,10);
+        remoteUnitsPage.clearUserNameField(remoteUnitsPage.name,nameLength);
+        sendKeysMethod(remoteUnitsPage.name,"Ali");
+        waitForPageToLoad(10);
     }
 
     @And("Der Benutzer kann das Textfeld Short Name andern")
     public void derBenutzerKannDasTextfeldShortNameAndern() {
-        sendKeysMethod(remoteUnitsPage.shortName,text);
+        waitForVisibility(ParallelDriver.getDriver(),remoteUnitsPage.shortName,10);
+        remoteUnitsPage.clearUserNameField(remoteUnitsPage.shortName,nameLength);
+        sendKeysMethod(remoteUnitsPage.shortName,"Ali");
+
     }
 
     @And("Der Benutzer kann das Textfeld Department Type andern")
     public void derBenutzerKannDasTextfeldDepartmentTypeAndern() {
-        remoteUnitsPage.nonSelectedDepartmentType(remoteUnitsPage.departmentType);   //****************************************************************
-       // clickElementByJS(ParallelDriver.getDriver(), teamsPage.teamTypeDropDown);
+        remoteUnitsPage.andernDepartmentType(remoteUnitsPage.departmentType);
+        waitForPageToLoad(10);
     }
 
     @And("Der Benutzer kann das Textfeld Description andern")
     public void derBenutzerKannDasTextfeldDescriptionAndern() {
-        waitForVisibility(ParallelDriver.getDriver(),remoteUnitsPage.description,5);
-        sendKeysMethod(remoteUnitsPage.description,text);
-        
+        waitForVisibility(ParallelDriver.getDriver(),remoteUnitsPage.description,10);
+        remoteUnitsPage.clearUserNameField(remoteUnitsPage.description,nameLength);
+        sendKeysMethod(remoteUnitsPage.description,"Ali");
+        Assert.assertTrue(remoteUnitsPage.changeSuccess.isDisplayed());
     }
 
     @And("Der Benutzer kann das Textfeld Roles andern")
     public void derBenutzerKannDasTextfeldRolesAndern() {
         waitForPageToLoad(5);
         remoteUnitsPage.andernMethod(remoteUnitsPage.roles,remoteUnitsPage.description);
-//      Actions action = new Actions(ParallelDriver.getDriver());
-//      clickMethod(remoteUnitsPage.rolesEdit);
-//      action.keyDown(Keys.DOWN)
-//              .click()
-//              .click(remoteUnitsPage.roles)
-//              .perform();
+      Actions action = new Actions(ParallelDriver.getDriver());
+      clickMethod(remoteUnitsPage.rolesEdit);
+      action.keyDown(Keys.DOWN)
+              .click()
+              .click(remoteUnitsPage.roles)
+              .perform();
 
     }
 

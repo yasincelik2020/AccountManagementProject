@@ -114,8 +114,6 @@ public class ReusableMethods {
     }
 
     public void sendKeysMethod(WebElement element, String text) {
-        WebDriverWait wait = new WebDriverWait(ParallelDriver.getDriver(), Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOf(element));
         element.sendKeys(text);
     }
 

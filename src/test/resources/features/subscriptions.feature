@@ -1,4 +1,4 @@
-@Subscriptions @US05 @RegressionTest
+@Subscriptions @US05 @Regression
 Feature: Profile
   Background: login
     Given Der Benutzer geht zur URL
