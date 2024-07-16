@@ -1,21 +1,15 @@
-package stepdefinitions;
+package stepdefinitions.UI;
 
 import com.github.javafaker.Faker;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WindowType;
-import org.openqa.selenium.interactions.Actions;
-import pages.LoginPage;
 import pages.TeamsPage;
-import utilities.ParallelDriver;
+import utilities.Driver;
 import utilities.ReusableMethods;
 
 import static pages.TeamsPage.*;
-
-import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 import static utilities.ReusableMethods.JavascriptUtils.clickElementByJS;
@@ -34,7 +28,7 @@ public class TeamsSD extends ReusableMethods {
 
     @When("Die Schaltfläche „Teams“ wird angeklickt.")
     public void die_schaltflaeche_teams_wird_angeklickt() {
-        waitForVisibility(ParallelDriver.getDriver(), teamsPage.teamsButton, 5);
+        waitForVisibility(Driver.getDriver(), teamsPage.teamsButton, 5);
         clickMethod(teamsPage.teamsButton);
         teamSizeBeforDelete = teamsPage.teamsList.size();
 
@@ -108,7 +102,7 @@ public class TeamsSD extends ReusableMethods {
 
     @When("Das Feld „Abteilungstyp“ bleibt leer.")
     public void das_feld_abteilungstyp_bleibt_leer() {
-        clickElementByJS(ParallelDriver.getDriver(), teamsPage.teamTypeDropDown);
+        clickElementByJS(Driver.getDriver(), teamsPage.teamTypeDropDown);
     }
 
     @Then("Es wird angezeigt, dass keine neue Registrierung für das Abteilungsmodul vorgenommen werden kann. Es wird überprüft, dass unter dem Textfeld „Abteilungsname“ „Bitte wählen Sie einen Typ für die Abteilung“ steht.")
@@ -142,34 +136,34 @@ public class TeamsSD extends ReusableMethods {
     // 13 7
     @When("„Abteilungsrollen“ ist nicht ausgewählt.")
     public void abteilungsrollen_ist_nicht_ausgewählt() {
-        clickElementByJS(ParallelDriver.getDriver(), teamsPage.teamRolesDropDown);
+        clickElementByJS(Driver.getDriver(), teamsPage.teamRolesDropDown);
 
     }
 
     // 14 1
     @When("Klicken Sie auf eines der angezeigten Teams.")
     public void klicken_sie_auf_eines_der_angezeigten_teams() {
-        waitForClickablility(ParallelDriver.getDriver(), teamsPage.teamsList.get(0), 10);
+        waitForClickablility(Driver.getDriver(), teamsPage.teamsList.get(0), 10);
         clickMethod(teamsPage.teamsList.get(0));
 
     }
 
     @When("Klicken Sie auf die Schaltfläche „Team bearbeiten“.")
     public void klicken_sie_auf_die_schaltfläche_team_bearbeiten() throws InterruptedException {
-         waitForClickablility(ParallelDriver.getDriver(), teamsPage.teamEditButton, 10);
-        // Actions action = new Actions(ParallelDriver.getDriver());
+         waitForClickablility(Driver.getDriver(), teamsPage.teamEditButton, 10);
+        // Actions action = new Actions(Driver.getDriver());
         // action.contextClick(teamsPage.teamEditButton).sendKeys(Keys.ENTER).sendKeys(Keys.ENTER).build().perform();
         clickMethod(teamsPage.teamEditButton);
-       // ParallelDriver.getDriver().switchTo().newWindow(WindowType.TAB).get("https://qa-gm3.quaspareparts.com/a3m/?errorMessage=%5Bauthorization_request_not_found%5D%20#/department/edit/391");
-         refresch(ParallelDriver.getDriver());
-        // waitForClickablility(ParallelDriver.getDriver(), teamsPage.teamEditButton, 5);
-         refresch(ParallelDriver.getDriver());
+       // Driver.getDriver().switchTo().newWindow(WindowType.TAB).get("https://qa-gm3.quaspareparts.com/a3m/?errorMessage=%5Bauthorization_request_not_found%5D%20#/department/edit/391");
+         refresch(Driver.getDriver());
+        // waitForClickablility(Driver.getDriver(), teamsPage.teamEditButton, 5);
+         refresch(Driver.getDriver());
 
     }
 
     @When("„Abteilungsname“ wird neu angeordnet.")
     public void abteilungsname_wird_neu_angeordnet() {
-        waitForVisibility(ParallelDriver.getDriver(), teamsPage.teamName, 5);
+        waitForVisibility(Driver.getDriver(), teamsPage.teamName, 5);
         sendKeysMethod(teamsPage.teamName, "A");
 
     }
@@ -184,7 +178,7 @@ public class TeamsSD extends ReusableMethods {
     // 14 2
     @When("„Kurzname“ wird neu angeordnet.")
     public void kurzname_wird_neu_angeordnet() {
-        waitForVisibility(ParallelDriver.getDriver(), teamsPage.teamShortName, 5);
+        waitForVisibility(Driver.getDriver(), teamsPage.teamShortName, 5);
         sendKeysMethod(teamsPage.teamShortName, name.substring(0, name.indexOf(" ")));
 
     }
@@ -192,7 +186,7 @@ public class TeamsSD extends ReusableMethods {
     // 14 3
     @When("„Abteilungstyp“ wird neu angeordnet.")
     public void abteilungstyp_wird_neu_angeordnet() {
-        waitForVisibility(ParallelDriver.getDriver(), teamsPage.teamTypeDropDown, 5);
+        waitForVisibility(Driver.getDriver(), teamsPage.teamTypeDropDown, 5);
         teamsPage.selectedTeam(teamsPage.teamTypeDropDown);
 
     }
@@ -200,7 +194,7 @@ public class TeamsSD extends ReusableMethods {
     // 14 4
     @When("„Abteilungsname“ wird gelöscht.")
     public void abteilungsname_wird_gelöscht() {
-        waitForVisibility(ParallelDriver.getDriver(), teamsPage.teamName, 5);
+        waitForVisibility(Driver.getDriver(), teamsPage.teamName, 5);
         sendKeysMethod(teamsPage.teamName, "");
         String text = teamsPage.teamName.getText();
         System.out.println(text);
@@ -211,7 +205,7 @@ public class TeamsSD extends ReusableMethods {
     // 14 5
     @When("„Abteilungstyp“ wird gelöscht.")
     public void abteilungstyp_wird_gelöscht() {
-        clickElementByJS(ParallelDriver.getDriver(), teamsPage.teamTypeDropDown);
+        clickElementByJS(Driver.getDriver(), teamsPage.teamTypeDropDown);
     }
 
 
@@ -219,21 +213,21 @@ public class TeamsSD extends ReusableMethods {
     // 14 6
     @When("Klicken Sie auf die Schaltfläche „Abteilung löschen“.")
     public void klicken_sie_auf_die_schaltfläche_abteilung_löschen() {
-        waitForClickablility(ParallelDriver.getDriver(), teamsPage.teamDeleteButton, 10);
+        waitForClickablility(Driver.getDriver(), teamsPage.teamDeleteButton, 10);
         clickMethod(teamsPage.teamDeleteButton);
 
     }
 
     @When("„Teams“ wird im Modul links angezeigt und kann angeklickt werden.")
     public void teams_wird_im_modul_links_angezeigt_und_kann_angeklickt_werden() {
-        waitForClickablility(ParallelDriver.getDriver(), teamsPage.confirmButton, 10);
+        waitForClickablility(Driver.getDriver(), teamsPage.confirmButton, 10);
         clickMethod(teamsPage.confirmButton);
 
     }
 
     @Then("Welches Team gelöscht wird, wird hier nicht angezeigt.")
     public void welches_team_gelöscht_wird_wird_hier_nicht_angezeigt() {
-        waitForClickablility(ParallelDriver.getDriver(), teamsPage.teamsButton, 10);
+        waitForClickablility(Driver.getDriver(), teamsPage.teamsButton, 10);
         clickMethod(teamsPage.teamsButton);
         teamSizeAfterDelete = teamsPage.teamsList.size();
         System.out.println("teamSizeAfterDelete = " + teamSizeAfterDelete);
