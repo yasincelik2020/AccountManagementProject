@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import utilities.ParallelDriver;
+import utilities.Driver;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ public class TeamsPage {
     public static int teamSizeBeforDelete = 0;
     public static int teamSizeAfterDelete = 0;
     public TeamsPage() {
-        PageFactory.initElements(ParallelDriver.getDriver(), this);
+        PageFactory.initElements(Driver.getDriver(), this);
     }
 
     @FindBy(xpath = "//*[@id=\"link7\"]/a")
@@ -54,7 +54,7 @@ public class TeamsPage {
     public WebElement teamAddCancelButton;
 
     public void selectedTeam(WebElement element) {
-        Actions actions = new Actions(ParallelDriver.getDriver());
+        Actions actions = new Actions(Driver.getDriver());
         actions.sendKeys(element, Keys.DOWN)
                 .sendKeys(Keys.DOWN,Keys.TAB)
                 .click()

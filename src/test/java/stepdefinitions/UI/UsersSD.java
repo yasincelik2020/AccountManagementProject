@@ -1,4 +1,4 @@
-package stepdefinitions;
+package stepdefinitions.UI;
 
 import com.github.javafaker.Faker;
 import io.cucumber.java.en.And;
@@ -7,7 +7,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import pages.LoginPage;
 import pages.UsersModulePage;
-import utilities.ParallelDriver;
+import utilities.Driver;
 import utilities.ReusableMethods;
 
 import static org.junit.Assert.*;
@@ -23,7 +23,7 @@ public class UsersSD extends ReusableMethods {
 
     @Given("Der Benutzer klickt auf der Startseite auf den Users Button.")
     public void der_benutzer_klickt_auf_der_startseite_auf_den_button() {
-        waitForVisibility(ParallelDriver.getDriver(), usersModulePage.users, 5);
+        waitForVisibility(Driver.getDriver(), usersModulePage.users, 5);
         clickMethod(usersModulePage.users);
 
     }
@@ -56,7 +56,7 @@ public class UsersSD extends ReusableMethods {
 
     @When("Der Benutzer überprüft, ob die Nachricht successful im geöffneten Pop-up-Fenster angezeigt wird.")
     public void der_benutzer_uberpruft_ob_die_nachricht_successful_im_geoffneten_pop_up_fenster_angezeigt_wird() {
-        waitForVisibility(ParallelDriver.getDriver(), usersModulePage.verifySuccess, 5);
+        waitForVisibility(Driver.getDriver(), usersModulePage.verifySuccess, 5);
         assertTrue(getElementText(usersModulePage.verifySuccess).contains("success"));
     }
 
@@ -92,7 +92,7 @@ public class UsersSD extends ReusableMethods {
 
     @And("Stellen Sie sicher, dass die Meldung „Username cannot be empty“ angezeigt wird")
     public void stellenSieSicherDassDieMeldungUsernamecannotbeemptyAngezeigtWird() {
-        waitForVisibility(ParallelDriver.getDriver(), usersModulePage.nichtLeerSein, 5);
+        waitForVisibility(Driver.getDriver(), usersModulePage.nichtLeerSein, 5);
         isDisplayMethod(usersModulePage.nichtLeerSein);
     }
 
@@ -150,7 +150,7 @@ public class UsersSD extends ReusableMethods {
 
     @And("Stellen Sie sicher, dass die neu hinzugefügte Rolle „Vertriebsmanager“ neben der Standardrolle hinzugefügt wurde.")
     public void stellenSieSicherDassDieNeuHinzugefugteRolleVertriebsmanagerNebenDerStandardrolleHinzugefugtWurde() {
-        waitForVisibility(ParallelDriver.getDriver(), usersModulePage.verifySave, 5);
+        waitForVisibility(Driver.getDriver(), usersModulePage.verifySave, 5);
         isDisplayMethod(usersModulePage.verifySave);
     }
 

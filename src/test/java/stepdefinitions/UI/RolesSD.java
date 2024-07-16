@@ -1,13 +1,12 @@
-package stepdefinitions;
+package stepdefinitions.UI;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import pages.RolesPage;
-import utilities.ParallelDriver;
+import utilities.Driver;
 import utilities.ReusableMethods;
 
 import static org.junit.Assert.assertEquals;
@@ -26,21 +25,21 @@ public class RolesSD extends ReusableMethods {
     @When("Die Registerkarte {string} in der linken Spalte der aktuellen Seite wird angeklickt")
     public void dieRegisterkarteInDerLinkenSpalteDerAktuellenSeiteWirdAngeklickt(String arg0) {
 
-        waitForClickablility(ParallelDriver.getDriver(), rolesPage.rolesButton, 10);
+        waitForClickablility(Driver.getDriver(), rolesPage.rolesButton, 10);
         clickMethod(rolesPage.rolesButton);
     }
 
     @And("Auf der Seite, die geöffnet wird, wird der Text {string} angezeigt.")
     public void aufDerSeiteDieGeöffnetWirdWirdDerTextAngezeigt(String arg0) {
 
-        waitForClickablility(ParallelDriver.getDriver(), rolesPage.allRolesText, 10);
+        waitForClickablility(Driver.getDriver(), rolesPage.allRolesText, 10);
         assertEquals("All Roles", getElementText(rolesPage.allRolesText));
     }
 
     @When("Nach einem Klick auf die Registerkarte {string} in der linken Spalte der aktuellen Seite werden sofort vierzehn Rollen angezeigt.")
     public void nachEinemKlickAufDieRegisterkarteInDerLinkenSpalteDerAktuellenSeiteWerdenSofortVierzehnRollenAngezeigt(String arg0) {
 
-        waitForClickablility(ParallelDriver.getDriver(), rolesPage.rolesButton, 10);
+        waitForClickablility(Driver.getDriver(), rolesPage.rolesButton, 10);
         clickMethod(rolesPage.rolesButton);
         System.out.println(rolesPage.allRoles.size());
         assertEquals(14, rolesPage.allRoles.size());
@@ -50,11 +49,11 @@ public class RolesSD extends ReusableMethods {
     @When("Die Rolle {string}  wird ausgewählt.")
     public void dieRolleWirdAusgewählt(String id) {
 
-        WebElement button = ParallelDriver.getDriver().findElement(By.xpath("(//button[@type='button'])[" + id + "]"));
-        waitForClickablility(ParallelDriver.getDriver(), button, 10);
+        WebElement button = Driver.getDriver().findElement(By.xpath("(//button[@type='button'])[" + id + "]"));
+        waitForClickablility(Driver.getDriver(), button, 10);
         System.out.println(button.getText());
         clickMethod(button);
-        refresch(ParallelDriver.getDriver());
+        refresch(Driver.getDriver());
     }
 
 

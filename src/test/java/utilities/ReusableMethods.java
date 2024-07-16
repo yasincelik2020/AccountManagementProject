@@ -1,13 +1,10 @@
 package utilities;
 
 import org.apache.commons.io.FileUtils;
-import org.junit.Assert;
 import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import pages.LoginPage;
 import pages.ProfilePage;
 
 import java.io.File;
@@ -27,7 +24,7 @@ public class ReusableMethods {
         //WebDriverManager.firefoxdriver().setup();
         //driver = new ChromeDriver();
         // TakesScreenshot is an interface of selenium that takes the screenshot
-        TakesScreenshot ts = (TakesScreenshot) ParallelDriver.getDriver();
+        TakesScreenshot ts = (TakesScreenshot) Driver.getDriver();
         File source = ts.getScreenshotAs(OutputType.FILE);
 
         // naming the screenshot with the current date to avoid duplication
@@ -80,7 +77,7 @@ public class ReusableMethods {
         };
         try {
             System.out.println("Waiting for page to load...");
-            WebDriverWait wait = new WebDriverWait(ParallelDriver.getDriver(), Duration.ofSeconds(timeout));
+            WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(timeout));
             wait.until(expectation);
         } catch (Throwable error) {
             System.out.println(
@@ -108,7 +105,7 @@ public class ReusableMethods {
     }
 
     public static void clickMethod(WebElement element) {
-        WebDriverWait wait = new WebDriverWait(ParallelDriver.getDriver(), Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOf(element));
         element.click();
     }
@@ -272,7 +269,7 @@ public class ReusableMethods {
     }
     public static String getElementTextWithJS(WebElement element){
         // JavaScriptExecutor kullanarak elementin metnini alın
-        JavascriptExecutor js = (JavascriptExecutor) ParallelDriver.getDriver();
+        JavascriptExecutor js = (JavascriptExecutor) Driver.getDriver();
         String text = (String) js.executeScript("return arguments[0].innerText;", element);
 
         // Metni yazdırın
@@ -280,7 +277,7 @@ public class ReusableMethods {
         return text;
     }
     public static void clickElementWithJS(WebElement element){
-        JavascriptExecutor js = (JavascriptExecutor) ParallelDriver.getDriver();
+        JavascriptExecutor js = (JavascriptExecutor) Driver.getDriver();
         js.executeScript("arguments[0].click();", element);
     }
 

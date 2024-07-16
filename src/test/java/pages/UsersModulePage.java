@@ -8,18 +8,18 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import utilities.ParallelDriver;
+import utilities.Driver;
 import utilities.ReusableMethods;
-import static stepdefinitions.UsersSD.userNameLength;
+import static stepdefinitions.UI.UsersSD.userNameLength;
 import static utilities.ReusableMethods.JavascriptUtils.isElementPresentByJS;
 
 
 public class UsersModulePage extends ReusableMethods {
     public static String fakerEmailString = Faker.instance().internet().emailAddress();
-    Actions actions = new Actions(ParallelDriver.getDriver());
+    Actions actions = new Actions(Driver.getDriver());
 
     public UsersModulePage() {
-        PageFactory.initElements(ParallelDriver.getDriver(), this);
+        PageFactory.initElements(Driver.getDriver(), this);
     }
 
     @FindBy(xpath = "//*[@id='link8']/a")
@@ -125,12 +125,12 @@ public class UsersModulePage extends ReusableMethods {
     }
 
     public void isNeuUserDisplayed() {
-        userNameMember = ParallelDriver.getDriver().findElement(By.xpath("//span[.='" + fakerEmailString + "']"));
-        Assert.assertTrue(isElementPresentByJS(ParallelDriver.getDriver(), userNameMember));
+        userNameMember = Driver.getDriver().findElement(By.xpath("//span[.='" + fakerEmailString + "']"));
+        Assert.assertTrue(isElementPresentByJS(Driver.getDriver(), userNameMember));
     }
 
     public void firstDepartmentAndRolle(WebElement element) {
-        waitForVisibility(ParallelDriver.getDriver(), element, 5);
+        waitForVisibility(Driver.getDriver(), element, 5);
 
         actions.sendKeys(element, Keys.DOWN)
                 .sendKeys(Keys.ENTER)
@@ -144,7 +144,7 @@ public class UsersModulePage extends ReusableMethods {
     public void logout() {
 
         Homepage homepage = new Homepage();
-        Actions actions = new Actions(ParallelDriver.getDriver());
+        Actions actions = new Actions(Driver.getDriver());
         actions.click(homepage.logoutDropDownMenu)
                 .click(homepage.logoutButton)
                 .perform();

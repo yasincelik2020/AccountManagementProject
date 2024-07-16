@@ -1,9 +1,9 @@
-package stepdefinitions;
+package stepdefinitions.UI;
 
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import pages.PermissionsPage;
-import utilities.ParallelDriver;
+import utilities.Driver;
 import utilities.ReusableMethods;
 
 import static org.junit.Assert.assertEquals;
@@ -28,7 +28,7 @@ public class PermissionsSD extends ReusableMethods {
     @Then("Auf der Seite, die geöffnet wird, wird der Text All Permissions angezeigt.")
     public void aufDerSeiteDieGeöffnetWirdWirdDerTextAllPermissionsAngezeigt() {
 
-        waitForClickablility(ParallelDriver.getDriver(), permissionsPage.PermissionsText, 10);
+        waitForClickablility(Driver.getDriver(), permissionsPage.PermissionsText, 10);
         assertEquals("All Permissions",permissionsPage.AllPermissionsText.getText());
     }
 }
