@@ -8,9 +8,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import pages.Homepage;
-import utilities.ParallelDriver;
+import utilities.Driver;
 import utilities.ReusableMethods;
 
 import java.io.IOException;
@@ -30,16 +29,16 @@ public class Hooks {
         System.out.println("senaryodan sonra test ortami temizleniyor");
         Homepage homepage = new Homepage();
 
-        WebElement logoutDropDown =ParallelDriver.getDriver().findElement(By.xpath("(//span[@class='fw-bold'])[1]"));
-        WebElement logout =ParallelDriver.getDriver().findElement(By.xpath("//a[.='Logout']"));
+        WebElement logoutDropDown = Driver.getDriver().findElement(By.xpath("(//span[@class='fw-bold'])[1]"));
+        WebElement logout = Driver.getDriver().findElement(By.xpath("//a[.='Logout']"));
 
-        waitForVisibility(ParallelDriver.getDriver(),logoutDropDown,10);
-        ReusableMethods.JavascriptUtils.clickElementByJS(ParallelDriver.getDriver(),logoutDropDown);
-        ReusableMethods.JavascriptUtils.clickElementByJS(ParallelDriver.getDriver(),logout);
+        waitForVisibility(Driver.getDriver(),logoutDropDown,10);
+        ReusableMethods.JavascriptUtils.clickElementByJS(Driver.getDriver(),logoutDropDown);
+        ReusableMethods.JavascriptUtils.clickElementByJS(Driver.getDriver(),logout);
 
 
-//       waitForVisibility(ParallelDriver.getDriver(),homepage.logoutDropDownMenu,10);
-//            Actions actions = new Actions(ParallelDriver.getDriver());
+//       waitForVisibility(Driver.getDriver(),homepage.logoutDropDownMenu,10);
+//            Actions actions = new Actions(Driver.getDriver());
 //            actions.click(homepage.logoutDropDownMenu)
 //                    .click(homepage.logoutButton)
 //                    .perform();
@@ -48,7 +47,7 @@ public class Hooks {
         if(scenario.isFailed()){
             System.out.println("scenario failed");
             takeScreenshot(scenario.getName());
-            final byte[] screenshot = ((TakesScreenshot) ParallelDriver.getDriver()).getScreenshotAs(OutputType.BYTES);
+            final byte[] screenshot = ((TakesScreenshot) Driver.getDriver()).getScreenshotAs(OutputType.BYTES);
             scenario.attach(screenshot, "image/png", "FailedScenarioScreenshot");
             System.out.println("Screenshot taken for failed scenario: " + scenario.getName());
         }
@@ -58,6 +57,6 @@ public class Hooks {
         // ilk linke tiklayarak online ortamda raporunuzu goruntuleyebilirsnz
         // attach kismina tiklayarak da ekran goruntusunu gorebilirsnz
 
-       ParallelDriver.closeDriver();
+       Driver.closeDriver();
     }
 }

@@ -1,14 +1,12 @@
-package stepdefinitions;
+package stepdefinitions.UI;
 
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
-import org.openqa.selenium.WebElement;
 import pages.LoginPage;
-import pages.RolesPage;
 import utilities.ConfigReader;
-import utilities.ParallelDriver;
+import utilities.Driver;
 import utilities.ReusableMethods;
 
 import static org.junit.Assert.assertTrue;
@@ -22,7 +20,7 @@ public class LoginSD {
     @Given("Der Benutzer geht zur URL")
     public void der_benutzer_geht_zur_url() {
 
-        ParallelDriver.getDriver().get(ConfigReader.getProperty("url"));
+        Driver.getDriver().get(ConfigReader.getProperty("url"));
     }
 
     @When("Klickt auf die Schaltflueche Login")

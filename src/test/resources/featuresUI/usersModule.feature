@@ -5,7 +5,7 @@ Feature: login
     Given Der Benutzer geht zur URL
     When Klickt auf die Schaltflueche Login
     And Der Benutzer gibt ein gültiges "dsdt3001@gmail.com" ein
-    And Benutzer gibt gültiges "tOGuL29qh-UuNOb" ein
+    And Benutzer gibt gültiges "5AqzHwpwAqo6dYh" ein
     And Klick auf die Schaltflueche Login
     And Der Benutzer bestaetigt, dass er auf HomePageSD ist
 

@@ -1,14 +1,12 @@
-package stepdefinitions;
+package stepdefinitions.UI;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.interactions.Actions;
 import pages.ProfilePage;
 
-import utilities.ParallelDriver;
+import utilities.Driver;
 import utilities.ReusableMethods;
 
 import static org.junit.Assert.assertFalse;
@@ -45,7 +43,7 @@ public class ProfileSD extends ReusableMethods {
 
     @Then("Sie sehen eine Warnmeldung, die besagt, dass das Passwort ungültig ist.")
     public void sieSehenEineWarnmeldungDieBesagtDassDasPasswortUngültigIst() {
-        waitForVisibility(ParallelDriver.getDriver(), profilePage.alertText,10);
+        waitForVisibility(Driver.getDriver(), profilePage.alertText,10);
         assertTrue(profilePage.alertText.getText().contains("Password may contain only"));
 
     }
@@ -57,7 +55,7 @@ public class ProfileSD extends ReusableMethods {
 
     @Then("Sie sehen eine {string}, die besagt, dass das Passwort ungültig ist.")
     public void sieSehenEineDieBesagtDassDasPasswortUngültigIst(String alertMessage) {
-        waitForVisibility(ParallelDriver.getDriver(), profilePage.alertText,10);
+        waitForVisibility(Driver.getDriver(), profilePage.alertText,10);
         assertTrue(profilePage.alertText.getText().contains(alertMessage));
     }
 
@@ -94,7 +92,7 @@ public class ProfileSD extends ReusableMethods {
 
     @Then("Es ist ersichtlich, dass sich der Name mit den von uns eingegebenen Testdaten {string} ändert.")
     public void esIstErsichtlichDassSichDerNameMitDenVonUnsEingegebenenTestdatenÄndert(String testdata) {
-        waitForVisibility(ParallelDriver.getDriver(),profilePage.usernameBoxForText,10);
+        waitForVisibility(Driver.getDriver(),profilePage.usernameBoxForText,10);
         assertTrue(getElementText(profilePage.usernameBoxForText).equalsIgnoreCase(testdata));
         waitFor(1);
     }
@@ -117,7 +115,7 @@ public class ProfileSD extends ReusableMethods {
 
     @Then("Es ist ersichtlich, dass sich der NameFeld mit den von uns eingegebenen Testdaten {string} ändert.")
     public void esIstErsichtlichDassSichDerNameFeldMitDenVonUnsEingegebenenTestdatenÄndert(String testdata) {
-        waitForVisibility(ParallelDriver.getDriver(),profilePage.nameBoxFortext,10);
+        waitForVisibility(Driver.getDriver(),profilePage.nameBoxFortext,10);
         assertTrue(getElementText(profilePage.nameBoxFortext).contains(testdata));
         waitFor(1);
     }
@@ -135,7 +133,7 @@ public class ProfileSD extends ReusableMethods {
 
     @Then("Es ist ersichtlich, dass sich der Nachname mit den von uns eingegebenen Testdaten {string} ändert.")
     public void esIstErsichtlichDassSichDerNachnameMitDenVonUnsEingegebenenTestdatenÄndert(String testdata) {
-        waitForVisibility(ParallelDriver.getDriver(),profilePage.nameBoxFortext,10);
+        waitForVisibility(Driver.getDriver(),profilePage.nameBoxFortext,10);
         assertTrue(getElementText(profilePage.nameBoxFortext).contains(testdata));
         waitFor(1);
     }
@@ -153,7 +151,7 @@ public class ProfileSD extends ReusableMethods {
 
     @Then("Es ist ersichtlich, dass sich die Adresse mit den von uns eingegebenen Testdaten {string} ändert.")
     public void esIstErsichtlichDassSichDieAdresseMitDenVonUnsEingegebenenTestdatenÄndert(String testdata) {
-        waitForVisibility(ParallelDriver.getDriver(),profilePage.addressForText,10);
+        waitForVisibility(Driver.getDriver(),profilePage.addressForText,10);
         assertTrue(getElementText(profilePage.addressForText).contains(testdata));
         waitFor(1);
     }
@@ -171,7 +169,7 @@ public class ProfileSD extends ReusableMethods {
 
     @Then("Es ist ersichtlich, dass sich der Land mit den von uns eingegebenen Testdaten {string} ändert.")
     public void esIstErsichtlichDassSichDerLandMitDenVonUnsEingegebenenTestdatenÄndert(String testdata) {
-        waitForVisibility(ParallelDriver.getDriver(),profilePage.country1,10);
+        waitForVisibility(Driver.getDriver(),profilePage.country1,10);
         assertTrue(getElementText(profilePage.country1).contains(testdata));
         waitFor(1);
     }
@@ -189,7 +187,7 @@ public class ProfileSD extends ReusableMethods {
 
     @Then("Es ist ersichtlich, dass sich die Telefonnummer mit den von uns eingegebenen Testdaten {string} ändert.")
     public void esIstErsichtlichDassSichDieTelefonnummerMitDenVonUnsEingegebenenTestdatenÄndert(String testdata) {
-        waitForVisibility(ParallelDriver.getDriver(),profilePage.phoneForText,10);
+        waitForVisibility(Driver.getDriver(),profilePage.phoneForText,10);
         assertTrue(getElementText(profilePage.phoneForText).contains(testdata));
         waitFor(1);
     }
@@ -197,7 +195,7 @@ public class ProfileSD extends ReusableMethods {
 
     @Then("Sie sehen eine WarnAlertmeldung {string}, die besagt, dass das Passwort erfolgreich geändert.")
     public void sieSehenEineWarnAlertmeldungDieBesagtDassDasPasswortErfolgreichGeändert(String testdata) {
-        waitForVisibility(ParallelDriver.getDriver(),profilePage.changePasswordSuccessfulAlert,10);
+        waitForVisibility(Driver.getDriver(),profilePage.changePasswordSuccessfulAlert,10);
         assertTrue(getElementText(profilePage.changePasswordSuccessfulAlert).contains(testdata));
     }
 }

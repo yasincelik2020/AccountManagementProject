@@ -1,19 +1,18 @@
-package stepdefinitions;
+package stepdefinitions.UI;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.interactions.Actions;
 import pages.CompanyPage;
-import utilities.ParallelDriver;
+import utilities.Driver;
 import utilities.ReusableMethods;
 
 import static org.junit.Assert.assertTrue;
 
 public class CompanySD extends ReusableMethods {
-    Actions actions = new Actions(ParallelDriver.getDriver());
+    Actions actions = new Actions(Driver.getDriver());
     CompanyPage companyPage=new CompanyPage();
     @Given("Klicken Sie in der Seitenleiste auf das Firmenmodul")
     public void klickenSieInDerSeitenleisteAufDasFirmenmodul() {

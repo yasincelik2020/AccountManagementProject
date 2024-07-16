@@ -1,17 +1,14 @@
 package pages;
 
-import org.junit.Assert;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import utilities.ParallelDriver;
+import utilities.Driver;
 import utilities.ReusableMethods;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import static utilities.ReusableMethods.JavascriptUtils.clickElementByJS;
 import static utilities.ReusableMethods.JavascriptUtils.refresch;
@@ -20,7 +17,7 @@ public class RemoteUnitsPage extends ReusableMethods {
     public static int remoteSizeBeforeDelete =0;
     public static int remoteSizeAfterDelete =0;
     public RemoteUnitsPage() {
-        PageFactory.initElements(ParallelDriver.getDriver(), this);
+        PageFactory.initElements(Driver.getDriver(), this);
     }
 
     @FindBy(xpath = "//div[@class='btnCollapse']")
@@ -92,11 +89,11 @@ public class RemoteUnitsPage extends ReusableMethods {
         ReusableMethods.clickMethod(remoteUnitsSekmesi);
         int count =0;
         for (int i = 0; i < remoteUnitsList.size(); i++) {
-            clickElementByJS(ParallelDriver.getDriver(),remoteUnitsList.get(i));
+            clickElementByJS(Driver.getDriver(),remoteUnitsList.get(i));
             count++;
             while (!remoteUnitsSekmesi.isDisplayed()) {
-                refresch(ParallelDriver.getDriver());
-                waitForVisibility(ParallelDriver.getDriver(), remoteUnitsSekmesi, 5);
+                refresch(Driver.getDriver());
+                waitForVisibility(Driver.getDriver(), remoteUnitsSekmesi, 5);
             }
 
             clickMethod(remoteUnitsSekmesi);
@@ -105,32 +102,32 @@ public class RemoteUnitsPage extends ReusableMethods {
     }
 
     public void nonSelected(WebElement element) {
-        Actions actions = new Actions(ParallelDriver.getDriver());
+        Actions actions = new Actions(Driver.getDriver());
         actions.sendKeys(element, Keys.TAB)
                 .sendKeys(Keys.TAB)
                 .perform();
     }  public void nonSelectedDepartmentType(WebElement element) {
-        Actions actions = new Actions(ParallelDriver.getDriver());
+        Actions actions = new Actions(Driver.getDriver());
         actions.sendKeys(element)
                 .click(description)
                 .sendKeys(Keys.TAB)
                 .perform();
     }public void andernDepartmentType(WebElement element) {
-        Actions actions = new Actions(ParallelDriver.getDriver());
+        Actions actions = new Actions(Driver.getDriver());
         actions.click(element)
                 .sendKeys(Keys.DOWN,Keys.ENTER)
                 .perform();
     }
 
     public void deleteMethod(WebElement element1,WebElement element2) {
-        Actions actions = new Actions(ParallelDriver.getDriver());
+        Actions actions = new Actions(Driver.getDriver());
         actions.click(element1)
                 .click(element2)
                 .perform();
     }
     public void andernMethod(WebElement element1,WebElement element2) {
-        waitForClickablility(ParallelDriver.getDriver(),roles,10);
-        Actions action = new Actions(ParallelDriver.getDriver());
+        waitForClickablility(Driver.getDriver(),roles,10);
+        Actions action = new Actions(Driver.getDriver());
         clickMethod(element1);
         action.keyDown(Keys.DOWN)
                 .click()
@@ -138,7 +135,7 @@ public class RemoteUnitsPage extends ReusableMethods {
                 .perform();
     }
     public void clearUserNameField(WebElement element,int str) {
-        Actions actions = new Actions(ParallelDriver.getDriver());
+        Actions actions = new Actions(Driver.getDriver());
         actions
                 .click(element)
                 .perform();

@@ -14,13 +14,12 @@ import java.time.Duration;
 
 import static utilities.ConfigReader.getProperty;
 
-public class ParallelDriver {
+public class Driver {
     //parallel olarak testlerimizi calistrmak istedigimizde bu Driver classi kullanabilriz..
 //Framework de ayrica bir Driver class a da ihtiyac kalmaz, bu driver her test icin calisir..
     private static final ThreadLocal<WebDriver> driverPool = new ThreadLocal<>();
 
-    public ParallelDriver() {
-    }
+    private Driver() {}
 
     private static WebDriver driver;
 
