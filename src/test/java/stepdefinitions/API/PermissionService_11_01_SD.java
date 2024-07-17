@@ -1,5 +1,6 @@
 package stepdefinitions.API;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -21,13 +22,12 @@ public class PermissionService_11_01_SD {
     Response response;
     List<Map<String, Object>> resourceListwithID;
 
-    @Given("set the url for permission")
-    public void setTheUrlForPermission() {
+    @Given("Einstellen url für for permission")
+    public void einstellenUrlFürForPermission() {
         setUp();
         spec.pathParams("first", "permission");
     }
-
-    @When("send get request for permission")
+    @When("Der Benutzer sendet eine Anfrage mit der GET-Methode permission")
     public void sendGetRequestForPermission() {
         response = RestAssured
                 .given(spec)
@@ -38,17 +38,22 @@ public class PermissionService_11_01_SD {
         resourceListwithID = jsonPath.getList("$");
 
     }
-
-    @Then("assert permission")
-    public void assertPermission() {
+    @Then("Der Statuscode {int} wird bestätigt für Permission")
+    public void derStatuscodeWirdBestätigtFürPermission(int arg0) {
         response.then().statusCode(200);
+    }
+
+    @And("Der app_id des dritten Elements von list wird bestätigt.")
+    public void derApp_idDesDrittenElementsVonListWirdBestätigt() {
+        assertEquals(20, resourceListwithID.get(2).get("app_id"));
+    }
+
+    @And("Der Benutzer bestätigt, dass die erwarteten Daten in der Antwort vorhanden sind.")
+    public void derBenutzerBestätigtDassDieErwartetenDatenInDerAntwortVorhandenSind() {
         for (Map<String, Object> resource : resourceListwithID) {
             if (resource.containsValue("set_coding")){
                 assertTrue(resource.containsValue("set_coding"));
             };
         }
-        assertEquals(20, resourceListwithID.get(2).get("app_id"));
     }
-
-
 }

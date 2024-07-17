@@ -1,5 +1,6 @@
 package stepdefinitions.API;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -22,15 +23,14 @@ import static stepdefinitions.API.UserInfo.user_id;
 public class PermissionService_11_02_SD {
     Response response;
     List<Map<String, Object>> resourceListwithappID;
-
-    @Given("set the url for Permission with appID")
-    public void setTheUrlForPermissionWithAppID() {
+    @Given("Einstellen url für Permission mit appID")
+    public void einstellenUrlFürPermissionMitAppID() {
         setUp();
         spec.pathParams("first", "application","second",appID,"third","permission");
     }
 
-    @When("send get request for Permission with appID")
-    public void sendGetRequestForPermissionWithAppID() {
+    @When("Der Benutzer sendet eine Anfrage mit der GET-Methode für Permission mit appID")
+    public void derBenutzerSendetEineAnfrageMitDerGETMethodeFürPermissionMitAppID() {
         response = RestAssured
                 .given(spec)
                 .get("/{first}/{second}/{third}");
@@ -40,11 +40,15 @@ public class PermissionService_11_02_SD {
         resourceListwithappID = jsonPath.getList("$");
     }
 
-    @Then("assert Permission with appID")
-    public void assertPermissionWithAppID() {
+
+    @Then("Der Statuscode {int} wird bestätigt für Permission with appID")
+    public void derStatuscodeWirdBestätigtFürPermissionWithAppID(int arg0) {
         assertEquals(200, response.statusCode());
+    }
+
+    @And("Der app_id des ersten Elements von list wird bestätigt.")
+    public void derApp_idDesErstenElementsVonListWirdBestätigt() {
         int newappID = Integer.parseInt(appID);
         assertEquals(resourceListwithappID.get(0).get("app_id"),newappID);
-
     }
 }
