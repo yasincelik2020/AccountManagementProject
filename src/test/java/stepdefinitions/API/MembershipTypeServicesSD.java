@@ -31,11 +31,7 @@ public class MembershipTypeServicesSD {
 
         response.prettyPrint();
     }
-    List<MembershipTypePojo> list =new ObjectMapper().readValue(response.asString(), new TypeReference<>() {});
-        System.out.println("list = " + list);
 
-    actualData= list.get(0);
-        System.out.println("actualData = " + actualData);
 
     @Then("Benutzer prüft über, ob der Statuscode {int} ist")
     public void benutzerPruftUberObDerStatuscodeIst(int sayi) {
@@ -43,3 +39,8 @@ public class MembershipTypeServicesSD {
     }
 }
 
+//    List<MembershipTypePojo> list =new ObjectMapper().readValue(response.asString(), new TypeReference<>() {});
+//        System.out.println("list = " + list);
+//
+//                actualData= list.get(0);
+//                System.out.println("actualData = " + actualData);
