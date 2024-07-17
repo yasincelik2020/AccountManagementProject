@@ -17,6 +17,16 @@ Feature:Get Membership Service
     When Benutzer sendet Anfrage mit GET-Methode für user_id appID membership
     Then Antwort bestätigt auch, dass die Benutzerkennung vorhanden ist
 
+  Scenario: M_02_09 Get user_id appID membership
+    Given Url ist eingestellt für user_id appID membership
+    When Benutzer sendet Anfrage mit GET-Methode für user_id appID membership
+    Then Die Antwort bestätigt auch, dass es einen Benutzernamen gibt
+
+  Scenario: M_02_10 Get user_id appID membership
+    Given Url ist eingestellt für user_id appID membership
+    When Benutzer sendet Anfrage mit GET-Methode für user_id appID membership
+    Then Überprüft, ob die appId in der Antwort vorhanden ist
+
   Scenario: M_02_01 Get membership status
 
     Given Url ist eingestellt für membership

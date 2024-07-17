@@ -20,7 +20,7 @@ public class UserIdAppIdMembershipGetPojo {
 	private String app_logo_url;
 	private Integer id;
 	private Boolean is_individual_membership;
-	private Integer app_id;
+	private String app_id;
 	private String username;
 
 	public void setdefault_role_name(String default_role_name){
@@ -175,11 +175,11 @@ public class UserIdAppIdMembershipGetPojo {
 		return is_individual_membership;
 	}
 
-	public void setAppId(Integer app_id){
+	public void setAppId(String app_id){
 		this.app_id = app_id;
 	}
 
-	public Integer getAppId(){
+	public String getAppId(){
 		return app_id;
 	}
 
