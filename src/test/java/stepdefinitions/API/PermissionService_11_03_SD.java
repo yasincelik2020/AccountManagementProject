@@ -1,5 +1,6 @@
 package stepdefinitions.API;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -21,21 +22,21 @@ import static stepdefinitions.API.UserInfo.user_id;
 
 public class PermissionService_11_03_SD {
     PermissionPojo expectedData;
+    PermissionPojo actualData;
     Response response;
-    @Given("set the url for Permission with ID")
-    public void setTheUrlForPermissionWithID() {
+    @Given("Einstellen url für Permission mit ID")
+    public void einstellenUrlFürPermissionMitID() {
         setUp();
         spec.pathParams("first", "permission","second",user_id);
     }
 
-    @When("send get request for Permission with ID")
-    public void sendGetRequestForPermissionWithID() {
+    @When("Der Benutzer sendet eine Anfrage mit der GET-Methode für Permission mit ID")
+    public void derBenutzerSendetEineAnfrageMitDerGETMethodeFürPermissionMitID() {
         response = RestAssured
                 .given(spec)
                 .get("{first}/{second}");
 
         response.prettyPrint();
-
         String json = """
                 {
                     "id": 28,
@@ -49,18 +50,36 @@ public class PermissionService_11_03_SD {
 
     }
 
-    @Then("assert Permission with ID")
-    public void assertPermissionWithID() {
-        PermissionPojo actualData = response.as(PermissionPojo.class);
+    @Then("Der Statuscode {int} wird bestätigt für Permission mit ID")
+    public void derStatuscodeWirdBestätigtFürPermissionMitID(int arg0) {
+        actualData = response.as(PermissionPojo.class);
         response
                 .then()
                 .statusCode(200);
         assertEquals(200, response.statusCode());
-        assertEquals(expectedData.getId(), actualData.getId());
-        assertEquals(expectedData.getAction(), actualData.getAction());
-        assertEquals(expectedData.getResource(), actualData.getResource());
-        assertEquals(expectedData.getapp_id(), actualData.getapp_id());
+
     }
 
+    @And("Benutzer verifiziert ID in Antwort")
+    public void benutzerVerifiziertIDInAntwort() {
+        assertEquals(expectedData.getId(), actualData.getId());
 
+
+
+    }
+
+    @And("Benutzer verifiziert Action in Antwort")
+    public void benutzerVerifiziertActionInAntwort() {
+        assertEquals(expectedData.getAction(), actualData.getAction());
+    }
+
+    @And("Benutzer verifiziert Resource in Antwort")
+    public void benutzerVerifiziertResourceInAntwort() {
+        assertEquals(expectedData.getResource(), actualData.getResource());
+    }
+
+    @And("Benutzer verifiziert App_Id in Antwort")
+    public void benutzerVerifiziertApp_IdInAntwort() {
+        assertEquals(expectedData.getapp_id(), actualData.getapp_id());
+    }
 }
