@@ -14,8 +14,8 @@ import org.junit.runner.RunWith;
         },
         features = "src/test/resources/featuresAPI",
         glue = {"stepdefinitions"},// java code larinin calisacagi package lar.
-        tags = "@Api",
-        dryRun = true // test calismasi icin false dememiz gerekiyor.
+        tags = "@Api1",
+        dryRun = false // test calismasi icin false dememiz gerekiyor.
         // True dendigi zaman test calismaz,sadece eksik definitionlar verir.
 
 )
