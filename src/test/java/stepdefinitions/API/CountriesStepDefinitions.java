@@ -19,7 +19,7 @@ public class CountriesStepDefinitions {
 
     }
 
-    @When("sen get request for countries")
+    @When("send get request for countries")
     public void senGetRequestForCountries() {
         response = RestAssured
                 .given(spec)
