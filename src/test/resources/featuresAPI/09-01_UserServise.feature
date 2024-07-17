@@ -7,7 +7,7 @@ Feature: Get User Service
     And get the user info information
 
   Scenario: Post User Service
-    Given set the url "v1/organization/user/register-manual" for Modul
+    Given set the url for Modul
     When Der Benutzer sendet eine Anfrage mit der POST-Methode.
     Then Der Statuscode 201 wird bestätigt.
 
