@@ -1,7 +1,9 @@
 package pages;
 
+import org.junit.Assert;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.WindowType;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -9,6 +11,7 @@ import utilities.Driver;
 import utilities.ReusableMethods;
 
 import java.util.List;
+
 
 import static utilities.ReusableMethods.JavascriptUtils.clickElementByJS;
 import static utilities.ReusableMethods.JavascriptUtils.refresch;
@@ -72,7 +75,7 @@ public class RemoteUnitsPage extends ReusableMethods {
     public WebElement statusFilter;
     @FindBy(xpath = "(//button[@type='button'])[4]")
     public WebElement clearFilter;
-    @FindBy(xpath = "//button[.='Delete Department']")
+    @FindBy(xpath = "//button[text()='Delete Department']")
     public WebElement buttonDelete;
     @FindBy(xpath = "//button[.='Confirm']")
     public WebElement buttonConfirm;
@@ -105,6 +108,7 @@ public class RemoteUnitsPage extends ReusableMethods {
         Actions actions = new Actions(Driver.getDriver());
         actions.sendKeys(element, Keys.TAB)
                 .sendKeys(Keys.TAB)
+                .click(buttonSave)
                 .perform();
     }  public void nonSelectedDepartmentType(WebElement element) {
         Actions actions = new Actions(Driver.getDriver());
@@ -133,6 +137,28 @@ public class RemoteUnitsPage extends ReusableMethods {
                 .click()
                 .click(element2)
                 .perform();
+    }
+    public void editMethod(WebElement element1,WebElement element2) {
+        waitForClickablility(Driver.getDriver(),buttonEditRemoteUnits,10);
+        while (!buttonEdit.isDisplayed()) {
+            refresch(Driver.getDriver());
+            waitForVisibility(Driver.getDriver(), buttonEdit, 5);
+        }
+    }
+    public void edittMethod() {
+        ReusableMethods.clickMethod(remoteUnitsSekmesi);
+
+        for (int i = 0; i < remoteUnitsList.size(); i++) {
+            clickElementByJS(Driver.getDriver(),remoteUnitsList.get(0));
+            Driver.getDriver().switchTo().newWindow(WindowType.TAB).get("https://qa-gm3.quaspareparts.com/a3m/#/department/edit/34");
+            while (!buttonEditRemoteUnits.isDisplayed()) {
+                refresch(Driver.getDriver());
+                waitForVisibility(Driver.getDriver(), buttonEditRemoteUnits, 5);
+            }
+
+          //  clickMethod(buttonEdit);
+
+        }
     }
     public void clearUserNameField(WebElement element,int str) {
         Actions actions = new Actions(Driver.getDriver());

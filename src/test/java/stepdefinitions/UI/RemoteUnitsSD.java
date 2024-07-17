@@ -168,8 +168,8 @@ public class RemoteUnitsSD extends ReusableMethods {
     @And("Der Benutzer klickt die Schaltfläche Edit Remote Unit")
     public void derBenutzerKlicktDieSchaltflaecheEditRemoteUnit() {
         waitForVisibility(Driver.getDriver(),remoteUnitsPage.buttonEditRemoteUnits,5);
-        clickMethod(remoteUnitsPage.buttonEditRemoteUnits);
-        Driver.getDriver().switchTo().newWindow(WindowType.TAB).get("https://qa-gm3.quaspareparts.com/a3m/#/department/edit/74");
+        remoteUnitsPage.edittMethod();
+       // Driver.getDriver().switchTo().newWindow(WindowType.TAB).get("https://qa-gm3.quaspareparts.com/a3m/#/department/edit/34");
 
     }
     
