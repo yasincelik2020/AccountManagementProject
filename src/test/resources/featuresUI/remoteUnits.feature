@@ -5,7 +5,7 @@ Feature: login
     Given Der Benutzer geht zur URL
     When Klickt auf die Schaltflueche Login
     And  Der Benutzer gibt ein gültiges "dsdt3008@gmail.com" ein
-    And Benutzer gibt gültiges "8vBaNs-OtsZyQW1" ein
+    And Benutzer gibt gültiges "2I-D-rPPNZKlhbu" ein
     And Klick auf die Schaltflueche Login
 
   @US_10
