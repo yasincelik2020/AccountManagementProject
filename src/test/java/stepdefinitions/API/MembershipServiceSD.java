@@ -1,28 +1,37 @@
 package stepdefinitions.API;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import pojos.UserIdAppIdMembershipGetPojo;
+import pojos.SadePojo;
 import utilities.ObjectMapperUtils;
+
+import java.util.List;
 
 import static base_urls.Gm3BaseUrl.spec;
 import static org.junit.Assert.assertEquals;
 import static stepdefinitions.API.HooksAPI.setUp;
+import static stepdefinitions.API.UserInfo.appID;
+import static stepdefinitions.API.UserInfo.user_id;
 
 public class MembershipServiceSD {
     Response response;
-    UserIdAppIdMembershipGetPojo expectedData;
+    public  static SadePojo expectedData;
+    public  static SadePojo  actualData;
 
     //02_07
     @Given("Url ist eingestellt für user_id appID membership")
     public void urlIstEingestelltFürUser_idAppIDMembership() {
         setUp();
-        spec.pathParams("first", "v1","second","user","third","{{user_id}}","fourth","application","fifth","{{appID}}","sixth","membership");
-        //contactId= response.jsonPath().getString("_id");
+        spec.pathParams("first", "v1","second","user","third",user_id,"fourth","application","fifth",appID,"sixth","membership");
+
+
     }
     @When("Benutzer sendet Anfrage mit GET-Methode für user_id appID membership")
     public void benutzerSendetAnfrageMitGETMethodeFürUser_idAppIDMembership() {
@@ -42,48 +51,61 @@ public class MembershipServiceSD {
 
     //02_08
     @And("Einstellen der zu sendenden Daten")
-    public void einstellenDerZuSendendenDaten() {
+    public void einstellenDerZuSendendenDaten() throws JsonProcessingException {
 
-        String json = """
-                 {
-                        "id": 77,
+        String json ="""
+                       
+                    {
+                        "id": 74,
                         "app_id": 2,
-                        "app_name": "Quaspareparts Gateway App",
-                        "app_short_name": "Quaspareparts",
-                        "app_logo_url": "https://cdn-a3m-dev.clarusway.com/public/a3m-data/application/2/logo/1703352263730-picture.png",
-                        "user_id": 31,
-                        "username": "Ebru",
+                       
+                       
+                         "user_id": 31,
+                        "username": "dsdt3001@gmail.com",
                         "subscription_id": "6eba80bb-537d-4c01-9da2-1ca732b2c269",
-                        "membership_type_id": 5,
-                        "is_individual_membership": false,
-                        "default_role_id": 5,
-                        "default_role_name": "Business Owner",
+                    
                         "organization_id": 1720781349513610,
-                        "organization_name": "Asya",
-                        "is_owner": false,
-                        "is_active": true,
-                        "is_default": true,
-                        "created_at": "2024-07-12T10:52:28.215282Z",
-                        "created_by": 27,
-                        "updated_at": "2024-07-12T10:52:28.215282Z",
-                        "updated_by": 27
-                    }\
-                """;
-        expectedData = ObjectMapperUtils.jsonToJava(json, UserIdAppIdMembershipGetPojo.class);
+                     
+                        "created_by": 27
+                       
+                    }
+                
+                      """;
+
+        expectedData = ObjectMapperUtils.jsonToJava(json, SadePojo.class);
+       // List<MemberListPojo>  expectedData = new ObjectMapper().readValue(json, new TypeReference<>() {});
+// memberList'te döngü ile her bir üyeye erişebilirsiniz.
+
         System.out.println("expectedData = " + expectedData);
 
 
     }
     @Then("Antwort bestätigt auch, dass die Benutzerkennung vorhanden ist")
-    public void antwortBestätigtAuchDassDieBenutzerkennungVorhandenIst() {
-        UserIdAppIdMembershipGetPojo actualData = response.as(UserIdAppIdMembershipGetPojo.class);
+    public void antwortBestätigtAuchDassDieBenutzerkennungVorhandenIst() throws JsonProcessingException {
+
+        List<SadePojo> list =new ObjectMapper().readValue(response.asString(), new TypeReference<>() {});
+        System.out.println("list = " + list);
+
+         actualData= list.get(0);
+        //actualData= response.as(SadePojo.class);
         System.out.println("actualData = " + actualData);
 
-        assertEquals(expectedData.getuser_id(),actualData.getuser_id());
+        assertEquals(expectedData.getId(),actualData.getId());
+
     }
 
     //02_09
 
+    @Then("Die Antwort bestätigt auch, dass es einen Benutzernamen gibt")
+    public void dieAntwortBestätigtAuchDassEsEinenBenutzernamenGibt() {
+        assertEquals(expectedData.getUsername(),actualData.getUsername());
+    }
+
+    //02_10
+    @Then("Überprüft, ob die appId in der Antwort vorhanden ist")
+    public void überprüftObDieAppIdInDerAntwortVorhandenIst() {
+        //assertEquals(expectedData.getAppId(),actualData.getAppId());
+    }
 
 
 //02_01
@@ -104,6 +126,7 @@ public class MembershipServiceSD {
     //02_02
     @Then("Anhand der Benutzer-ID in der Antwort wird überprüft, ob es unter den Mitgliedschaften eine Mitgliedschaft gibt, die zu dieser Benutzer-ID gehört.")
     public void anhandDerBenutzerIDInDerAntwortWirdÜberprüftObEsUnterDenMitgliedschaftenEineMitgliedschaftGibtDieZuDieserBenutzerIDGehört() {
+
     }
 
 
