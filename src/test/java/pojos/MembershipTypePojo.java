@@ -11,6 +11,8 @@ public class MembershipTypePojo{
 	private Integer id;
 	private Integer app_id;
 
+
+
 	public Boolean getIs_enabled() {
 		return is_enabled;
 	}
