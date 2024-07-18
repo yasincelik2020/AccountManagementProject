@@ -25,6 +25,7 @@ public class TypeServicesMembershipSD {
     public static MembershipTypePojo expectedData;
     public static MembershipTypePojo actualData;
 
+
     public TypeServicesMembershipSD() throws JsonProcessingException {
     }
 //03_01
