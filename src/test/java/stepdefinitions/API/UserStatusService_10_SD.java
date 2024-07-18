@@ -45,4 +45,17 @@ public class UserStatusService_10_SD {
                     .then()
                     .time(lessThan((long) arg0));
     }
+
+    @Given("set the url for get TestCase 10_03")
+    public void setTheUrlForGetTestCase_10_03() {
+        setUp();
+        spec.pathParams("erste", "user-status","zweite", userID);
+    }
+
+    @When("Benutzer sendet eine GET-Anfrage")
+    public void benutzerSendetEineGETAnfrage() {
+        response = given(spec)
+                .get("{erste}/{zweite}");
+        response.prettyPrint();
+    }
 }
