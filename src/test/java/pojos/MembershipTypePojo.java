@@ -1,71 +1,73 @@
 package pojos;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class MembershipTypePojo{
-	private Boolean isEnabled;
+
+	private Boolean is_enabled;
 	private String name;
-	private Boolean isIndividualPlan;
-	private Integer subscriptionTypeId;
+	private Boolean is_individual_plan;
+	private Integer subscription_type_id;
 	private Integer id;
-	private Integer appId;
+	private Integer app_id;
 
-	public void setIsEnabled(Boolean isEnabled){
-		this.isEnabled = isEnabled;
+	public Boolean getIs_enabled() {
+		return is_enabled;
 	}
 
-	public Boolean isIsEnabled(){
-		return isEnabled;
+	public void setIs_enabled(Boolean is_enabled) {
+		this.is_enabled = is_enabled;
 	}
 
-	public void setName(String name){
-		this.name = name;
-	}
-
-	public String getName(){
+	public String getName() {
 		return name;
 	}
 
-	public void setIsIndividualPlan(Boolean isIndividualPlan){
-		this.isIndividualPlan = isIndividualPlan;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public Boolean isIsIndividualPlan(){
-		return isIndividualPlan;
+	public Boolean getIs_individual_plan() {
+		return is_individual_plan;
 	}
 
-	public void setSubscriptionTypeId(Integer subscriptionTypeId){
-		this.subscriptionTypeId = subscriptionTypeId;
+	public void setIs_individual_plan(Boolean is_individual_plan) {
+		this.is_individual_plan = is_individual_plan;
 	}
 
-	public Integer getSubscriptionTypeId(){
-		return subscriptionTypeId;
+	public Integer getSubscription_type_id() {
+		return subscription_type_id;
 	}
 
-	public void setId(Integer id){
-		this.id = id;
+	public void setSubscription_type_id(Integer subscription_type_id) {
+		this.subscription_type_id = subscription_type_id;
 	}
 
-	public Integer getId(){
+	public Integer getId() {
 		return id;
 	}
 
-	public void setAppId(Integer appId){
-		this.appId = appId;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
-	public Integer getAppId(){
-		return appId;
+	public Integer getApp_id() {
+		return app_id;
+	}
+
+	public void setApp_id(Integer app_id) {
+		this.app_id = app_id;
 	}
 
 	@Override
- 	public String toString(){
-		return 
-			"MembershipTypePojo{" + 
-			"is_enabled = '" + isEnabled + '\'' + 
-			",name = '" + name + '\'' + 
-			",is_individual_plan = '" + isIndividualPlan + '\'' + 
-			",subscription_type_id = '" + subscriptionTypeId + '\'' + 
-			",id = '" + id + '\'' + 
-			",app_id = '" + appId + '\'' + 
-			"}";
-		}
+	public String toString() {
+		return "MembershipTypePojo{" +
+				"is_enabled=" + is_enabled +
+				", name='" + name + '\'' +
+				", is_individual_plan=" + is_individual_plan +
+				", subscription_type_id=" + subscription_type_id +
+				", id=" + id +
+				", app_id=" + app_id +
+				'}';
+	}
 }

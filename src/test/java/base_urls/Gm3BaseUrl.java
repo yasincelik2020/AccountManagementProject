@@ -15,7 +15,6 @@ public class Gm3BaseUrl {
 
         spec = new RequestSpecBuilder()
                 .setBaseUri("https://qa-gm3.quaspareparts.com/a3m/auth/api/")
-                .setContentType(ContentType.JSON)
                 .addHeader("Cookie","GSESSIONID="+getSessionId())
                 .setContentType(ContentType.JSON)
                 .build();
