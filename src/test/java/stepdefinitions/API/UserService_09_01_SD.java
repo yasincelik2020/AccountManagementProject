@@ -15,15 +15,16 @@ import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static stepdefinitions.API.HooksAPI.setUp;
+import static stepdefinitions.API.UserInfo.org_id;
 import static utilities.ObjectMapperUtils.jsonToJava;
 
 public class UserService_09_01_SD {
-    Response response;
+    static Response response;
     static UserServicePostPojo expectedData;
     static UserServiceResponsePojo actualDataPost;
     static UserServiceResponsePojo actualDataGet;
     Faker faker = new Faker();
-    static Integer responceID;
+    static Integer userID;
 
     @Given("set the url for Post TestCase 09_01")
     public void setTheUrlForUserInfo() {
@@ -54,8 +55,8 @@ public class UserService_09_01_SD {
         response.prettyPrint();
         // burada gönderdigimiz data yi geri aliyoruz, dogrulama icin
         actualDataPost = jsonToJava(response.asString(), UserServiceResponsePojo.class);
-        responceID = actualDataPost.getId();// bu id responce da gelen üretilen kullanicinin ID SI
-        System.out.println("responseID = " + responceID);
+        userID = actualDataPost.getId();// bu id responce da gelen üretilen kullanicinin ID SI
+        System.out.println("responseID = " + userID);
     }
 
     @Then("Der Statuscode {int} wird bestätigt.")
@@ -93,7 +94,7 @@ public class UserService_09_01_SD {
     @Given("set the url for get TestCase 09_04")
     public void setTheUrlForGetTestCase_() {
         setUp();
-        spec.pathParams("first", "v1", "second", "user", "third", responceID);
+        spec.pathParams("first", "v1", "second", "user", "third", userID);
     }
 
     @When("Der Benutzer sendet eine Anfrage mit der Get-Methode.")
@@ -115,8 +116,85 @@ public class UserService_09_01_SD {
         assertEquals(actualDataPost.getEmail(), actualDataGet.getEmail());
     }
 
-    @And("Es wird bestätigt, dass der zuletzt hinzugefügte Benutzer vom bestimmte Benutzer erstellt wurde.")
-    public void esWirdBestätigtDassDerZuletztHinzugefügteBenutzerVomBestimmteBenutzerErstelltWurde() {
+    @And("Es wird überprüft, dass die zuletzt erstellte Benutzerstatus-ID {int} ist.")
+    public void esWirdÜberprüftDassDieZuletztErstellteBenutzerstatusIDIst() {
         assertEquals(actualDataPost.getStatus().getId(), actualDataGet.getStatus_id());
     }
+
+    @Given("set the url for put TestCase 09_08")
+    public void setTheUrlForPutTestCase() {
+        setUp();
+        spec.pathParams("first", "v1", "second", "user");
+    }
+
+    @When("Der Benutzer sendet eine Anfrage mit der Put-Methode.")
+    public void derBenutzerSendetEineAnfrageMitDerPutMethode() {
+        String json = """
+                {
+                    "id": "10",
+                    "username": "KazimUsta"
+                }""";
+
+        UserServiceResponsePojo expectedData = ObjectMapperUtils.jsonToJava(json, UserServiceResponsePojo.class);
+        expectedData.setEmail(faker.internet().emailAddress());
+        expectedData.setId(userID);
+
+        response = given(spec)
+                .body(expectedData)
+                .put("{first}/{second}");
+        response.prettyPrint();
+    }
+
+    @When("Der Benutzer sendet eine Anfrage ohne Benutzer-ID  mit der Put-Methode.")
+    public void derBenutzerSendetEineAnfrageOhneBenutzerIDMitDerPutMethode() {
+        String json = """
+                {
+                    "username": "KazimUsta"
+                }""";
+
+        UserServiceResponsePojo expectedData = ObjectMapperUtils.jsonToJava(json, UserServiceResponsePojo.class);
+        response = given(spec)
+                .body(expectedData)
+                .put("{first}/{second}");
+        response.prettyPrint();
+    }
+
+    @Given("set the url for delete TestCase 09_10")
+    public void setTheUrlForDeleteTestCase_() {
+        setUp();
+        spec.pathParams("erste", "v1", "zweite", "organization", "dritte", org_id, "vierte", "user", "fünfte", userID);
+
+    }
+
+    @When("Der Benutzer sendet eine Anfrage mit der Delete-Methode.")
+    public void derBenutzerSendetEineAnfrageMitDerDeleteMethode() {
+        response = given(spec)
+                .delete("{erste}/{zweite}/{dritte}/{vierte}/{fünfte}");
+    }
+
+    @Given("set the url for delete TestCase 09_11")
+    public void setTheUrlForDeleteTestCase_UserSerice() {
+        setUp();
+        spec.pathParams("erste", "user", "zweite", userID);
+    }
+
+    @When("Der Benutzer sendet eine Anfrage mit der Delete-Methode for User Service.")
+    public void derBenutzerSendetEineAnfrageMitDerDeleteMethodeForUserService() {
+        response = given(spec)
+                .delete("{erste}/{zweite}");
+    }
+
+    @When("Der Benutzer sendet eine Anfrage mit der Get-Methode für Kontrolle.")
+    public void derBenutzerSendetEineAnfrageMitDerGetMethodeFürKontrolle() {
+        response = given(spec)
+                .contentType("application/json")
+                .get("{first}/{second}/{third}");
+    }
+    @And("Es wird bestätigt, dass der Text „User is not available“ angezeigt wird")
+    public void esWirdBestätigtDassDerTextUserIsNotAvailableAngezeigtWird() {
+        assertEquals(response.jsonPath().getString("message"),"User is not available");
+    }
+
+
+
 }
