@@ -18,5 +18,47 @@ Feature:Get User Group Services
     Given Einstellen url für User Group Services
     When Der Benutzer sendet eine Anfrage mit der POST-Methode für User Group Services
     Then Der Statuscode 201 wird bestätigt für User Group Services
-    Then Die Kurznamen-Informationen der neu erstellten User Group werden bestätigt
+    And Die Kurznamen-Informationen der neu erstellten User Group werden bestätigt
+
+
+  Scenario:M07_TC_05_06 Get User Group Services Scenario
+  (Die erstellte User Group wird mit der Information „group_id“ zurückgegeben..)
+    Given Einstellen url mit group_id für User Group Services
+    When Der Benutzer sendet eine Anfrage mit der Get-Methode für User Group Services
+    Then Der Statuscode 200 wird bestätigt für User Group Services
+    And Der Name info von Group_id wurden bestätigt
+
+  Scenario:M07_07_08 Put User Scenario
+    Given Einstellen url für User Group Services
+    When Der Benutzer sendet eine Anfrage mit der Put-Methode für User Group Services
+    Then Der Statuscode 200 wird bestätigt für User Group Services
+    And Der Name info von nach dem Updait Group_id wurden bestätigt
+
+  Scenario:M07_09_10 Get User Scenario
+    Given Einstellen url für User Group Services deteils
+    When Der Benutzer sendet eine Anfrage mit der Get-Methode für User Group Services details
+    Then Der Statuscode 200 wird bestätigt für User Group Services
+    And description info von nach dem Updait Group_id wurden bestätigt
+
+  Scenario:M07_Post User Scenario
+  (Ein neuer user wird erstellt)
+    Given Einstellen url für ein neuer User
+    When Der Benutzer sendet eine Anfrage für ein neuer User
+
+  Scenario:M07_11_12 Post User Group Services Scenario
+  (Die erstellte User Group wird aktualisiert)
+    Given Einstellen url für User Group_user
+    When Der Benutzer sendet eine Anfrage mit der Get-Methode für User Group_user
+    Then Der Statuscode 201 wird bestätigt für User Group_user
+    And user_id info wurden bestätigt
+
+  Scenario:M07_13_14 Get User Group Services Scenario
+  (Abhängig von der User Group erstellte User details werden gelesen)
+    Given Einstellen url für User Group_userget
+    When Der Benutzer sendet eine Anfrage mit der Get-Methode für User Group_userget
+    Then Der Statuscode 200 wird bestätigt für User Group_user
+    And Die User name-Informationen des ersten Elements der User List werden bestätigt
+
+
+
 
