@@ -17,6 +17,7 @@ public class UserServiceResponsePojo {
 	private Integer created_by;
 	private Integer status_id;
 
+
 	public Integer getStatus_id() {
 		return status_id;
 	}
