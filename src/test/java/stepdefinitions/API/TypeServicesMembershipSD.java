@@ -25,6 +25,7 @@ public class TypeServicesMembershipSD {
     public static MembershipTypePojo expectedData;
     public static MembershipTypePojo actualData;
 
+
     public TypeServicesMembershipSD() throws JsonProcessingException {
     }
 //03_01
@@ -92,6 +93,7 @@ public class TypeServicesMembershipSD {
     public void url_ist_eingestellt_membership_type_mit(Integer type_id) {
         setUp();
         spec.pathParams("erste",type_id);
+        System.out.println("spec = " + spec);
 
     }
 
