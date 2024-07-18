@@ -59,6 +59,18 @@ Feature:Get User Group Services
     Then Der Statuscode 200 wird bestätigt für User Group_user
     And Die User name-Informationen des ersten Elements der User List werden bestätigt
 
+  Scenario:M07_15 Delete User Group Services Scenario
+    (Der je nach User Group erstellte User wird gelöscht.)
+    Given Einstellen url für User Group_userdelete
+    When Der Benutzer sendet eine Anfrage mit der Delete-Methode für User Group_userdelete
+    Then Der Statuscode 200 wird bestätigt für User Group_userdelete
+
+  Scenario:M07_16_17 Get User Group Services Scenario
+  (Es wird bestätigt, dass die mit der User Group verbundenen User informationen nach dem Löschvorgang nicht vorhanden sind.)
+    Given Einstellen url für User Group_user_nachdelete_get
+    When Der Benutzer sendet eine Anfrage mit der Get-Methode für User Group_user_nachdelete_get
+    Then Der Statuscode 200 wird bestätigt für User Group_userdelete
+    And Es wird bestätigt, dass keine users vorliegen
 
 
 

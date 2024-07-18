@@ -8,7 +8,7 @@ import io.cucumber.java.en.When;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
-import pojos.SadePojo;
+import org.hamcrest.Matchers;
 import pojos.UserGroup_CreatePojo;
 import utilities.ObjectMapperUtils;
 
@@ -17,6 +17,7 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static stepdefinitions.API.HooksAPI.setUp;
 import static stepdefinitions.API.UserInfo.*;
 
@@ -130,7 +131,8 @@ public class UserGroupServiceStepDefinitions_07_01 {
     @Given("Einstellen url für User Group Services deteils")
     public void einstellenUrlFürUserGroupServicesDeteils() {
         setUp();
-        spec.pathParams("erste", "v1","zweite","organization","dritte",org_id,"vierte","user-group","fünfte",group_id,"sechste","details");
+        spec.pathParams("erste", "v1","zweite","organization","dritte",org_id,
+                "vierte","user-group","fünfte",group_id,"sechste","details");
     }
 
     @When("Der Benutzer sendet eine Anfrage mit der Get-Methode für User Group Services details")
@@ -174,7 +176,8 @@ public class UserGroupServiceStepDefinitions_07_01 {
     @Given("Einstellen url für User Group_user")
     public void einstellenUrlFürUserGroup_user() {
         setUp();
-        spec.pathParams("erste", "organization","zweite",org_id,"dritte","user-group","vierte",group_id,"fünfte","user","sechste",user_id)
+        spec.pathParams("erste", "organization","zweite",org_id,"dritte","user-group",
+                        "vierte",group_id,"fünfte","user","sechste",user_id)
                 .queryParam("isHead","false");
     }
 
@@ -214,7 +217,8 @@ public class UserGroupServiceStepDefinitions_07_01 {
     @Given("Einstellen url für User Group_userget")
     public void einstellenUrlFürUserGroup_userget() {
         setUp();
-        spec.pathParams("erste", "v1","zweite","organization","dritte",org_id,"vierte","user-group","fünfte",group_id,"sechste","details");
+        spec.pathParams("erste", "v1","zweite","organization","dritte",org_id,
+                "vierte","user-group","fünfte",group_id,"sechste","details");
     }
 
     @When("Der Benutzer sendet eine Anfrage mit der Get-Methode für User Group_userget")
@@ -232,5 +236,41 @@ public class UserGroupServiceStepDefinitions_07_01 {
         System.out.println("username.get(0) = " + username.get(0));
 
         assert username.get(0).equals(email);
+    }
+
+    @Given("Einstellen url für User Group_userdelete")
+    public void einstellenUrlFürUserGroup_userdelete() {
+        setUp();
+        spec.pathParams("erste", "organization","zweite",org_id,"dritte","user-group",
+                "vierte",group_id,"fünfte","user","sechste",user_id);
+    }
+
+    @When("Der Benutzer sendet eine Anfrage mit der Delete-Methode für User Group_userdelete")
+    public void derBenutzerSendetEineAnfrageMitDerDeleteMethodeFürUserGroup_userdelete() {
+        response = RestAssured.given(spec).delete("{erste}/{zweite}/{dritte}/{vierte}/{fünfte}/{sechste}");
+        response.prettyPrint();
+    }
+
+    @Then("Der Statuscode {int} wird bestätigt für User Group_userdelete")
+    public void derStatuscodeWirdBestätigtFürUserGroup_userdelete(int statusCode) {
+        assertEquals(statusCode, response.statusCode());
+    }
+
+    @Given("Einstellen url für User Group_user_nachdelete_get")
+    public void einstellenUrlFürUserGroup_user_nachdelete_get() {
+        setUp();
+        spec.pathParams("erste", "v1","zweite","organization","dritte",org_id,
+                "vierte","user-group","fünfte",group_id,"sechste","details");
+    }
+
+    @When("Der Benutzer sendet eine Anfrage mit der Get-Methode für User Group_user_nachdelete_get")
+    public void derBenutzerSendetEineAnfrageMitDerGetMethodeFürUserGroup_user_nachdelete_get() {
+        response = RestAssured.given(spec).get("{erste}/{zweite}/{dritte}/{vierte}/{fünfte}/{sechste}");
+        response.prettyPrint();
+    }
+
+    @And("Es wird bestätigt, dass keine users vorliegen")
+    public void esWirdBestätigtDassKeineUsersVorliegen() {
+        response.then().body("number_of_users",Matchers.equalTo(0));
     }
 }
