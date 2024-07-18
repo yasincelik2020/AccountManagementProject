@@ -11,6 +11,9 @@ public class UserServicePostPojo{
 		return subscription_id;
 	}
 
+	public UserServicePostPojo() {
+	}
+
 	public void setsubscription_id(String subscription_id) {
 		this.subscription_id = subscription_id;
 	}

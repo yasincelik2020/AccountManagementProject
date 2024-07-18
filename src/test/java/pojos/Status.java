@@ -5,6 +5,9 @@ public class Status{
 	private String description;
 	private Integer id;
 
+	public Status() {
+	}
+
 	public void setName(String name){
 		this.name = name;
 	}
