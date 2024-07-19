@@ -14,10 +14,10 @@ Feature:Membership Service Type Service
   Scenario Outline:M_03_TC_02-03 Get appID Membership Type Service
     Given Url ist eingestellt mit appID membership-type
     When Benutzer sendet Anfrage mit GET Methode für appID membership-type
-    And In der Antwort wird bestätigt,dass die <ID> , <index> sind.
+    And In der Antwort wird bestätigt,dass die <ID> , <list_index>  sind.
 
    Examples:
-     |ID | index|
+     |ID | list_index|
      |5  |0    |
      |6  |1    |
 
@@ -25,11 +25,12 @@ Feature:Membership Service Type Service
     Given Url ist eingestellt membership-type
     When Benutzer sendet Anfrage mit GET Methode membership-type
     Then Benutzer prüft über, ob der Statuscode 200 ist
-    And In der Antwort wird bestätigt,dass die "<name>" , <index> sind.
+    And Benutzer wird bestätigt,dass die <ID> "<name>" sind.
+
     Examples:
-       | name             |index|
-       |Company Membership|0    |
-       |Guest Membership  |1    |
+      |ID |name             |
+      |5  |Company Membership|
+      |6  |Guest Membership|
 
   Scenario: M_03_TC_07-08 Get Membership Type Service
     Given Url ist eingestellt membership-type mit Company ID
