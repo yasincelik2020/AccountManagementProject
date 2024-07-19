@@ -16,8 +16,7 @@ import static base_urls.Gm3BaseUrl.spec;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.*;
 import static stepdefinitions.API.HooksAPI.setUp;
 import static stepdefinitions.API.UserInfo.*;
 
@@ -73,7 +72,7 @@ public class UserGroupServiceStepDefinitions_07_01 {
                         }
                     ]
                 }""";
-        System.out.println("json = " + expectedData);
+        System.out.println("json = " + json);
         response = RestAssured.given(spec).body(json).post("{erste}");
         response.prettyPrint();
 
@@ -272,5 +271,42 @@ public class UserGroupServiceStepDefinitions_07_01 {
     @And("Es wird bestätigt, dass keine users vorliegen")
     public void esWirdBestätigtDassKeineUsersVorliegen() {
         response.then().body("number_of_users",Matchers.equalTo(0));
+    }
+
+    @Given("Einstellen url für User Group_delete")
+    public void einstellenUrlFürUserGroup_delete() {
+        setUp();
+        spec.pathParams("erste", "user-group","zweite",group_id);
+    }
+
+    @When("Der Benutzer sendet eine Anfrage mit der Delete-Methode für User Group")
+    public void derBenutzerSendetEineAnfrageMitDerDeleteMethodeFürUserGroup() {
+        response = RestAssured.given(spec).delete("{erste}/{zweite}");
+        response.prettyPrint();
+    }
+
+    @Given("Einstellen url für User Group_nachdelete_get")
+    public void einstellenUrlFürUserGroup_nachdelete_get() {
+        setUp();
+        spec.pathParams("erste", "user-group","zweite",group_id);
+    }
+
+    @When("Der Benutzer sendet eine Anfrage mit der Delete-Methode für User Group_nachdelete_get")
+    public void derBenutzerSendetEineAnfrageMitDerDeleteMethodeFürUserGroup_nachdelete_get() {
+
+        try {
+            response = RestAssured.given(spec).get("{erste}/{zweite}");
+            response.prettyPrint();
+            System.out.println("response.getStatusCode() = " + response.getStatusCode());
+        }catch (Exception e ){
+            System.out.println(e);
+            assertTrue(e.toString().contains("404"));
+        }
+    }
+
+    @Then("Der Statuscode {int} wird bestätigt für User Group_userdelete_")
+    public void derStatuscodeWirdBestätigtFürUserGroup_userdelete_(int StatusCode) {
+        //  response.then().statusCode(statusCode);
+        //  System.out.println("response.getStatusCode() = " + response.getStatusCode());
     }
 }

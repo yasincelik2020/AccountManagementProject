@@ -72,8 +72,17 @@ Feature:Get User Group Services
     Then Der Statuscode 200 wird bestätigt für User Group_userdelete
     And Es wird bestätigt, dass keine users vorliegen
 
-  Scenario:M07_18 Get User Group Services Scenario
-  (Es wird bestätigt, dass die mit der User Group verbundenen User informationen nach dem Löschvorgang nicht vorhanden sind.)
+  Scenario:M07_18 Delete User Group Services Scenario
+  (Die zuvor erstellte User Group wird gelöscht.)
+    Given Einstellen url für User Group_delete
+    When Der Benutzer sendet eine Anfrage mit der Delete-Methode für User Group
+    Then Der Statuscode 200 wird bestätigt für User Group_userdelete
+
+  Scenario:M07_19 Get User Group Services Scenario
+  (Es ist ersichtlich, dass die zuvor erstellte User Group gelöscht wurde..)
+    Given Einstellen url für User Group_nachdelete_get
+    When Der Benutzer sendet eine Anfrage mit der Delete-Methode für User Group_nachdelete_get
+    Then Der Statuscode 404 wird bestätigt für User Group_userdelete_
 
 
 
