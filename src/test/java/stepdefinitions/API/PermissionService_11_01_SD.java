@@ -13,9 +13,11 @@ import java.util.List;
 import java.util.Map;
 
 import static base_urls.Gm3BaseUrl.spec;
+import static org.hamcrest.Matchers.lessThan;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static stepdefinitions.API.HooksAPI.setUp;
+import static stepdefinitions.API.UserService_09_01_SD.response;
 
 
 public class PermissionService_11_01_SD {
@@ -55,5 +57,12 @@ public class PermissionService_11_01_SD {
                 assertTrue(resource.containsValue("set_coding"));
             };
         }
+    }
+
+    @And("Die Antwort wird innerhalb von {int} ms erhalten müssen")
+    public void dieAntwortWirdInnerhalbVonMsErhaltenMüssen(int arg0) {
+        response
+                .then()
+                .time(lessThan((long) arg0));
     }
 }

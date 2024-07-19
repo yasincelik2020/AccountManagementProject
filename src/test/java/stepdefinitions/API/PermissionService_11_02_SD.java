@@ -7,11 +7,13 @@ import io.cucumber.java.en.When;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+
 import pojos.PermissionPojo;
 import utilities.ObjectMapperUtils;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import static base_urls.Gm3BaseUrl.spec;
 import static org.junit.Assert.assertEquals;
@@ -21,7 +23,7 @@ import static stepdefinitions.API.UserInfo.appID;
 import static stepdefinitions.API.UserInfo.user_id;
 
 public class PermissionService_11_02_SD {
-    Response response;
+    static Response response;
     List<Map<String, Object>> resourceListwithappID;
     @Given("Einstellen url für Permission mit appID")
     public void einstellenUrlFürPermissionMitAppID() {
