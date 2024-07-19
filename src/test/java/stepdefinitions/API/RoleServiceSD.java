@@ -107,7 +107,13 @@ public class RoleServiceSD {
     }
     @Then("Die app_id wird bestätigt für Role Service\\(role)")
     public void die_app_id_wird_bestätigt_für_role_service_role() {
-        response.then().body("app_id",equalTo(2));
+        JsonPath jsonPath = response.jsonPath(); //Response'ı JsonPath'e çevirdik
+        List<Integer> list = jsonPath.getList("findAll{it.id==23}.app_id");
+        System.out.println("list.get(0) = " + list.get(0));
+
+        assert list.get(0).equals(2);
+
+
     }
 
 // 6_7_8
@@ -115,7 +121,7 @@ public class RoleServiceSD {
     @Given("Einstellen url für Role Service\\(roleID)")
     public void einstellen_url_für_role_service_role_ıd() {
         setUp();
-        spec.pathParams("erste", "role","zweite","role_id");
+        spec.pathParams("erste", "role","zweite",role_id);
 
     }
     @When("Der Benutzer sendet eine Anfrage mit der GET-Methode für Role Service\\(roleID)")
@@ -134,7 +140,7 @@ public class RoleServiceSD {
     }
     @Then("Die Id des ersten Elements von permission wird bestätigt.\\(roleID)")
     public void die_ıd_des_ersten_elements_von_permission_wird_bestätigt_role_ıd() {
-        response.then().body("permission[0].id", equalTo("493"));
+        response.then().body("permissions[0].id", equalTo(493));
 
     }
 
