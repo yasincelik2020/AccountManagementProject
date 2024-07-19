@@ -21,14 +21,15 @@ import static stepdefinitions.API.UserInfo.*;
 public class TypeServicesMembershipSD {
 
     public static Response response;
-    List<MembershipTypePojo> list;
+    public static List<MembershipTypePojo> list;
     public static MembershipTypePojo expectedData;
     public static MembershipTypePojo actualData;
 
 
     public TypeServicesMembershipSD() throws JsonProcessingException {
     }
-//03_01
+
+    //03_01
     @Given("Url ist eingestellt mit appID membership-type")
     public void urlIstEingestelltMitAppIDMembershipType() {
         setUp();
@@ -49,34 +50,42 @@ public class TypeServicesMembershipSD {
         response.then().statusCode(statusCode);
         assertEquals(statusCode, response.statusCode());
     }
-//03_02-03
-    @When("In der Antwort wird bestätigt,dass die {int} , {int} , {string} sind.")
-    public void in_der_antwort_wird_bestätigt_dass_die_sind(Integer id, Integer index, String name) throws JsonProcessingException {
-        String json = " {\n" +
+
+    //03_02-03
+
+
+    @When("In der Antwort wird bestätigt,dass die {int} , {int}  sind.")
+    public void in_der_antwort_wird_bestätigt_dass_die_sind(Integer id, Integer list_index) throws JsonProcessingException {
+        String json = "{\n" +
                 "        \"id\": "+id+",\n" +
-                "        \"name\": "+name+",\n" +
+                "        \"name\": \"Company Membership\",\n" +
                 "        \"short_name\": \"Comp. Membr.\",\n" +
                 "        \"is_enabled\": true,\n" +
                 "        \"is_individual_plan\": false,\n" +
                 "        \"default_role_id\": 5,\n" +
                 "        \"subscription_type_id\": 5,\n" +
                 "        \"seat_quota\": 100,\n" +
-                "        \"app_id\": "+2+
+                "        \"app_id\": 2,\n" +
+                "        \"created_at\": \"2023-01-17T19:50:28.494291Z\",\n" +
+                "        \"updated_at\": \"2023-12-23T13:21:43.638278Z\",\n" +
+                "        \"updated_by\": 1\n" +
                 "    } ";
 
 
         expectedData = ObjectMapperUtils.jsonToJava(json, MembershipTypePojo.class);
-        list = new ObjectMapper().readValue(response.asString(), new TypeReference<>() {});
-        actualData = list.get(index);
+        list = new ObjectMapper().readValue(response.asString(), new TypeReference<>() {
+        });
+        actualData = list.get(list_index);
+        System.out.println("list = " + list);
         assertEquals(expectedData.getId(), actualData.getId());
-        assertEquals(expectedData.getName(), actualData.getName());
     }
+
 
     //03_04-05-06
     @Given("Url ist eingestellt membership-type")
     public void urlIstEingestelltMembershipType() {
         setUp();
-        spec.pathParams("erste","membership-type");
+        spec.pathParams("erste", "membership-type");
     }
 
     @When("Benutzer sendet Anfrage mit GET Methode membership-type")
@@ -92,38 +101,57 @@ public class TypeServicesMembershipSD {
     @Given("Url ist eingestellt membership-type mit {int}")
     public void url_ist_eingestellt_membership_type_mit(Integer type_id) {
         setUp();
-        spec.pathParams("erste",type_id);
-        System.out.println("spec = " + spec);
+        spec.pathParams("erste", type_id);
+
+    }
+    @Then("Benutzer wird bestätigt,dass die {int} {string} sind.")
+    public void benutzer_wird_bestätigt_dass_die_sind(Integer id, String name) {
+        for (MembershipTypePojo actualMember : list) {
+            if (actualMember.getId() == id){
+           assertEquals(actualMember.getName(),name); }
+           break;
+        }
 
     }
 
 
+    //03_07-08
+    @Given("Url ist eingestellt membership-type mit Company ID")
+    public void urlIstEingestelltMembershipTypeMitCompanyID() {
+        int company_id = list.get(0).getId();
+        setUp();
+        spec.pathParams("erste", "membership-type", "zweite", company_id);
+    }
 
-//03_07-08
-//    @Given("Url ist eingestellt membership-type mit Company ID")
-//    public void urlIstEingestelltMembershipTypeMitCompanyID() {
-//       // setUp();
-//        //   spec.pathParams("erste", "membership-type", "zweite",list.get(0).getId() );
-//    }
+    @Then("Benutzer sendet Anfrage mit GET Methode membership-type mit Company ID")
+    public void benutzerSendetAnfrageMitGETMethodeMembershipTypeMitCompanyID() {
+        response = RestAssured
+                .given(spec)
+                .get("{erste}/{zweite}");
 
-//    @Then("Benutzer sendet Anfrage mit GET Methode membership-type mit Company ID")
-//    public void benutzerSendetAnfrageMitGETMethodeMembershipTypeMitCompanyID() {
-//    }
-
-//    @When("Url ist eingestellt membership-type mit Guest ID")
-//    public void urlIstEingestelltMembershipTypeMitGuestID() {
-      //  setUp();
-        //  spec.pathParams("erste", "membership-type", "zweite",list.get(1).getId() );
+        response.prettyPrint();
     }
 
 
-//    @Then("Benutzer sendet Anfrage mit GET Methode membership-type mit Guest ID")
-//    public void benutzerSendetAnfrageMitGETMethodeMembershipTypeMitGuestID() throws JsonProcessingException {
-//        list = new ObjectMapper().readValue(response.asString(), new TypeReference<>() {
-//        });
-//        assertEquals(list.get(0).getId(), actualData.getId());
-  //  }
+    @When("Url ist eingestellt membership-type mit Guest ID")
+    public void urlIstEingestelltMembershipTypeMitGuestID() {
+        int guest_id = list.get(1).getId();
+        setUp();
+        spec.pathParams("erste", "membership-type", "zweite", guest_id);
+    }
 
+
+    @Then("Benutzer sendet Anfrage mit GET Methode membership-type mit Guest ID")
+    public void benutzerSendetAnfrageMitGETMethodeMembershipTypeMitGuestID() throws JsonProcessingException {
+        response = RestAssured
+                .given(spec)
+                .get("{erste}/{zweite}");
+
+        response.prettyPrint();
+    }
+
+
+}
 
 
 
