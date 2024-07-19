@@ -64,8 +64,6 @@ public class PermissionService_11_03_SD {
     public void benutzerVerifiziertIDInAntwort() {
         assertEquals(expectedData.getId(), actualData.getId());
 
-
-
     }
 
     @And("Benutzer verifiziert Action in Antwort")

@@ -1,4 +1,4 @@
-@Api @Modul11
+@Api6 @Modul11
 Feature: Get Permission
 
   Background: Get User Info
@@ -13,6 +13,7 @@ Feature: Get Permission
     Then Der Statuscode 200 wird bestätigt für Permission
     And Der app_id des dritten Elements von list wird bestätigt.
     And Der Benutzer bestätigt, dass die erwarteten Daten in der Antwort vorhanden sind.
+    And Die Antwort wird innerhalb von 600 ms erhalten müssen
 
   @PermissionwithappID
   Scenario: M11_TC_05-06 Get Permission Service Scenario (appID)
@@ -20,6 +21,7 @@ Feature: Get Permission
     When Der Benutzer sendet eine Anfrage mit der GET-Methode für Permission mit appID
     Then Der Statuscode 200 wird bestätigt für Permission with appID
     And Der app_id des ersten Elements von list wird bestätigt.
+
 
 @PermissionwithID
   Scenario: M11_TC_07-08-09-10-11 Get Permission Service Scenario (id)
