@@ -77,8 +77,6 @@ public class MembershipServiceSD {
                   """;
 
         expectedData = ObjectMapperUtils.jsonToJava(json, SadePojo.class);
-        // List<MemberListPojo>  expectedData = new ObjectMapper().readValue(json, new TypeReference<>() {});
-// memberList'te döngü ile her bir üyeye erişebilirsiniz.
 
         System.out.println("expectedData = " + expectedData);
 
