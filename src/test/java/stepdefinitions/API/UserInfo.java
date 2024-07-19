@@ -13,6 +13,7 @@ import static utilities.Authentication.getSessionId;
 public class UserInfo {
     Response response;
     static String appID;
+    static String role_id;
     static String org_id;
     static String uuid;
     static String user_id;
@@ -59,6 +60,10 @@ public class UserInfo {
         user_name = response
                 .jsonPath()
                 .getString("sub");
+
+        role_id = response
+                .jsonPath()
+                .getString("sub_roles[0].role_id");
 
     }
 
