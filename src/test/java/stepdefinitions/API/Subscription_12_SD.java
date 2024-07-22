@@ -3,11 +3,13 @@ package stepdefinitions.API;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.javafaker.Faker;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.RestAssured;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import pojos.SubscriptionPojo;
 import utilities.ObjectMapperUtils;
@@ -19,12 +21,14 @@ import static base_urls.Gm3BaseUrl.spec;
 import static org.hamcrest.Matchers.lessThan;
 import static org.junit.Assert.assertEquals;
 import static stepdefinitions.API.HooksAPI.setUp;
-import static stepdefinitions.API.UserInfo.uuid;
+import static stepdefinitions.API.UserInfo.*;
 
 public class Subscription_12_SD {
+    Faker faker = new Faker();
     SubscriptionPojo expectedData;
     SubscriptionPojo actualData;
     Response response;
+    static String tempUUID;
     static List<SubscriptionPojo> subscriptionList;
     @Given("Einstellen url für Subscription")
     public void einstellenUrlFürSubscription() {
@@ -159,5 +163,89 @@ public class Subscription_12_SD {
     @And("Benutzer verifiziert für subscription ID in Antwort")
     public void benutzerVerifiziertFürSubscriptionIDInAntwort() {
         assertEquals(expectedData.getId(), actualData.getId());
+    }
+
+    @And("Benutzer verifiziert für subscription ID with UUID in Antwort")
+    public void benutzerVerifiziertFürSubscriptionIDWithUUIDInAntwort() {
+        System.out.println("expectedData.getId() = " + expectedData.getId());
+        assertEquals(expectedData.getId(), actualData.getId());
+    }
+
+    @Given("Einstellen url für Post Subscription")
+    public void einstellenUrlFürPostSubscription() {
+        setUp();
+        spec.pathParams("first", "v1","second","subscription");
+
+    }
+
+    @When("Der Benutzer sendet eine Anfrage mit der Post-Methode für Subscription")
+    public void derBenutzerSendetEineAnfrageMitDerPostMethodeFürSubscription() {
+        String expectedData = "{\n" +
+                "    \"app_id\": "+appID+",\n" +
+                "    \"user_id\": "+user_id+",\n" +
+                "    \"subscription_type_id\": "+role_id+",\n" +
+                "    \"organization_name\": \""+faker.name()+"\"\n" +
+                "}";
+        response = RestAssured
+                .given(spec)
+                .body(expectedData)
+                .post("/{first}/{second}");
+        response.prettyPrint();
+        JsonPath jsonPath = response.jsonPath();
+        uuid = jsonPath.getString("subscription_id");
+        System.out.println("uuid = " + uuid);
+        tempUUID=uuid;
+        System.out.println("tempUUID = " + tempUUID);
+    }
+
+    @And("Der Benutzer bestätigt, dass die erwarteten Daten für Post Subscription in der Antwort vorhanden sind.")
+    public void derBenutzerBestätigtDassDieErwartetenDatenFürPostSubscriptionInDerAntwortVorhandenSind() {
+        String json = """
+       {
+           "app_id": 2,
+            "membership_type_id": 5,
+           "user_id": 32,
+           "subscription_id": "76e3e09c-455b-451c-8643-28605dd20f63",
+           "membership_type_id": 5,
+           "organization_id": 1721647457144770,
+           "organization_seat_occupied": 100
+       }
+       """;
+        expectedData = ObjectMapperUtils.jsonToJava(json, SubscriptionPojo.class);
+        System.out.println("expectedData = " + expectedData);
+        actualData = response.as(SubscriptionPojo.class);
+
+    }
+
+    @And("Benutzer verifiziert für Post subscription ID  in Antwort")
+    public void benutzerVerifiziertFürPostSubscriptionIDInAntwort() {
+        assertEquals(expectedData.getApp_id(), actualData.getApp_id());
+    }
+
+    @Then("Der Statuscode {int} wird bestätigt für Post Subscription")
+    public void derStatuscodeWirdBestätigtFürPostSubscription(int arg0) {
+        response
+                .then()
+                .statusCode(201);
+        assertEquals(201, response.statusCode());
+    }
+
+    @Given("Einstellen url für Delete Subscription")
+    public void einstellenUrlFürDeleteSubscription() {
+        System.out.println("user_id = " + user_id);
+        System.out.println("appID = " + appID);
+        System.out.println("uuid = " + uuid);
+        System.out.println("tempUUID = " + tempUUID);
+        setUp();
+        spec.pathParams("first", "v1","second","user","third",user_id,"fourth","application","fifth",appID,"sixth","subscription","seventh",tempUUID,"eighth","remove");
+    }
+
+    @When("Der Benutzer sendet eine Anfrage mit der Delete-Methode für Subscription")
+    public void derBenutzerSendetEineAnfrageMitDerDeleteMethodeFürSubscription() {
+
+        response = RestAssured
+                .given(spec)
+                .delete("/{first}/{second}/{third}/{fourth}/{fifth}/{sixth}/{seventh}/{eighth}");
+        response.prettyPrint();
     }
 }
