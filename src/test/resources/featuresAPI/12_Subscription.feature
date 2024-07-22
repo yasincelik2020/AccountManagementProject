@@ -6,7 +6,7 @@ Feature: Get Permission
     When send get request User Info
     And get the user info information
 
-  @SubscriptionwithoutUUID
+  @SubscriptionGetwithoutUUID
   Scenario: M12_TC_01-02-03-04 Get Subscription Service Scenario
     Given Einstellen url für Subscription ohne uuid
     When Der Benutzer sendet eine Anfrage mit der GET-Methode für Subscription ohne uuid
@@ -15,7 +15,7 @@ Feature: Get Permission
     And Benutzer verifiziert für subscription ID in Antwort
     And Die Antwort für Subscription ohne uuid wird innerhalb von 800 ms erhalten müssen
 
-@Subscription
+@SubscriptionGet
   Scenario: M12_TC_05-06-07-08 Get Subscription Service Scenario
     Given Einstellen url für Subscription
     When Der Benutzer sendet eine Anfrage mit der GET-Methode für Subscription
