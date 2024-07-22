@@ -1,4 +1,4 @@
-@Modul7
+@Modul07_2
 Feature:Get User Group Services
 
   Background: Get User Info
@@ -36,12 +36,40 @@ Feature:Get User Group Services
     Then Der Statuscode 200 wird bestätigt für User Group Services.
     And Der Organizationsname info von nach dem Update Group Id wurden bestätigt
 
-
   Scenario:M07_Post User Scenario
-  (Ein neuer user wird erstellt)
-    Given Einstellen url für ein neuer User
-    When Der Benutzer sendet eine Anfrage für ein neuer User
+    Given Einstellen url für ein neuer User.
+    When Der Benutzer sendet eine Anfrage für ein neuer User.
 
   Scenario:M07_11_12 Post User Group Services Scenario
-  (Die erstellte User Group wird aktualisiert)
+    Given Einstellen url für User Group_user.
+    When Der Benutzer sendet eine Anfrage mit der Get-Methode für User Group_user.
+    Then Der Statuscode 201 wird bestätigt für User Group_user.
+    And Id info wurden bestätigt.
+
+  Scenario:M07_13_14 Get User Group Services Scenario
+    Given Einstellen url für User Group_userget.
+    When Der Benutzer sendet eine Anfrage mit der Get-Methode für User Group_userget.
+    Then Der Statuscode 200 wird bestätigt für User Group_user.
+    And Die Username-Informationen des ersten Elements der User List werden bestätigt.
+
+  Scenario:M07_15 Delete User Group Services Scenario
+    Given Einstellen url für User Group_userdelete.
+    When Der Benutzer sendet eine Anfrage mit der Delete-Methode für User Group_userdelete.
+    Then Der Statuscode 200 wird bestätigt für User Group_userdelete.
+
+  Scenario:M07_16_17 Get User Group Services Scenario
+    Given Einstellen url für User Group_user_nachdelete_get.
+    When Der Benutzer sendet eine Anfrage mit der Get-Methode für User Group_user_nachdelete_get.
+    Then Der Statuscode 200 wird bestätigt für User Group_userdelete.
+    And Es wird bestätigt, dass keine users vorliegen.
+
+  Scenario:M07_18 Delete User Group Services Scenario
+    Given Einstellen url für User Group_delete.
+    When Der Benutzer sendet eine Anfrage mit der Delete-Methode für User Group.
+    Then Der Statuscode 200 wird bestätigt für User Group_userdelete.
+
+  Scenario:M07_19 Get User Group Services Scenario
+    Given Einstellen url für User Group_nachdelete_get.
+    When Der Benutzer sendet eine Anfrage mit der Delete-Methode für User Group_nachdelete_get.
+    Then Der Statuscode 404 wird bestätigt für User Group_userdelete..
 
