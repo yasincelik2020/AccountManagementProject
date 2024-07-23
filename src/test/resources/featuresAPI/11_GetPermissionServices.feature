@@ -1,4 +1,4 @@
-@Api6 @Modul11
+@Api11 @Modul11
 Feature: Get Permission
 
   Background: Get User Info
