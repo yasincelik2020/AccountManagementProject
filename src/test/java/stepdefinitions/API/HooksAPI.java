@@ -6,7 +6,7 @@ import static base_urls.Gm3BaseUrl.setSpec;
 
 public class HooksAPI {
 
-    @Before("@Modul07_04")// tüm senoriolar öncesi calisir
+    @Before("@Api8")// tüm senoriolar öncesi calisir
     public static void setUp(){
         setSpec();// spec objesi null kalmamasi icin her senorya öncesi cagirilir.
 
