@@ -9,10 +9,9 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import pojos.SadePojo;
+import pojos.MembershipPojo;
 import pojos.UserIdAppIdMembershipGetPojo;
 import utilities.ObjectMapperUtils;
-import io.restassured.path.json.JsonPath;
 
 import java.util.List;
 
@@ -23,8 +22,8 @@ import static stepdefinitions.API.UserInfo.*;
 
 public class MembershipServiceSD {
     Response response;
-    public static SadePojo expectedData;
-    public static SadePojo actualData;
+    public static MembershipPojo expectedData;
+    public static MembershipPojo actualData;
     public static List<UserIdAppIdMembershipGetPojo> listGroß;
     public static UserIdAppIdMembershipGetPojo actualDataGroß;
 
@@ -76,7 +75,7 @@ public class MembershipServiceSD {
                                 
                   """;
 
-        expectedData = ObjectMapperUtils.jsonToJava(json, SadePojo.class);
+        expectedData = ObjectMapperUtils.jsonToJava(json, MembershipPojo.class);
 
         System.out.println("expectedData = " + expectedData);
 
@@ -86,7 +85,7 @@ public class MembershipServiceSD {
     @Then("Antwort bestätigt auch, dass die Benutzerkennung vorhanden ist")
     public void antwortBestätigtAuchDassDieBenutzerkennungVorhandenIst() throws JsonProcessingException {
 
-        List<SadePojo> list = new ObjectMapper().readValue(response.asString(), new TypeReference<>() {
+        List<MembershipPojo> list = new ObjectMapper().readValue(response.asString(), new TypeReference<>() {
         });
         System.out.println("list = " + list);
 
