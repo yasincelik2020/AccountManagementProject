@@ -1,4 +1,4 @@
-@Api3
+@Api @Modul03 @Regression
 Feature:Membership Service Type Service
 
   Background: Get User Info

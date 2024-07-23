@@ -1,4 +1,4 @@
-@Api2 @Modul07_04
+@Api @Modul07 @Smoke
 Feature:Get User Group Services
 
   Background: Get User Info
@@ -19,7 +19,6 @@ Feature:Get User Group Services
     When Der Benutzer sendet eine Anfrage mit der POST-Methode für User Group Services
     Then Der Statuscode 201 wird bestätigt für User Group Services
     And Die Kurznamen-Informationen der neu erstellten User Group werden bestätigt
-
 
   Scenario:M07_TC_05_06 Get User Group Services Scenario
   (Die erstellte User Group wird mit der Information „group_id“ zurückgegeben..)

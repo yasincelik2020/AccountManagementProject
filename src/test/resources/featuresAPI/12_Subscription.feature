@@ -1,4 +1,4 @@
-@Api12 @Modul12
+@Api @Modul12 @Smoke
 Feature: Get Permission
 
   Background: Get User Info

@@ -1,4 +1,4 @@
-@Api11
+@Api @Modul10 @Regression
 Feature: Get User Service
 
   Background: Get User Info

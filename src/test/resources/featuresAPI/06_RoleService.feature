@@ -1,4 +1,4 @@
-@Modul06
+@Api @Modul06 @Regression
 Feature:Get Organization Service
 
   Background: Get User Info

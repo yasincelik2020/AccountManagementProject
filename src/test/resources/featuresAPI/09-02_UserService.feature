@@ -1,4 +1,4 @@
-@Api
+@Api @Modul09 @Smoke
 Feature:Get User Service
 
   Background: Get User Info

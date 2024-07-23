@@ -1,4 +1,4 @@
-@Api11 @Modul11
+@Api1 @Modul11 @Regression
 Feature: Get Permission
 
   Background: Get User Info
