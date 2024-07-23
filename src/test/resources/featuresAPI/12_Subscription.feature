@@ -10,7 +10,7 @@ Feature: Get Permission
   Scenario: M12_TC_01-02-03 Get Subscription Service Scenario
     Given Einstellen url für Subscription ohne uuid
     When Der Benutzer sendet eine Anfrage mit der GET-Methode für Subscription ohne uuid
-    Then Der Statuscode 200 wird bestätigt für Subscription ohne uuid
+    Then Der Statuscode 200 wird bestätigt für Subscription
     And Der Benutzer bestätigt, dass die erwarteten Daten für Subscription ohne uuid in der Antwort vorhanden sind.
     And Benutzer verifiziert für subscription ID in Antwort
     And Die Antwort für Subscription ohne uuid wird innerhalb von 800 ms erhalten müssen
@@ -28,7 +28,7 @@ Feature: Get Permission
   Scenario: M12_TC_07-08-09 Post Subscription Service Scenario
     Given Einstellen url für Post Subscription
     When Der Benutzer sendet eine Anfrage mit der Post-Methode für Subscription
-    Then Der Statuscode 201 wird bestätigt für Post Subscription
+    Then Der Statuscode 201 wird bestätigt für Subscription
     And Der Benutzer bestätigt, dass die erwarteten Daten für Post Subscription in der Antwort vorhanden sind.
     And Die Antwort für Subscription wird innerhalb von 800 ms erhalten müssen
     And Benutzer verifiziert für Post subscription ID  in Antwort

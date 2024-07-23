@@ -46,11 +46,11 @@ public class Subscription_12_SD {
     }
 
     @Then("Der Statuscode {int} wird bestätigt für Subscription")
-    public void derStatuscodeWirdBestätigtFürSubscription(int arg0) {
+    public void derStatuscodeWirdBestätigtFürSubscription(int x) {
                 response
                 .then()
-                .statusCode(200);
-        assertEquals(200, response.statusCode());
+                .statusCode(x);
+        assertEquals(x, response.statusCode());
     }
 
     @And("Der Benutzer bestätigt, dass die erwarteten Daten für Subscription in der Antwort vorhanden sind.")
@@ -104,13 +104,6 @@ public class Subscription_12_SD {
         response.prettyPrint();
     }
 
-    @Then("Der Statuscode {int} wird bestätigt für Subscription ohne uuid")
-    public void derStatuscodeWirdBestätigtFürSubscriptionOhneUuid(int arg0) {
-        response
-                .then()
-                .statusCode(200);
-        assertEquals(200, response.statusCode());
-    }
 
     @And("Der Benutzer bestätigt, dass die erwarteten Daten für Subscription ohne uuid in der Antwort vorhanden sind.")
     public void derBenutzerBestätigtDassDieErwartetenDatenFürSubscriptionOhneUuidInDerAntwortVorhandenSind() throws JsonProcessingException {
@@ -180,11 +173,13 @@ public class Subscription_12_SD {
 
     @When("Der Benutzer sendet eine Anfrage mit der Post-Methode für Subscription")
     public void derBenutzerSendetEineAnfrageMitDerPostMethodeFürSubscription() {
+        String name = String.valueOf(faker.funnyName());
+        System.out.println("name = " + name);
         String expectedData = "{\n" +
                 "    \"app_id\": "+appID+",\n" +
                 "    \"user_id\": "+user_id+",\n" +
                 "    \"subscription_type_id\": "+role_id+",\n" +
-                "    \"organization_name\": \""+faker.name()+"\"\n" +
+                "    \"organization_name\": \""+name+"\"\n" +
                 "}";
         response = RestAssured
                 .given(spec)
@@ -222,13 +217,6 @@ public class Subscription_12_SD {
         assertEquals(expectedData.getApp_id(), actualData.getApp_id());
     }
 
-    @Then("Der Statuscode {int} wird bestätigt für Post Subscription")
-    public void derStatuscodeWirdBestätigtFürPostSubscription(int arg0) {
-        response
-                .then()
-                .statusCode(201);
-        assertEquals(201, response.statusCode());
-    }
 
     @Given("Einstellen url für Delete Subscription")
     public void einstellenUrlFürDeleteSubscription() {
