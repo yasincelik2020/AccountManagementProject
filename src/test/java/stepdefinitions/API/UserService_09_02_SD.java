@@ -1,5 +1,8 @@
 package stepdefinitions.API;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.javafaker.Faker;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -7,25 +10,28 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import pojos.UserServiceGetBodyPojo02;
-import pojos.UserServicePostBodyPojo02;
+import pojos.*;
 import utilities.ObjectMapperUtils;
+
+import java.util.List;
 
 import static base_urls.Gm3BaseUrl.spec;
 import static io.restassured.RestAssured.given;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static stepdefinitions.API.HooksAPI.setUp;
 import static stepdefinitions.API.UserInfo.*;
 
 public class UserService_09_02_SD {
 
-    Response response;
+    static Response response;
+    static UserServicePostPojo expectedData;
+    static  UserServiceResponsePojo expectedDataGet;
+    static UserServiceResponsePojo actualDataPost;
+    static UserServiceResponsePojo actualDataGet;
+
+    public static List<UserServiceResponsePojo> list;
     Faker faker = new Faker();
-    public static UserServicePostBodyPojo02 expectedData;
-    public static UserServiceGetBodyPojo02 expectedDataGet;
-    static String contactId;
-    public  static UserServiceGetBodyPojo02 actualDataGet;
+    static Integer userID;
 
     //09_01
     @Given("Url ist eingestellt für organization user register-manual")
@@ -46,7 +52,7 @@ public class UserService_09_02_SD {
                 "    \n" +
                 "}";
 
-        expectedData = ObjectMapperUtils.jsonToJava(json, UserServicePostBodyPojo02.class);
+        expectedData = ObjectMapperUtils.jsonToJava(json, UserServicePostPojo.class);
 
         System.out.println("expectedData = " + expectedData);
     }
@@ -59,58 +65,51 @@ public class UserService_09_02_SD {
                 .post("{first}/{second}/{third}/{fourth}");
 
         response.prettyPrint();
+
+        actualDataPost= response.as(UserServiceResponsePojo.class);
+        userID = actualDataPost.getId();// bu id responce da gelen üretilen kullanicinin ID SI
+        System.out.println("responseID = " + userID);
+
+    }
+    @Then("Der Statuscode {int} wird bestätigt..")
+    public void derStatuscodeWirdBestätigt(int statusCode) {
+
+        assertEquals(statusCode, response.statusCode());
     }
 
     //09_02
     @Given("Url ist eingestellt für user id")
     public void urlIstEingestelltFürUserId() {
 
-        contactId = response.jsonPath().getString("id");
         setUp();
-        spec.pathParams("first", "v1", "second", "user", "third", contactId);
+        spec.pathParams("first", "v1", "second", "user", "third", userID);
     }
+    @When("Benutzer sendet Anfrage mit GET-Methode für Get")
+    public void benutzerSendetAnfrageMitGETMethodeFürGet() {
+        response = RestAssured
+                .given(spec)
+                .get("{first}/{second}/{third}");
 
-    @And("Einstellen der zu sendenden Daten für user id")
-    public void einstellenDerZuSendendenDatenFürUserId() {
-
-        String json = """
-                {
-                    "id": 187,
-                    "username": "Vernie.Muller14@hotmail.com",
-                    "email": "Vernie.Muller14@hotmail.com",
-                    "is_email_verified": false,
-                    "status_id": 1,
-                    "created_at": "2024-07-19T07:19:15.943812Z",
-                    "created_by": 28,
-                    "updated_at": "2024-07-19T07:19:15.943813Z",
-                    "updated_by": 28,
-                    "organization_id": 1720781349513610,
-                    "subscription_id": "6eba80bb-537d-4c01-9da2-1ca732b2c269",
-                    "is_active": true,
-                    "membership_created_at": "2024-07-19T07:19:15.994383Z",
-                    "membership_updated_at": "2024-07-19T07:19:15.994384Z"
-                }""";
-
-        expectedDataGet = ObjectMapperUtils.jsonToJava(json, UserServiceGetBodyPojo02.class);
-
-        System.out.println("expectedDataGet = " + expectedDataGet);
+        response.prettyPrint();
+        userID = actualDataPost.getId();// bu id responce da gelen üretilen kullanicinin ID SI
+        System.out.println("responseID = " + userID);
     }
 
 //09_03
     @Then("Überprüfen Sie, ob die E-Mail in der Antwort die E-Mail des Benutzers ist.")
     public void überprüfenSieObDieEMailInDerAntwortDieEMailDesBenutzersIst() {
 
-        UserServiceGetBodyPojo02 actualDataGet= response.as(UserServiceGetBodyPojo02.class);
+         actualDataGet= response.as(UserServiceResponsePojo.class);
         System.out.println("actualDataGet = " + actualDataGet);
 
-        assertEquals(expectedDataGet.getEmail(),actualDataGet.getEmail());
+        assertEquals(actualDataPost.getEmail(),actualDataGet.getEmail());
     }
 
     //09_04
     @Then("In der Antwort wird auch überprüft, ob created_by die Benutzerkennung ist.")
     public void inDerAntwortWirdAuchÜberprüftObCreated_byDieBenutzerkennungIst() {
 
-        assertEquals(actualDataGet.getCreated_at(),user_id);
+        assertEquals(actualDataGet.getCreated_by().toString(),user_id);
     }
 
 
@@ -125,11 +124,21 @@ public class UserService_09_02_SD {
     @And("Einstellen der zu sendenden Daten für user")
     public void einstellenDerZuSendendenDatenFürUser() {
 
-        String json="{\n" +
-                "    \"username\":  \"" + faker.name().username() + "\",\n" +
+        String json = "{\n" +
+                "    \"id\":" + userID + ",\n" +
+
+                "    \"username\": \"" + faker.name().username() + "\"\n" +
                 "}";
 
-        expectedDataGet = ObjectMapperUtils.jsonToJava(json, UserServiceGetBodyPojo02.class);
+
+
+        expectedDataGet = ObjectMapperUtils.jsonToJava(json, UserServiceResponsePojo.class);
+
+        System.out.println(expectedDataGet.getUsername());
+
+        System.out.println(expectedDataGet.getId());
+
+        expectedDataGet = ObjectMapperUtils.jsonToJava(json, UserServiceResponsePojo.class);
 
         System.out.println("expectedDataGet = " + expectedDataGet);
     }
@@ -139,17 +148,118 @@ public class UserService_09_02_SD {
 
         response=given(spec).body(expectedDataGet).put("{first}/{second}");
         response.prettyPrint();
+
+        actualDataGet= response.as(UserServiceResponsePojo.class);
+        System.out.println("actualDataGet = " + actualDataGet);
+
+
     }
 
     //09_06
+
+
+    //09_07
     @Then("In der Antwort wird überprüft, ob es sich bei dem Benutzernamen um den aktualisierten Namen des Benutzers handelt")
     public void inDerAntwortWirdÜberprüftObEsSichBeiDemBenutzernamenUmDenAktualisiertenNamenDesBenutzersHandelt() {
 
         assertEquals(expectedDataGet.getUsername(),actualDataGet.getUsername());
 
     }
+    //09_08
+    @Given("Url ist eingestellt für organization user id")
+    public void urlIstEingestelltFürOrganizationUserId() {
+        setUp();
+        spec.pathParams("first", "v1", "second", "organization", "third", org_id, "fourth", "user","fifth",userID);
 
-    //09_07
+    }
+
+    @When("Benutzer sendet Anfrage mit DELETE-Methode für Delete")
+    public void benutzerSendetAnfrageMitDELETEMethodeFürDelete() {
+        response = given(spec).delete("{first}/{second}/{third}/{fourth}/{fifth}");
+        response.prettyPrint();
+    }
+
+    //09_09
+
+    @Given("Url ist eingestellt für delete user id")
+    public void urlIstEingestelltFürDeleteUserId() {
+
+        setUp();
+        spec.pathParams("first", "user", "second", userID);
+    }
+
+
+    @When("Benutzer sendet Anfrage mit DELETE-Methode")
+    public void benutzerSendetAnfrageMitDELETEMethode() {
+        response = given(spec).delete("{first}/{second}");
+        response.prettyPrint();
+    }
+
+    //09_10
+    @Given("Url ist eingestellt für Get v{int} user id")
+    public void urlIstEingestelltFürGetVUserId(int arg0) {
+        setUp();
+        spec.pathParams("first", "v1","second", "user", "third", userID);
+    }
+
+    @When("Benutzer sendet Anfrage mit GET-Methode für Get v{int} user id")
+    public void benutzerSendetAnfrageMitGETMethodeFürGetVUserId(int arg0) {
+        response = given(spec)
+                .get("{first}/{second}/{third}");
+
+        response.prettyPrint();
+    }
+
+    //09_11
+    @Given("Url ist eingestellt für Get organization user")
+    public void urlIstEingestelltFürGetOrganizationUser() {
+        setUp();
+        spec.pathParams("first", "v1","second", "organization", "third", org_id,"fourth","user");
+    }
+
+    @When("Benutzer sendet Anfrage mit GET-Methode für Get organization user")
+    public void benutzerSendetAnfrageMitGETMethodeFürGetOrganizationUser() {
+        response = given(spec).get("{first}/{second}/{third}/{fourth}");
+        response.prettyPrint();
+    }
+
+    //09_12
+    @Then("Antwort bestätigt, dass die gelöschte ID nicht existiert")
+    public void antwortBestätigtDassDieGelöschteIDNichtExistiert() throws JsonProcessingException {
+
+        list = new ObjectMapper().readValue(response.asString(), new TypeReference<>() {
+        });
+        System.out.println("list = " + list);
+
+        for (UserServiceResponsePojo w : list) {
+
+            actualDataGet = w;
+            if (actualDataGet.getId().equals(userID)) {
+                assertTrue("Silinen Id bulundu",false);
+                break;
+            }
+        }
+
+
+    }
+
+    //09_13
+    @Then("Die Antwort bestätigt auch, dass der gelöschte Benutzername nicht existiert")
+    public void dieAntwortBestätigtAuchDassDerGelöschteBenutzernameNichtExistiert() {
+
+        for (UserServiceResponsePojo w : list) {
+
+            actualDataGet = w;
+            if (actualDataGet.getId().equals(userID) && actualDataGet.getUsername().equals(user_name)) {
+                assertTrue("Silinen Id bulundu",false);
+                break;
+            }
+
+        }
+
+
+    }
+
 
 
 

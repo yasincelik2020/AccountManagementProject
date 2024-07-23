@@ -4,7 +4,7 @@ package pojos;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SadePojo{
+public class MembershipPojo {
 
 	private String subscription_id;
 	private Integer user_id;
