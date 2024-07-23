@@ -103,6 +103,16 @@ public class TypeServicesUserGroupSD {
         listmitID = jsonPath.getList("$");
         System.out.println("listmitID = " + listmitID);
 
+            }
+
+    @Then("Benutzer prüft über, ob den Statuscode {int} ist")
+    public void benutzerPrüftÜberObDenStatuscodeIst(int statusCode) {
+        response.then().statusCode(statusCode);
+        Assert.assertEquals(statusCode, response.statusCode());
+    }
+
+    @And("Benutzer prüft über,wie der Name lautet Service mit org_ID {int}")
+    public void benutzerPrüftÜberWieDerNameLautetServiceMitOrg_ID(int typeID) {
         for (Map<String, Object> resource : listmitID) {
             if (resource.containsValue(typeID)) {
                 String type = null;
@@ -122,6 +132,5 @@ public class TypeServicesUserGroupSD {
 
             }
         }
-
     }
 }

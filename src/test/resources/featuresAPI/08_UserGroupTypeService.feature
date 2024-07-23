@@ -41,20 +41,23 @@ Feature:User Group Type Service
     Then Benutzer prüft über, ob der name "Team" ist
 
   @TypeUserGroupmitORG_ID
-  Scenario: M_08_08 Get User Group Type Service mit ID
+  Scenario: M_08_08-09 Get User Group Type Service mit ID
     Given Url ist eingestellt User Group Type Service mit org_ID 1
     When Benutzer sendet Anfrage mit GET Methode for User Group Type Service mit org_ID 1
-    Then Benutzer prüft über, ob der Statuscode ist
+    Then Benutzer prüft über, ob den Statuscode 200 ist
+    And Benutzer prüft über,wie der Name lautet Service mit org_ID 1
 
-  Scenario: M_08_09 Get User Group Type Service mit ID
+  Scenario: M_08_10-11 Get User Group Type Service mit ID
     Given Url ist eingestellt User Group Type Service mit org_ID 2
     When Benutzer sendet Anfrage mit GET Methode for User Group Type Service mit org_ID 2
-    Then Benutzer prüft über, ob der Statuscode ist
+    Then Benutzer prüft über,wie der Name lautet Service mit org_ID 2
+    And  Benutzer prüft über, ob den Statuscode 200 ist
 
-  Scenario: M_08_10 Get User Group Type Service mit ID
+  Scenario: M_08_12-13 Get User Group Type Service mit ID
     Given Url ist eingestellt User Group Type Service mit org_ID 3
     When Benutzer sendet Anfrage mit GET Methode for User Group Type Service mit org_ID 3
-    Then Benutzer prüft über, ob der Statuscode ist
+    Then Benutzer prüft über,wie der Name lautet Service mit org_ID 3
+    And  Benutzer prüft über, ob den Statuscode 200 ist
 
 
 
