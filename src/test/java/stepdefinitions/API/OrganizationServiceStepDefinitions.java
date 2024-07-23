@@ -5,7 +5,10 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.RestAssured;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+
+import java.util.List;
 
 import static base_urls.Gm3BaseUrl.spec;
 import static org.hamcrest.Matchers.not;
@@ -44,7 +47,10 @@ public class OrganizationServiceStepDefinitions {
 
     @And("Der Benutzername des ersten Elements von user_list wird bestätigt.")
     public void derBenutzernameDesErstenElementsVonUser_listWirdBestätigt() {
-        response.then().body("user_list[0].username",equalTo("asya@clarusway.com"));
+        JsonPath jsonPath = response.jsonPath(); //Response'ı JsonPath'e çevirdik
+        List<String> name = jsonPath.getList("user_list.findAll{it.id==27}.username");
+        System.out.println("name.get(0) = " + name.get(0));
+        assert name.get(0).equals("asya@clarusway.com");
     }
     @Given("Einstellen url für Organization Service\\(summary)")
     public void einstellenUrlFürOrganizationServiceSummary() {

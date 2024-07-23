@@ -1,4 +1,4 @@
-@Api1 @Modul04
+@Api1 @Modul07_04
 Feature:Get Organization Service
 
   Background: Get User Info

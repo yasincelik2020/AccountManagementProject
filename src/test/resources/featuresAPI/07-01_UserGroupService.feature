@@ -1,4 +1,4 @@
-@Api2 @Modul07
+@Api2 @Modul07_04
 Feature:Get User Group Services
 
   Background: Get User Info
