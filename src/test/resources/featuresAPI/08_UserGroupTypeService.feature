@@ -56,3 +56,5 @@ Feature:User Group Type Service
     When Benutzer sendet Anfrage mit GET Methode for User Group Type Service mit org_ID 3
     Then Benutzer prüft über, ob der Statuscode ist
 
+
+

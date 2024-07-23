@@ -101,6 +101,7 @@ public class TypeServicesUserGroupSD {
 
         JsonPath jsonPath = response.jsonPath();
         listmitID = jsonPath.getList("$");
+        System.out.println("listmitID = " + listmitID);
 
         for (Map<String, Object> resource : listmitID) {
             if (resource.containsValue(typeID)) {
