@@ -7,7 +7,6 @@ import io.cucumber.java.en.*;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import pojos.MembershipTypePojo;
-import pojos.SadePojo;
 import utilities.ObjectMapperUtils;
 
 import java.util.List;
