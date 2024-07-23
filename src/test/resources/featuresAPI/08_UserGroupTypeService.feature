@@ -1,4 +1,4 @@
-@Api8
+@Api @Modul08 @Regression
 Feature:User Group Type Service
 
   Background: Get User Info

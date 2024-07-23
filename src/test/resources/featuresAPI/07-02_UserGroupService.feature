@@ -1,4 +1,4 @@
-@Modul07_2
+@Api1 @Modul07 @Smoke
 Feature:Get User Group Services
 
   Background: Get User Info

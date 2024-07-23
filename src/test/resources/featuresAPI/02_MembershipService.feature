@@ -1,4 +1,4 @@
-@Api
+@Api @Modul02 @Regression
 Feature:Get Membership Service
 
   Background: Get User Info
