@@ -40,6 +40,7 @@ Feature:User Group Type Service
     When Benutzer sendet Anfrage mit GET Methode for User Group Type Service mit ID
     Then Benutzer prüft über, ob der name "Team" ist
 
+
   @TypeUserGroupmitORG_ID
   Scenario: M_08_08-09 Get User Group Type Service mit ID
     Given Url ist eingestellt User Group Type Service mit org_ID 1
