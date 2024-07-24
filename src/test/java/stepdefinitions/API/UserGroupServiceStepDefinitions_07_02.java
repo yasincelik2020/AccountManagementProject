@@ -12,13 +12,14 @@ import org.hamcrest.Matchers;
 import pojos.UserGroup_CreatePojo;
 import utilities.ObjectMapperUtils;
 
-import static base_urls.Gm3BaseUrl.spec;
+import static base_urls.Gm3BaseUrl.*;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.*;
 import static stepdefinitions.API.HooksAPI.setUp;
-import static stepdefinitions.API.UserInfo.*;
+import static stepdefinitions.API.HooksAPI.*;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -98,7 +99,7 @@ public class UserGroupServiceStepDefinitions_07_02 {
 
     @Given("Einstellen url mit group_id2 für User Group Services")
     public void einstellenUrlMitGroup_id2FürUserGroupServices() {
-        setUp();
+        setSpec();
         spec.pathParams("erste", "user-group", "zweite", group_id);
     }
 
@@ -124,7 +125,7 @@ public class UserGroupServiceStepDefinitions_07_02 {
 
     @Given("Einstellen _url für User Group Services")
     public void einstellen_urlFürUserGroupServices() {
-        setUp();
+        setSpec();
         spec.pathParams("erste", "user-group");
     }
 
@@ -158,7 +159,7 @@ public class UserGroupServiceStepDefinitions_07_02 {
 
     @Given("Einstellen url für User Group Services details")
     public void einstellenUrlFürUserGroupServicesDetails() {
-        setUp();
+        setSpec();
         spec.pathParams("erste", "v1", "zweite", "organization", "dritte", org_id,
                 "vierte", "user-group", "fünfte", group_id, "sechste", "details");
     }
@@ -178,7 +179,7 @@ public class UserGroupServiceStepDefinitions_07_02 {
 
     @Given("Einstellen url für ein neuer User.")
     public void einstellen_url_für_ein_neuer_user() {
-        setUp();
+        setSpec();
         spec.pathParams("erste", "v1", "zweite", "organization", "dritte", "user", "vierte", "register-manual");
 
     }
@@ -207,7 +208,7 @@ public class UserGroupServiceStepDefinitions_07_02 {
     // 7_2_11_12
     @Given("Einstellen url für User Group_user.")
     public void einstellen_url_für_user_group_user() {
-        setUp();
+        setSpec();
         spec.pathParams("erste", "organization", "zweite", org_id, "dritte", "user-group",
                         "vierte", group_id, "fünfte", "user", "sechste", user_id)
                 .queryParam("isHead", "false");
@@ -251,7 +252,7 @@ public class UserGroupServiceStepDefinitions_07_02 {
 
     @Given("Einstellen url für User Group_userget.")
     public void einstellen_url_für_user_group_userget() {
-        setUp();
+        setSpec();
         spec.pathParams("erste", "v1", "zweite", "organization", "dritte", org_id,
                 "vierte", "user-group", "fünfte", group_id, "sechste", "details");
     }
@@ -276,7 +277,7 @@ public class UserGroupServiceStepDefinitions_07_02 {
     // 7_2_15
     @Given("Einstellen url für User Group_userdelete.")
     public void einstellen_url_für_user_group_userdelete() {
-        setUp();
+        setSpec();
         spec.pathParams("erste", "organization", "zweite", org_id, "dritte", "user-group",
                 "vierte", group_id, "fünfte", "user", "sechste", user_id);
     }
@@ -295,7 +296,7 @@ public class UserGroupServiceStepDefinitions_07_02 {
     // 7_2_16_17
     @Given("Einstellen url für User Group_user_nachdelete_get.")
     public void einstellen_url_für_user_group_user_nachdelete_get() {
-        setUp();
+        setSpec();
         spec.pathParams("erste", "v1", "zweite", "organization", "dritte", org_id,
                 "vierte", "user-group", "fünfte", group_id, "sechste", "details");
     }
@@ -316,7 +317,7 @@ public class UserGroupServiceStepDefinitions_07_02 {
     // 7_2_18
     @Given("Einstellen url für User Group_delete.")
     public void einstellen_url_für_user_group_delete() {
-        setUp();
+        setSpec();
         spec.pathParams("erste", "user-group", "zweite", group_id);
     }
 
@@ -330,7 +331,7 @@ public class UserGroupServiceStepDefinitions_07_02 {
 
     @Given("Einstellen url für User Group_nachdelete_get.")
     public void einstellen_url_für_user_group_nachdelete_get() {
-        setUp();
+        setSpec();
         spec.pathParams("erste", "user-group", "zweite", group_id);
     }
 

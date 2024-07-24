@@ -1,10 +1,10 @@
 @Api @Modul08 @Regression
 Feature:User Group Type Service
 
-  Background: Get User Info
-    Given set the url for User Info
-    When send get request User Info
-    And get the user info information
+#  Background: Get User Info
+#    Given set the url for User Info
+#    When send get request User Info
+#    And get the user info information
 
     @TypeUserGroup
   Scenario: M_08_01-02 Get User Group Type Service

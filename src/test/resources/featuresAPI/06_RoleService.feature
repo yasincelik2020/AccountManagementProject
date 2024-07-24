@@ -1,10 +1,10 @@
 @Api @Modul06 @Regression
 Feature:Get Organization Service
 
-  Background: Get User Info
-    Given set the url for User Info
-    When send get request User Info
-    And get the user info information
+#  Background: Get User Info
+#    Given set the url for User Info
+#    When send get request User Info
+#    And get the user info information
 
   Scenario:M06_TC_01_02_ Get Role Service Scenario (AppOrgRole)
     Given Einstellen url für Role Service(appOrgRole)

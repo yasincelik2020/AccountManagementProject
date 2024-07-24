@@ -12,12 +12,14 @@ import pojos.UserServicePostPojo;
 import pojos.UserServiceResponsePojo;
 import utilities.ObjectMapperUtils;
 
+import static base_urls.Gm3BaseUrl.setSpec;
 import static base_urls.Gm3BaseUrl.spec;
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static stepdefinitions.API.HooksAPI.setUp;
-import static stepdefinitions.API.UserInfo.org_id;
+import static stepdefinitions.API.HooksAPI.*;
+import static base_urls.Gm3BaseUrl.*;
 import static utilities.ObjectMapperUtils.jsonToJava;
 
 public class UserService_09_01_SD {
@@ -30,7 +32,7 @@ public class UserService_09_01_SD {
 
     @Given("set the url for Post TestCase 09_01")
     public void setTheUrlForUserInfo() {
-        setUp();
+        setSpec();
         spec.pathParams("first", "v1", "second", "organization", "third", "user", "fourth", "register-manual");
     }
 
@@ -95,7 +97,7 @@ public class UserService_09_01_SD {
 
     @Given("set the url for get TestCase 09_04")
     public void setTheUrlForGetTestCase_() {
-        setUp();
+        setSpec();
         spec.pathParams("first", "v1", "second", "user", "third", userID);
     }
 
@@ -125,7 +127,7 @@ public class UserService_09_01_SD {
 
     @Given("set the url for put TestCase 09_08")
     public void setTheUrlForPutTestCase() {
-        setUp();
+        setSpec();
         spec.pathParams("first", "v1", "second", "user");
     }
 
@@ -163,7 +165,7 @@ public class UserService_09_01_SD {
 
     @Given("set the url for delete TestCase 09_10")
     public void setTheUrlForDeleteTestCase_() {
-        setUp();
+        setSpec();
         spec.pathParams("erste", "v1", "zweite", "organization", "dritte", org_id, "vierte", "user", "fünfte", userID);
 
     }
@@ -176,7 +178,7 @@ public class UserService_09_01_SD {
 
     @Given("set the url for delete TestCase 09_11")
     public void setTheUrlForDeleteTestCase_UserSerice() {
-        setUp();
+        setSpec();
         spec.pathParams("erste", "user", "zweite", userID);
     }
 

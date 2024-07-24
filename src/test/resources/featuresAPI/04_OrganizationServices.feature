@@ -1,10 +1,10 @@
 @Api @Modul04 @Regression
 Feature:Get Organization Service
 
-  Background: Get User Info
-    Given set the url for User Info
-    When send get request User Info
-    And get the user info information
+#  Background: Get User Info
+#    Given set the url for User Info
+#    When send get request User Info
+#    And get the user info information
 
   Scenario:M04_TC_01_02_03 Get Organization Service Scenario (uuid)
   (Die erstellten „Organisation“-Informationen und alle Benutzer in den mit dieser „Organisation“ verbundenen Modulen werden als Liste zurückgegeben.)

@@ -1,10 +1,10 @@
-@Api1 @Modul11 @Regression
+@Api @Modul11 @Regression
 Feature: Get Permission
 
-  Background: Get User Info
-    Given set the url for User Info
-    When send get request User Info
-    And get the user info information
+#  Background: Get User Info
+#    Given set the url for User Info
+#    When send get request User Info
+#    And get the user info information
 
 @Permission
   Scenario: M11_TC_01-02-03-04 Get Permission Service Scenario

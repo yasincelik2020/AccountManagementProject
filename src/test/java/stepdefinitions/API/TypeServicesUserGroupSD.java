@@ -14,14 +14,15 @@ import utilities.ObjectMapperUtils;
 import java.util.List;
 import java.util.Map;
 
+import static base_urls.Gm3BaseUrl.setSpec;
 import static base_urls.Gm3BaseUrl.spec;
 import static io.restassured.RestAssured.given;
 import static junit.framework.TestCase.assertEquals;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertTrue;
 import static stepdefinitions.API.HooksAPI.setUp;
-import static stepdefinitions.API.UserInfo.appID;
-import static stepdefinitions.API.UserInfo.org_id;
+import static stepdefinitions.API.HooksAPI.*;
+import static base_urls.Gm3BaseUrl.*;
 
 public class TypeServicesUserGroupSD {
     static Response response;
@@ -29,7 +30,7 @@ public class TypeServicesUserGroupSD {
 
     @Given("Url ist eingestellt User Group Type Service")
     public void url_ist_eingestellt_user_group_type_service() {
-        setUp();
+        setSpec();
         spec.pathParams("erste", "user-group-type");
     }
 
@@ -68,7 +69,7 @@ public class TypeServicesUserGroupSD {
 
     @Given("Url ist eingestellt User Group Type Service mit ID {int}")
     public void urlIstEingestelltUserGroupTypeServiceMitID(int typeID) {
-        setUp();
+        setSpec();
         spec.pathParams("erste", "user-group-type", "zweite", typeID);
     }
 
@@ -86,7 +87,7 @@ public class TypeServicesUserGroupSD {
 
     @Given("Url ist eingestellt User Group Type Service mit org_ID {int}")
     public void urlIstEingestelltUserGroupTypeServiceMitOrg_ID(int typeID) {
-        setUp();
+        setSpec();
         spec.pathParams("erste", "v1", "zweite", "organization", "dritte", org_id,
                 "vierte", "user-group-type", "fünfte", typeID, "sechste", "summary");
         System.out.println("spec = " + spec);

@@ -12,8 +12,8 @@ import org.junit.runner.RunWith;
                 "json:target/reports/json-reports/cucumber1.json", //json formatinda rapor almak icin kullanilan plugin json:target/cucumber.json
 
         },
-        features = "src/test/resources/",
-        glue = {"stepdefinitions","Hooks"},// java code larinin calisacagi package lar.
+        features = "src/test/resources/featuresAPI",
+        glue = {"stepdefinitions"},// java code larinin calisacagi package lar.
         tags = "@Regression",
         dryRun = false // test calismasi icin false dememiz gerekiyor.
         // True dendigi zaman test calismaz,sadece eksik definitionlar verir.

@@ -15,19 +15,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import static base_urls.Gm3BaseUrl.*;
+import static base_urls.Gm3BaseUrl.setSpec;
 import static base_urls.Gm3BaseUrl.spec;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static stepdefinitions.API.HooksAPI.setUp;
-import static stepdefinitions.API.UserInfo.appID;
-import static stepdefinitions.API.UserInfo.user_id;
+
 
 public class PermissionService_11_02_SD {
     static Response response;
     List<Map<String, Object>> resourceListwithappID;
     @Given("Einstellen url für Permission mit appID")
     public void einstellenUrlFürPermissionMitAppID() {
-        setUp();
+        setSpec();
         spec.pathParams("first", "application","second",appID,"third","permission");
     }
 

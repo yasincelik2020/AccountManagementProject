@@ -12,6 +12,7 @@ import io.restassured.response.Response;
 import java.util.List;
 import java.util.Map;
 
+import static base_urls.Gm3BaseUrl.setSpec;
 import static base_urls.Gm3BaseUrl.spec;
 import static org.hamcrest.Matchers.lessThan;
 import static org.junit.Assert.assertEquals;
@@ -26,7 +27,7 @@ public class PermissionService_11_01_SD {
 
     @Given("Einstellen url für for permission")
     public void einstellenUrlFürForPermission() {
-        setUp();
+        setSpec();
         spec.pathParams("first", "permission");
     }
     @When("Der Benutzer sendet eine Anfrage mit der GET-Methode permission")

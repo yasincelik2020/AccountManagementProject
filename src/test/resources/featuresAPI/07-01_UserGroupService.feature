@@ -1,10 +1,10 @@
 @Api @Modul07 @Smoke
 Feature:Get User Group Services
 
-  Background: Get User Info
-    Given set the url for User Info
-    When send get request User Info
-    And get the user info information
+#  Background: Get User Info
+#    Given set the url for User Info
+#    When send get request User Info
+#    And get the user info information
 
   Scenario:M07_TC_01_02 Get User Group Services Scenario
   (Gibt alle "User Group" zurück, die infolge von Hinzufügungen zu den Modulen in der "Company" erstellt wurden.)

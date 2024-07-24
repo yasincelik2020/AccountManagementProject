@@ -13,12 +13,13 @@ import utilities.ObjectMapperUtils;
 import java.util.List;
 import java.util.Map;
 
+import static base_urls.Gm3BaseUrl.setSpec;
 import static base_urls.Gm3BaseUrl.spec;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static stepdefinitions.API.HooksAPI.setUp;
-import static stepdefinitions.API.UserInfo.appID;
-import static stepdefinitions.API.UserInfo.user_id;
+import static stepdefinitions.API.HooksAPI.*;
+import static base_urls.Gm3BaseUrl.*;
 
 public class PermissionService_11_03_SD {
     PermissionPojo expectedData;
@@ -26,7 +27,7 @@ public class PermissionService_11_03_SD {
     Response response;
     @Given("Einstellen url für Permission mit ID")
     public void einstellenUrlFürPermissionMitID() {
-        setUp();
+        setSpec();
         spec.pathParams("first", "permission","second",user_id);
     }
 

@@ -5,6 +5,8 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
+
+import static base_urls.Gm3BaseUrl.setSpec;
 import static base_urls.Gm3BaseUrl.spec;
 import static stepdefinitions.API.HooksAPI.setUp;
 
@@ -14,7 +16,7 @@ public class CountriesStepDefinitions {
 
     @Given("set the url for countries")
     public void setTheUrlForCountries() {
-        setUp();
+        setSpec();
         spec.pathParams("first", "country");
 
     }

@@ -1,10 +1,10 @@
-@Api1 @Modul07 @Smoke
+@Api @Modul07 @Smoke
 Feature:Get User Group Services
 
-  Background: Get User Info
-    Given set the url for User Info
-    When send get request User Info
-    And get the user info information
+#  Background: Get User Info
+#    Given set the url for User Info
+#    When send get request User Info
+#    And get the user info information
 
   Scenario:M07_TC_01_02 Get User Group Services Scenario
     Given Einstellen url für User Group Services

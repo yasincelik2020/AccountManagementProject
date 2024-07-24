@@ -17,11 +17,13 @@ import utilities.ObjectMapperUtils;
 import java.util.List;
 import java.util.Map;
 
+import static base_urls.Gm3BaseUrl.setSpec;
 import static base_urls.Gm3BaseUrl.spec;
 import static org.hamcrest.Matchers.lessThan;
 import static org.junit.Assert.assertEquals;
 import static stepdefinitions.API.HooksAPI.setUp;
-import static stepdefinitions.API.UserInfo.*;
+import static stepdefinitions.API.HooksAPI.*;
+import static base_urls.Gm3BaseUrl.*;
 
 public class Subscription_12_SD {
     Faker faker = new Faker();
@@ -32,7 +34,7 @@ public class Subscription_12_SD {
     static List<SubscriptionPojo> subscriptionList;
     @Given("Einstellen url für Subscription")
     public void einstellenUrlFürSubscription() {
-        setUp();
+        setSpec();
         spec.pathParams("first", "v1","second","subscription","third",uuid);
     }
 
@@ -92,7 +94,7 @@ public class Subscription_12_SD {
 
     @Given("Einstellen url für Subscription ohne uuid")
     public void einstellenUrlFürSubscriptionOhneUuid() {
-        setUp();
+        setSpec();
         spec.pathParams("first", "v1","second","subscription");
     }
 
@@ -166,7 +168,7 @@ public class Subscription_12_SD {
 
     @Given("Einstellen url für Post Subscription")
     public void einstellenUrlFürPostSubscription() {
-        setUp();
+        setSpec();
         spec.pathParams("first", "v1","second","subscription");
 
     }
@@ -224,7 +226,7 @@ public class Subscription_12_SD {
         System.out.println("appID = " + appID);
         System.out.println("uuid = " + uuid);
         System.out.println("tempUUID = " + tempUUID);
-        setUp();
+        setSpec();
         spec.pathParams("first", "v1","second","user","third",user_id,"fourth","application","fifth",appID,"sixth","subscription","seventh",tempUUID,"eighth","remove");
     }
 
