@@ -12,6 +12,7 @@ import utilities.ObjectMapperUtils;
 
 import java.util.List;
 
+import static base_urls.Gm3BaseUrl.setSpec;
 import static base_urls.Gm3BaseUrl.spec;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.in;
@@ -19,7 +20,7 @@ import static org.hamcrest.Matchers.lessThan;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static stepdefinitions.API.HooksAPI.setUp;
-import static stepdefinitions.API.UserInfo.org_id;
+import static stepdefinitions.API.HooksAPI.*;
 import static stepdefinitions.API.UserService_09_01_SD.response;
 import static utilities.ObjectMapperUtils.jsonToJava;
 
@@ -28,7 +29,7 @@ public class UserStatusService_10_SD {
 
     @Given("set the url for get TestCase 10_01")
     public void setTheUrlForGetTestCase_() {
-        setUp();
+        setSpec();
         spec.pathParams("erste", "user-status");
     }
 
@@ -51,7 +52,7 @@ public class UserStatusService_10_SD {
 
     @Given("set the url for get TestCase 10_03")
     public void setTheUrlForGetTestCase_10_03() {
-        setUp();
+        setSpec();
         spec.pathParams("erste", "user-status","zweite", ersteID);
     }
 

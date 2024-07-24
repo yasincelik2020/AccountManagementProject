@@ -1,10 +1,10 @@
 @Api @Modul02 @Regression
 Feature:Get Membership Service
 
-  Background: Get User Info
-    Given set the url for User Info
-    When send get request User Info
-    And get the user info information
+#  Background: Get User Info
+#    Given set the url for User Info
+#    When send get request User Info
+#    And get the user info information
 
   Scenario: M_02_07 Get user_id appID membership
     Given Url ist eingestellt für user_id appID membership

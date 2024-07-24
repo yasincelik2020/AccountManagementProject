@@ -10,13 +10,13 @@ import io.restassured.response.Response;
 
 import java.util.List;
 
-import static base_urls.Gm3BaseUrl.spec;
+import static base_urls.Gm3BaseUrl.*;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static stepdefinitions.API.HooksAPI.setUp;
-import static stepdefinitions.API.UserInfo.*;
+import static stepdefinitions.API.HooksAPI.*;
 
 
 public class OrganizationServiceStepDefinitions {
@@ -24,7 +24,7 @@ public class OrganizationServiceStepDefinitions {
 
     @Given("Einstellen url für Organization Service(uuid)")
     public void einstellenUrlFürOrganizationService() {
-        setUp();
+        setSpec();
         spec.pathParams("erste", "v1","zweite","organization","dritte",org_id,"vierte","chart","fünfte",uuid);
     }
 
@@ -54,7 +54,7 @@ public class OrganizationServiceStepDefinitions {
     }
     @Given("Einstellen url für Organization Service\\(summary)")
     public void einstellenUrlFürOrganizationServiceSummary() {
-        setUp();
+        setSpec();
         spec.pathParams("erste", "v1","zweite","organization","dritte",org_id,"vierte","summary");
     }
 
@@ -84,7 +84,7 @@ public class OrganizationServiceStepDefinitions {
     //______________________________________________
     @Given("Einstellen url für Organization Service\\(summary-Negativ)")
     public void einstellenUrlFürOrganizationServiceSummaryNegativ() {
-        setUp();
+        setSpec();
         org_id="1234";
         spec.pathParams("erste", "v1","zweite","organization","dritte",org_id,"vierte","summary");
     }

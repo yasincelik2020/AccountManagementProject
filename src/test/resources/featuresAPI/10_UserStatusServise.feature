@@ -1,10 +1,10 @@
 @Api @Modul10 @Regression
 Feature: Get User Service
 
-  Background: Get User Info
-    Given set the url for User Info
-    When send get request User Info
-    And get the user info information
+#  Background: Get User Info
+#    Given set the url for User Info
+#    When send get request User Info
+#    And get the user info information
 
   @10_01_02
   Scenario:10_01_02 Get User Status Services

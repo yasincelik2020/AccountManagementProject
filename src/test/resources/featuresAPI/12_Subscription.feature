@@ -1,10 +1,10 @@
 @Api @Modul12 @Smoke
 Feature: Get Permission
 
-  Background: Get User Info
-    Given set the url for User Info
-    When send get request User Info
-    And get the user info information
+#  Background: Get User Info
+#    Given set the url for User Info
+#    When send get request User Info
+#    And get the user info information
 
   @SubscriptionGet
   Scenario: M12_TC_01-02-03 Get Subscription Service Scenario

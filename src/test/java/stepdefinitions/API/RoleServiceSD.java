@@ -6,11 +6,13 @@ import io.cucumber.java.en.When;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 
+import static base_urls.Gm3BaseUrl.setSpec;
 import static base_urls.Gm3BaseUrl.spec;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertEquals;
 import static stepdefinitions.API.HooksAPI.setUp;
-import static stepdefinitions.API.UserInfo.*;
+import static stepdefinitions.API.HooksAPI.*;
+import static base_urls.Gm3BaseUrl.*;
 
 import io.restassured.path.json.JsonPath;
 
@@ -24,7 +26,7 @@ public class RoleServiceSD {
 
     @Given("Einstellen url für Role Service\\(appOrgRole)")
     public void einstellen_url_für_role_service_app_org_role() {
-        setUp();
+        setSpec();
         spec.pathParams("erste", "application", "zweite", appID, "dritte", "organization", "vierte", org_id, "fünfte", "role");
     }
 
@@ -57,7 +59,7 @@ public class RoleServiceSD {
 
     @Given("Einstellen url für Role Service\\(appRole)")
     public void einstellen_url_für_role_service_app_role() {
-        setUp();
+        setSpec();
         spec.pathParams("erste", "application", "zweite", appID, "dritte","role");
 
     }
@@ -89,7 +91,7 @@ public class RoleServiceSD {
 
     @Given("Einstellen url für Role Service\\(role)")
     public void einstellen_url_für_role_service_role() {
-        setUp();
+        setSpec();
         spec.pathParams("erste", "role");
     }
     @When("Der Benutzer sendet eine Anfrage mit der GET-Methode für Role Service\\(role)")
@@ -120,7 +122,7 @@ public class RoleServiceSD {
 
     @Given("Einstellen url für Role Service\\(roleID)")
     public void einstellen_url_für_role_service_role_ıd() {
-        setUp();
+        setSpec();
         spec.pathParams("erste", "role","zweite",role_id);
 
     }

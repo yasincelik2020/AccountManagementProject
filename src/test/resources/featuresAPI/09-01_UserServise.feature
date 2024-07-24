@@ -1,10 +1,10 @@
 @Api @Modul09 @Smoke
 Feature: Get User Service
 
-  Background: Get User Info
-    Given set the url for User Info
-    When send get request User Info
-    And get the user info information
+#  Background: Get User Info
+#    Given set the url for User Info
+#    When send get request User Info
+#    And get the user info information
 
   @09_01
   Scenario:09_01 Post User Service

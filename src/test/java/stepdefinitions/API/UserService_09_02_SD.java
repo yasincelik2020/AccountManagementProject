@@ -15,11 +15,13 @@ import utilities.ObjectMapperUtils;
 
 import java.util.List;
 
+import static base_urls.Gm3BaseUrl.setSpec;
 import static base_urls.Gm3BaseUrl.spec;
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.*;
 import static stepdefinitions.API.HooksAPI.setUp;
-import static stepdefinitions.API.UserInfo.*;
+import static stepdefinitions.API.HooksAPI.*;
+import static base_urls.Gm3BaseUrl.*;
 
 public class UserService_09_02_SD {
 
@@ -36,7 +38,7 @@ public class UserService_09_02_SD {
     //09_01
     @Given("Url ist eingestellt für organization user register-manual")
     public void urlIstEingestelltFürOrganizationUserRegisterManual() {
-        setUp();
+        setSpec();
         spec.pathParams("first", "v1", "second", "organization", "third", "user", "fourth", "register-manual");
     }
 
@@ -81,7 +83,7 @@ public class UserService_09_02_SD {
     @Given("Url ist eingestellt für user id")
     public void urlIstEingestelltFürUserId() {
 
-        setUp();
+        setSpec();
         spec.pathParams("first", "v1", "second", "user", "third", userID);
     }
     @When("Benutzer sendet Anfrage mit GET-Methode für Get")
@@ -117,7 +119,7 @@ public class UserService_09_02_SD {
 
     @Given("Url ist eingestellt für user")
     public void urlIstEingestelltFürUser() {
-        setUp();
+        setSpec();
         spec.pathParams("first", "v1", "second", "user");
     }
 
@@ -168,7 +170,7 @@ public class UserService_09_02_SD {
     //09_08
     @Given("Url ist eingestellt für organization user id")
     public void urlIstEingestelltFürOrganizationUserId() {
-        setUp();
+        setSpec();
         spec.pathParams("first", "v1", "second", "organization", "third", org_id, "fourth", "user","fifth",userID);
 
     }
@@ -184,7 +186,7 @@ public class UserService_09_02_SD {
     @Given("Url ist eingestellt für delete user id")
     public void urlIstEingestelltFürDeleteUserId() {
 
-        setUp();
+        setSpec();
         spec.pathParams("first", "user", "second", userID);
     }
 
@@ -198,7 +200,7 @@ public class UserService_09_02_SD {
     //09_10
     @Given("Url ist eingestellt für Get v{int} user id")
     public void urlIstEingestelltFürGetVUserId(int arg0) {
-        setUp();
+        setSpec();
         spec.pathParams("first", "v1","second", "user", "third", userID);
     }
 
@@ -213,7 +215,7 @@ public class UserService_09_02_SD {
     //09_11
     @Given("Url ist eingestellt für Get organization user")
     public void urlIstEingestelltFürGetOrganizationUser() {
-        setUp();
+        setSpec();
         spec.pathParams("first", "v1","second", "organization", "third", org_id,"fourth","user");
     }
 

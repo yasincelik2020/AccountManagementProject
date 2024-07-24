@@ -1,10 +1,10 @@
 @Api @Modul09 @Smoke
 Feature:Get User Service
 
-  Background: Get User Info
-    Given set the url for User Info
-    When send get request User Info
-    And get the user info information
+#  Background: Get User Info
+#    Given set the url for User Info
+#    When send get request User Info
+#    And get the user info information
 
   Scenario: M_09_01 Post organization user register-manual
     Given Url ist eingestellt für organization user register-manual

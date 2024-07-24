@@ -12,13 +12,15 @@ import org.hamcrest.Matchers;
 import pojos.UserGroup_CreatePojo;
 import utilities.ObjectMapperUtils;
 
+import static base_urls.Gm3BaseUrl.setSpec;
 import static base_urls.Gm3BaseUrl.spec;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.*;
 import static stepdefinitions.API.HooksAPI.setUp;
-import static stepdefinitions.API.UserInfo.*;
+import static stepdefinitions.API.HooksAPI.*;
+import static base_urls.Gm3BaseUrl.*;
 
 import java.util.List;
 
@@ -32,7 +34,7 @@ public class UserGroupServiceStepDefinitions_07_01 {
     static String email;
     @Given("Einstellen url für User Group Services")
     public void einstellenUrlFürUserGroupServices() {
-        setUp();
+        setSpec();
         spec.pathParams("erste", "user-group");
     }
 
@@ -86,7 +88,7 @@ public class UserGroupServiceStepDefinitions_07_01 {
 
     @Given("Einstellen url mit group_id für User Group Services")
     public void einstellenUrlMitGroup_idFürUserGroupServices() {
-        setUp();
+        setSpec();
         spec.pathParams("erste", "user-group","zweite",group_id);
     }
 
@@ -129,7 +131,7 @@ public class UserGroupServiceStepDefinitions_07_01 {
 
     @Given("Einstellen url für User Group Services deteils")
     public void einstellenUrlFürUserGroupServicesDeteils() {
-        setUp();
+        setSpec();
         spec.pathParams("erste", "v1","zweite","organization","dritte",org_id,
                 "vierte","user-group","fünfte",group_id,"sechste","details");
     }
@@ -147,7 +149,7 @@ public class UserGroupServiceStepDefinitions_07_01 {
 
     @Given("Einstellen url für ein neuer User")
     public void einstellenUrlFürEinNeuerUser() {
-        setUp();
+        setSpec();
         spec.pathParams("erste", "v1","zweite","organization","dritte","user","vierte","register-manual");
     }
 
@@ -174,7 +176,7 @@ public class UserGroupServiceStepDefinitions_07_01 {
 
     @Given("Einstellen url für User Group_user")
     public void einstellenUrlFürUserGroup_user() {
-        setUp();
+        setSpec();
         spec.pathParams("erste", "organization","zweite",org_id,"dritte","user-group",
                         "vierte",group_id,"fünfte","user","sechste",user_id)
                 .queryParam("isHead","false");
@@ -215,7 +217,7 @@ public class UserGroupServiceStepDefinitions_07_01 {
 
     @Given("Einstellen url für User Group_userget")
     public void einstellenUrlFürUserGroup_userget() {
-        setUp();
+        setSpec();
         spec.pathParams("erste", "v1","zweite","organization","dritte",org_id,
                 "vierte","user-group","fünfte",group_id,"sechste","details");
     }
@@ -239,7 +241,7 @@ public class UserGroupServiceStepDefinitions_07_01 {
 
     @Given("Einstellen url für User Group_userdelete")
     public void einstellenUrlFürUserGroup_userdelete() {
-        setUp();
+        setSpec();
         spec.pathParams("erste", "organization","zweite",org_id,"dritte","user-group",
                 "vierte",group_id,"fünfte","user","sechste",user_id);
     }
@@ -257,7 +259,7 @@ public class UserGroupServiceStepDefinitions_07_01 {
 
     @Given("Einstellen url für User Group_user_nachdelete_get")
     public void einstellenUrlFürUserGroup_user_nachdelete_get() {
-        setUp();
+        setSpec();
         spec.pathParams("erste", "v1","zweite","organization","dritte",org_id,
                 "vierte","user-group","fünfte",group_id,"sechste","details");
     }
@@ -275,7 +277,7 @@ public class UserGroupServiceStepDefinitions_07_01 {
 
     @Given("Einstellen url für User Group_delete")
     public void einstellenUrlFürUserGroup_delete() {
-        setUp();
+        setSpec();
         spec.pathParams("erste", "user-group","zweite",group_id);
     }
 
@@ -287,7 +289,7 @@ public class UserGroupServiceStepDefinitions_07_01 {
 
     @Given("Einstellen url für User Group_nachdelete_get")
     public void einstellenUrlFürUserGroup_nachdelete_get() {
-        setUp();
+        setSpec();
         spec.pathParams("erste", "user-group","zweite",group_id);
     }
 

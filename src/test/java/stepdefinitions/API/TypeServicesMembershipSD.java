@@ -11,11 +11,11 @@ import utilities.ObjectMapperUtils;
 
 import java.util.List;
 
-import static base_urls.Gm3BaseUrl.spec;
+import static base_urls.Gm3BaseUrl.*;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static stepdefinitions.API.HooksAPI.setUp;
-import static stepdefinitions.API.UserInfo.*;
+import static stepdefinitions.API.HooksAPI.*;
 
 public class TypeServicesMembershipSD {
 
@@ -31,7 +31,7 @@ public class TypeServicesMembershipSD {
     //03_01
     @Given("Url ist eingestellt mit appID membership-type")
     public void urlIstEingestelltMitAppIDMembershipType() {
-        setUp();
+        setSpec();
         spec.pathParams("erste", "application", "zweite", appID, "dritte", "membership-type");
     }
 
@@ -83,7 +83,7 @@ public class TypeServicesMembershipSD {
     //03_04-05-06
     @Given("Url ist eingestellt membership-type")
     public void urlIstEingestelltMembershipType() {
-        setUp();
+        setSpec();
         spec.pathParams("erste", "membership-type");
     }
 
@@ -99,7 +99,7 @@ public class TypeServicesMembershipSD {
 
     @Given("Url ist eingestellt membership-type mit {int}")
     public void url_ist_eingestellt_membership_type_mit(Integer type_id) {
-        setUp();
+        setSpec();
         spec.pathParams("erste", type_id);
 
     }
@@ -118,7 +118,7 @@ public class TypeServicesMembershipSD {
     @Given("Url ist eingestellt membership-type mit Company ID")
     public void urlIstEingestelltMembershipTypeMitCompanyID() {
         int company_id = list.get(0).getId();
-        setUp();
+        setSpec();
         spec.pathParams("erste", "membership-type", "zweite", company_id);
     }
 
@@ -135,7 +135,7 @@ public class TypeServicesMembershipSD {
     @When("Url ist eingestellt membership-type mit Guest ID")
     public void urlIstEingestelltMembershipTypeMitGuestID() {
         int guest_id = list.get(1).getId();
-        setUp();
+        setSpec();
         spec.pathParams("erste", "membership-type", "zweite", guest_id);
     }
 

@@ -15,10 +15,10 @@ import utilities.ObjectMapperUtils;
 
 import java.util.List;
 
-import static base_urls.Gm3BaseUrl.spec;
+import static base_urls.Gm3BaseUrl.*;
 import static org.junit.Assert.assertEquals;
 import static stepdefinitions.API.HooksAPI.setUp;
-import static stepdefinitions.API.UserInfo.*;
+import static stepdefinitions.API.HooksAPI.*;
 
 public class MembershipServiceSD {
     Response response;
@@ -30,7 +30,7 @@ public class MembershipServiceSD {
     //02_07
     @Given("Url ist eingestellt für user_id appID membership")
     public void urlIstEingestelltFürUser_idAppIDMembership() {
-        setUp();
+        setSpec();
         spec.pathParams("first", "v1", "second", "user", "third", user_id, "fourth", "application", "fifth", appID, "sixth", "membership");
 
 
@@ -116,7 +116,7 @@ public class MembershipServiceSD {
     //02_01
     @Given("Url ist eingestellt für membership")
     public void url_ist_eingestellt() {
-        setUp();
+        setSpec();
         spec.pathParams("first", "v1", "second", "membership");
     }
 
@@ -159,7 +159,7 @@ public class MembershipServiceSD {
     @Given("Url ist eingestellt für appID membership")
     public void urlIstEingestelltFürAppIDMembership() {
 
-        setUp();
+        setSpec();
         spec.pathParams("first", "v1", "second", "application", "third", appID, "fourth", "membership");
 
     }
@@ -209,7 +209,7 @@ public class MembershipServiceSD {
     //02_11
     @Given("Url ist eingestellt für user_id membership")
     public void urlIstEingestelltFürUser_idMembership() {
-        setUp();
+        setSpec();
         spec.pathParams("first", "v1", "second", "user", "third", user_id, "fourth", "membership");
 
     }
